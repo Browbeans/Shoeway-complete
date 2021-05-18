@@ -3,10 +3,10 @@ import { Request, Response } from 'express';
 
 module.exports.getProducts = async function(req: Request, res: Response) {
 
-    const product = await Product.find().sort()
+    const products = await Product.find().sort()
 
     try {
-      res.status(200).json(product);
+      res.status(200).json(products);
       console.log(Product);
     } catch (error) {
       res.status(400).json(error);
