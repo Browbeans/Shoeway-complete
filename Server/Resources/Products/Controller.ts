@@ -1,5 +1,6 @@
 const Product = require('./Model')
 
+
 module.exports.getProducts = function(req: any, res: any) {
     res.send(Product);
 };
