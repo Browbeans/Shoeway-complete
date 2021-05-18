@@ -1,5 +1,12 @@
 import mongoose from 'mongoose';
 
+interface Product{
+    title: string,
+    price: number,
+    size: number,
+    quantity: number,
+    category: string,
+}
 const productSchema = new mongoose.Schema({
     title: {
         type: String,
@@ -23,4 +30,4 @@ const productSchema = new mongoose.Schema({
     }
 })
 
-module.exports = mongoose.model('Products', productSchema);
+module.exports = mongoose.model<Product>('Products', productSchema);
