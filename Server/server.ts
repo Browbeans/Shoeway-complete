@@ -1,6 +1,6 @@
 import express from 'express'
 import cookieSession from 'cookie-session'
-// import orderRouter from './Resources/Order/order.router'
+import OrderRouter from './Resources/Order/order.router'
 import mongoose from 'mongoose'
 import usersRouter from "./Resources/Users/user-routes";
 import productRouter from './Resources/Products/routes';
@@ -18,6 +18,8 @@ mongoose.connect(url,  options)
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
+app.use('/order/', OrderRouter)
+app.use(express.static('../client/public'))
 app.use(express.static('../Client/public'));
 app.use("/users", usersRouter);
 app.use('/products', productRouter);
