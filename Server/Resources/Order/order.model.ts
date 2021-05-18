@@ -8,9 +8,11 @@ interface Product {
 }
 
 interface Customer {
-    firstname: string, 
-    lastname: string, 
-    adress: Object,
+    name: string, 
+    adress: string, 
+    zip: number,
+    email: string,
+    phone: number
 }
 
 interface Order extends Document {
@@ -31,6 +33,10 @@ const orderSchema = new mongoose.Schema({
     },
     customer: {
         type: Object,
+        required: true
+    }, 
+    customerId: {
+        type: String, 
         required: true
     }
 }, { timestamps: true })
