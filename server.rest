@@ -10,10 +10,17 @@ GET http://localhost:5000/order/all-orders
 ###
 
 
-GET http://localhost:5000/order/specific-order/60a3808264eaa633ecf83c12
+GET http://localhost:5000/order/specific-order/60a3acf14d8c473434e7e3e3
 
 
 ###
+
+
+GET http://localhost:5000/order/user-orders/60a3a7f76f6ca146c83a3183
+
+
+###
+
 
 POST http://localhost:5000/order/add-order
 Content-Type: application/json
@@ -22,26 +29,12 @@ Content-Type: application/json
     "ordernumber": "adsad12312", 
     "product": [
     {
-        "name": "Nike air", 
-        "price": 500, 
+        "name": "DOJJA", 
+        "price": 799, 
         "amount": 1, 
-        "size": 45
-    },
-    {
-         "name": "Puma dunka", 
-        "price": 599, 
-        "amount": 3, 
-        "size": 42
-    } 
+        "size": 43
+    }
 
     ],
-    "customer": {
-        "firstname": "Oliver",
-        "lastname": "Johansson", 
-        "adress": {
-            "streetname": "Linnegatan 43", 
-            "zip": 53431, 
-            "city": "Göteborg"
-        }
-    }
+    "customer": "60a3a7f76f6ca146c83a3183"
 }
