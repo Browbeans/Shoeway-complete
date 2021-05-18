@@ -7,6 +7,6 @@ let shipingSchema = new Schema({
   price:{ type: Number, required: true },
 });
 
-let Shiping = mongoose.model("shiping", shipingSchema); // Our DB - collection name is Users
+let Shiping = mongoose.model("shiping", shipingSchema);
 
 module.exports = Shiping;
