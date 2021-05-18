@@ -1,0 +1,10 @@
+POST http://localhost:5000/users/handleRegister
+Content-Type: application/json
+
+{
+    "name": "Petter",
+    "adress": "Dahlströmsgatan 52",
+    "phone": "0705773264",
+    "email": "petterfogel@live.se",
+    "zip": "12345"
+}
