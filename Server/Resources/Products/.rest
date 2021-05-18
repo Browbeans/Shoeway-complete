@@ -1,3 +1,35 @@
-http://localhost:5000/products/
+###
+GET http://localhost:5000/products/
 
+###
 
+GET http://localhost:5000/products/60a38aa04b4dfd5e42ef19b4
+
+###
+
+POST http://localhost:5000/products/addProduct 
+Content-Type: application/json
+
+{
+"title": "Stan Smith",
+"price": "129",
+"size": "42",
+"quantity": "1",
+"category": "woman"
+}
+
+###
+DELETE http://localhost:5000/products/60a390189d4c586bd057254e
+
+###
+
+PUT http://localhost:5000/products/60a38aa04b4dfd5e42ef19b4
+Content-Type: application/json
+
+{
+"title": "Nike air",
+"price": "129",
+"size": "42",
+"quantity": "1",
+"category": "woman"
+}
