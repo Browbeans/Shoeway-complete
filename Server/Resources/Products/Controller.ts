@@ -1,33 +1,37 @@
 const Product = require('./Model')
 import { Request, Response } from 'express';
 
-module.exports.getProducts = function(req: Request, res: Response) {
-    Product.find().sort()
-    .then((result: any) => {
-      res.status(200).json(result)
-      console.log(Product)
-    })
-    .catch((error: any) => {
+module.exports.getProducts = async function(req: Request, res: Response) {
+
+    const product = await Product.find().sort()
+
+    try {
+      res.status(200).json(product);
+      console.log(Product);
+    } catch (error) {
       res.status(400).json(error);
-    })
+    }
 };
 
-module.exports.getSpecific = function(req: Request, res: Response) {
+module.exports.getSpecific = async function(req: Request, res: Response) {
+
   const id = req.params.id;
-  Product.findById(id)
-    .then((result: any) => {
-      res.status(200).json(result)
-    })
-    .catch((error: any) => {
-      res.status(400).json(error)
-    })
+  const product = await Product.findById(id)
+
+  try {
+    res.status(200).json(product);
+  } catch (error) {
+    res.status(400).json(error)
+  }
 };
 
-module.exports.addNewProduct = function(req: Request, res: Response) {
+module.exports.addNewProduct = async function(req: Request, res: Response) {
+
   if(req.body){
     if(!req.body.title){
       return res.status(400).json('Cant add product')
     }
+
     const product = new Product({
       title: req.body.title,
       price: req.body.price,
@@ -35,37 +39,37 @@ module.exports.addNewProduct = function(req: Request, res: Response) {
       quantity: req.body.quantity,
       category: req.body.category,
     })
-    product.save()
+    await product.save()
     res.status(201).json(product)
   }
 };
 
-module.exports.deleteProduct = function (req: Request, res: Response) {
-  const id = req.params.id;
+module.exports.deleteProduct = async function (req: Request, res: Response) {
 
-  Product.findByIdAndDelete(id)
-    .then((result: any) => {
-    res.status(202).json(result);
-    })
-    .catch((error: any) => {
-    res.status(400).json(error);
-    })
+  const id = req.params.id;
+  const product = await Product.findByIdAndDelete(id)
+
+      try {
+        res.status(202).json(product);
+      } catch (error) {
+        res.status(400).json(error);
+      }
 };
 
-module.exports.editProduct = function (req: Request, res: Response) {
-  const id = req.params.id;
+module.exports.editProduct = async function (req: Request, res: Response) {
 
-  Product.findByIdAndUpdate(id, {
+  const id = req.params.id;
+  const product = await  Product.findByIdAndUpdate(id, {
     title: req.body.title,
     price: req.body.price,
     size: req.body.size,
     quantity: req.body.quantity,
     category: req.body.category,
   })
-    .then((result: any) => {
-      res.status(202).json(result);
-    })
-    .catch((error: any) => {
-      res.status(400).json(error);
-    });
+  
+  try {
+    res.status(202).json(product);
+  } catch (error) {
+    res.status(400).json(error);
+  }
 };
