@@ -2,11 +2,11 @@ POST http://localhost:5000/users/handleRegister
 Content-Type: application/json
 
 {
-    "name": "Oliver",
+    "name": "Jakob",
     "adress": "Dahlströmsgatan 52",
     "phone": "0705773264",
-    "email": "oliver@live.se",
-    "password": "asd",
+    "email": "jakob@live.se",
+    "password": "abc",
     "zip": "12345"
 }
 
@@ -19,3 +19,11 @@ Content-Type: application/json
     "email": "oliver@live.se",
     "password": "asd"
 }
+
+###
+
+GET http://localhost:5000/users
+
+###
+
+DELETE http://localhost:5000/users/handleLogout

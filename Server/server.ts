@@ -18,11 +18,19 @@ mongoose.connect(url,  options)
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
-app.use('/order/', OrderRouter)
-app.use(express.static('../client/public'))
 app.use(express.static('../Client/public'));
+app.use(cookieSession({
+    name: "session",
+    secret: "s3cr3tK3y",
+    secure: false,
+    maxAge: 1000 * 10,
+    httpOnly: true 
+}))
+
+app.use('/order/', OrderRouter)
 app.use("/users", usersRouter);
 app.use('/products', productRouter);
+
 
 
 app.get("/", (_: any, res: any) => {

@@ -6,9 +6,9 @@ const usersRouter = express.Router();
 
 
 usersRouter
-.post("/handleRegister", controller.addNewUser)
+.get("/", controller.fetchUsers)
+.post("/handleRegister", controller.handleRegister)
 .post("/handleLogin", controller.handleLogin)
-
-// createCookieSession
+.delete("/handleLogout", controller.handleLogout)
 
 export default usersRouter;
