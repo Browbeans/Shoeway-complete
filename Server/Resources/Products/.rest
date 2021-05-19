@@ -11,12 +11,12 @@ POST http://localhost:5000/products/addProduct
 Content-Type: application/json
 
 {
-  "title": "Converse",
+  "title": "Converse all star",
   "price": "249",
   "size": "41",
   "quantity": "1",
   "category": "woman",
-  "stock": "1"
+  "stock": "7"
 }
 
 ###
