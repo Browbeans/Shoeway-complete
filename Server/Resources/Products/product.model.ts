@@ -33,7 +33,7 @@ const productSchema = new mongoose.Schema({
   quantity: {
     type: Number,
     required: true,
-    min: [0, "Quantity must be a positive number"],
+    min: [1, "Quantity must be a positive number"],
   },
   category: {
     type: String,
