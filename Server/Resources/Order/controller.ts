@@ -1,15 +1,15 @@
 const Orders = require('./order.model')
 const Users = require('../Users/users-model')
-const Products = require('../Products/Model')
+const Products = require('../Products/product.model')
 import { Request, Response } from 'express'
 
 module.exports.addOrder = async (req: Request, res: Response) => {
     const { ordernumber, product, customer } = req.body
     const currentCustomer = await Users.findById(customer)
 
-    // product.forEach(async (productID: string) =>  (
-    //     await Products.updateOne({ _id: productID },{ stock : stock =- 1})
-    // ))
+    product.forEach(async (productID: string) =>  (
+        await Products.updateOne({ _id: productID }, { "$inc": { "stock" : -1 }})
+    ))
     
     // const orderCustomer = {
     //     name: currentCustomer.name, 
