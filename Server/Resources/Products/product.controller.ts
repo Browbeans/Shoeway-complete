@@ -1,4 +1,4 @@
-const Product = require('./Model')
+const Product = require('./product.model')
 import { Request, Response } from 'express';
 
 module.exports.getProducts = async function(req: Request, res: Response) {
@@ -38,8 +38,11 @@ module.exports.addNewProduct = async function(req: Request, res: Response) {
       size: req.body.size,
       quantity: req.body.quantity,
       category: req.body.category,
+      stock: req.body.stock,
     })
-    await product.save()
+    await product.save(function(error: any){
+      console.log(error)
+    })
     res.status(201).json(product)
   }
 };
@@ -65,6 +68,7 @@ module.exports.editProduct = async function (req: Request, res: Response) {
     size: req.body.size,
     quantity: req.body.quantity,
     category: req.body.category,
+    stock: req.body.stock
   })
   
   try {

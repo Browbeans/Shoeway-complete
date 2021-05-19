@@ -3,7 +3,7 @@ import cookieSession from 'cookie-session'
 import OrderRouter from './Resources/Order/order.router'
 import mongoose from 'mongoose'
 import usersRouter from "./Resources/Users/user-routes";
-import productRouter from './Resources/Products/routes';
+import productRouter from './Resources/Products/product.router';
 
 const app = express()
 
