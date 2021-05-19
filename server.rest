@@ -27,14 +27,15 @@ Content-Type: application/json
 
 {
     "ordernumber": "adsad12312", 
-    "product": [
-    {
-        "name": "DOJJA", 
-        "price": 799, 
-        "amount": 1, 
-        "size": 43
-    }
-
-    ],
+    "product": 
+            [
+                "60a4dae02c5ae20ce83332db", 
+                "60a4db252c5ae20ce83332dd"
+            ],
     "customer": "60a3a7f76f6ca146c83a3183"
 }
+
+
+###
+
+GET http://localhost:5000/order/order-products/60a4ddaa6fbe300c804bd6b7

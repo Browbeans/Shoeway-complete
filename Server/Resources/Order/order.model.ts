@@ -1,24 +1,24 @@
-import mongoose from 'mongoose'
+import mongoose, { Schema } from 'mongoose'
 
-interface Product {
-    product: string, 
-    price: number, 
-    amount: number, 
-    size: number, 
-}
+// interface Product {
+//     product: string, 
+//     price: number, 
+//     amount: number, 
+//     size: number, 
+// }
 
-interface Customer {
-    name: string, 
-    adress: string, 
-    zip: number,
-    email: string,
-    phone: number
-}
+// interface Customer {
+//     name: string, 
+//     adress: string, 
+//     zip: number,
+//     email: string,
+//     phone: number
+// }
 
 interface Order extends Document {
     ordernumber: string, 
-    products: Array<Product>,
-    customer: Customer
+    products: [],
+    customer: string
 }
 
 
@@ -28,15 +28,13 @@ const orderSchema = new mongoose.Schema({
         required: true
     }, 
     products: {
-        type: Array, 
+        type: [Schema.Types.ObjectId], 
+        ref: 'Products',
         required: true
     },
     customer: {
-        type: Object,
-        required: true
-    }, 
-    customerId: {
-        type: String, 
+        type: Schema.Types.ObjectId,
+        ref: 'Users',
         required: true
     }
 }, { timestamps: true })
