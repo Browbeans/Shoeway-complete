@@ -32,10 +32,15 @@ Content-Type: application/json
                 "60a4dae02c5ae20ce83332db", 
                 "60a4db252c5ae20ce83332dd"
             ],
-    "customer": "60a3a7f76f6ca146c83a3183"
+    "customer": "60a4fa6051ceee3f08a13335"
 }
 
 
 ###
 
 GET http://localhost:5000/order/order-products/60a4ddaa6fbe300c804bd6b7
+
+
+###
+
+PATCH http://localhost:5000/order/sent-order/60a4fa9751ceee3f08a13336

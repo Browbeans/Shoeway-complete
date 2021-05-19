@@ -18,7 +18,8 @@ import mongoose, { Schema } from 'mongoose'
 interface Order extends Document {
     ordernumber: string, 
     products: [],
-    customer: string
+    customer: string, 
+    isSent: Boolean
 }
 
 
@@ -35,6 +36,10 @@ const orderSchema = new mongoose.Schema({
     customer: {
         type: Schema.Types.ObjectId,
         ref: 'Users',
+        required: true
+    }, 
+    isSent: {
+        type: Boolean, 
         required: true
     }
 }, { timestamps: true })

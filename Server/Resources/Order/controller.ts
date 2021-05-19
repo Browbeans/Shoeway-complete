@@ -1,10 +1,14 @@
 const Orders = require('./order.model')
 const Users = require('../Users/users-model')
+const Products = require('../Products/Model')
 import { Request, Response } from 'express'
 
 module.exports.addOrder = async (req: Request, res: Response) => {
     const { ordernumber, product, customer } = req.body
     const currentCustomer = await Users.findById(customer)
+    // product.forEach(async (product: string) =>  (
+    //     await Products.updateOne({ _id: product },{ "stock" : "stock =- 1" })
+    // ))
     
     // const orderCustomer = {
     //     name: currentCustomer.name, 
@@ -17,7 +21,8 @@ module.exports.addOrder = async (req: Request, res: Response) => {
     const newOrder = new Orders({
         ordernumber: ordernumber, 
         products: product,
-        customer: customer 
+        customer: customer,
+        isSent: false 
     })
 
     await newOrder.save()
@@ -50,3 +55,8 @@ module.exports.getOrderProducts = async function(req: Request, res: Response) {
     res.status(200).json(orderProducts)
 }
 
+module.exports.orderSent = async function(req: Request, res: Response) {
+    const orderId = req.params.id
+    const order = await Orders.updateOne({ _id: orderId}, { isSent: true})
+    res.status(200).json(order)
+}
