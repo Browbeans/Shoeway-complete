@@ -6,8 +6,9 @@ import { Request, Response } from 'express'
 module.exports.addOrder = async (req: Request, res: Response) => {
     const { ordernumber, product, customer } = req.body
     const currentCustomer = await Users.findById(customer)
-    // product.forEach(async (product: string) =>  (
-    //     await Products.updateOne({ _id: product },{ "stock" : "stock =- 1" })
+
+    // product.forEach(async (productID: string) =>  (
+    //     await Products.updateOne({ _id: productID },{ stock : stock =- 1})
     // ))
     
     // const orderCustomer = {
