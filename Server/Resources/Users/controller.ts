@@ -12,3 +12,4 @@ module.exports.addNewUser = function(req: Request, res: Response) {
     newUser.save();
     res.status(201).json(newUser)
 };
+

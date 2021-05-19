@@ -1,1 +1,11 @@
 GET http://localhost:5000/Shiping/
+
+###
+POST http://localhost:5000/Shiping/addshiping
+Content-Type: application/json
+
+{
+"name": "DHL",
+"days": "1-3 dagar",
+"price": "29 kr"
+}

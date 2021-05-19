@@ -6,6 +6,6 @@ const shiping = express.Router();
 
 shiping
     .get('/', controller.getShiping)
- 
+    .post('/addshiping', controller.addNewshiping)
 
 export default shiping;

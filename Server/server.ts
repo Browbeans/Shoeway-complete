@@ -4,7 +4,7 @@ import OrderRouter from './Resources/Order/order.router'
 import mongoose from 'mongoose'
 import usersRouter from "./Resources/Users/user-routes";
 import productRouter from './Resources/Products/routes';
-
+import shiping from './Resources/Shiping/shiping-routers';
 const app = express()
 
 const PORT = process.env.PORT || 5000 
@@ -23,7 +23,7 @@ app.use(express.static('../client/public'))
 app.use(express.static('../Client/public'));
 app.use("/users", usersRouter);
 app.use('/products', productRouter);
-
+app.use("/Shiping", shiping )
 
 app.get("/", (_: any, res: any) => {
     console.log('Server connected');
