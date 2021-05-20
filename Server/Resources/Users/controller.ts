@@ -35,9 +35,11 @@ module.exports.handleLogin = async function(req: Request, res: Response) {
         }     
         
         if (req.session) {
-            req.session.name = user.name
+            req.session.name = user.name;
+            req.session.adress = user.adress;
+            req.session.phone = user.phone;
             req.session.email = user.email;
-            req.session.id = user._id
+            req.session.zip = user.zip;
         }
         res.status(204).json(null)
     } catch (error) {
@@ -50,7 +52,7 @@ module.exports.fetchUsers = async function(req: Request, res: Response) {
         const result = await Users.find({})
         res.json(result)
     } else {
-        res.json("You must login");
+        res.status(400).json("You must login");
     }
 }
 
@@ -60,4 +62,23 @@ module.exports.handleLogout = async function(req: Request, res: Response) {
         res.status(200).json("Logout Success!")
     }
     res.status(400).json("You are already logged out!");
+}
+
+module.exports.handleUpdate = async function(req: Request, res: Response) {
+    
+    if (req.session!.email) {
+        const email = req.session!.email
+        const registeredUsers = await Users.find({email: email})
+        const user = registeredUsers.find((u: any) => u.email === email);
+    
+        await user.updateOne({
+            name: req.body.name,
+            adress: req.body.adress,
+            email: req.body.email,
+            phone: req.body.phone,
+            password: req.body.password,
+        })
+        return res.status(202).json("User updated!")
+    }
+    res.status(400).json("You must login to update");
 }
