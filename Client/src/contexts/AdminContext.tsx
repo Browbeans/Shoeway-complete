@@ -26,6 +26,7 @@ class AdminProvider extends Component<{}, State> {
     products: JSON.parse(localStorage.getItem("ProductData") || "[]"),
   };
 
+
   removeItemFromData = (product: Product) => {
     const cartIndex = this.state.products.indexOf(product);
     this.state.products.splice(cartIndex, 1);
