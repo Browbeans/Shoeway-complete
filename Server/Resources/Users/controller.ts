@@ -24,6 +24,8 @@ module.exports.handleRegister = async function(req: Request, res: Response) {
     res.status(201).json(newUser)
 };
 
+<<<<<<< HEAD
+=======
 module.exports.handleLogin = async function(req: Request, res: Response) {
     const { email, password} = req.body
 
@@ -61,3 +63,4 @@ module.exports.handleLogout = async function(req: Request, res: Response) {
     }
     res.status(400).json("You are already logged out!");
 }
+>>>>>>> master
