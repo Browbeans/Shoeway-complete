@@ -11,11 +11,12 @@ POST http://localhost:5000/products/addProduct
 Content-Type: application/json
 
 {
-"title": "Blundstone",
-"price": "129",
-"size": "42",
-"quantity": "1",
-"category": "woman"
+  "title": "Converse all star",
+  "price": "249",
+  "size": "41",
+  "quantity": "1",
+  "category": "woman",
+  "stock": "7"
 }
 
 ###
@@ -31,5 +32,6 @@ Content-Type: application/json
 "price": "449",
 "size": "44",
 "quantity": "1",
-"category": "man"
+"category": "man",
+"stock": "3"
 }
