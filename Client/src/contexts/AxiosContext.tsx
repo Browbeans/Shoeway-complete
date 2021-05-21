@@ -13,54 +13,58 @@ interface Product {
 
 interface State {
     product: Product[];
-    allProducts: Product[]
+    allProducts: Product[];
 }
 
 interface ContextProps extends State {
-  fetchSpecificProduct: () => void;
   fetchProducts: () => void;
+  fetchSpecificProduct: () => void;
 }
 
 export const AxiosContext = createContext<ContextProps>({
-    product: [],
-    allProducts: [],
-    fetchSpecificProduct: () => {},
-    fetchProducts: () => {},
+  product: [],
+  allProducts: [],
+  fetchProducts: () => {},
+  fetchSpecificProduct: () => {},
 });
 
 class AxiosProvider extends Component<{}, State> {
-    state: State = {
-        product: [],
-        allProducts: []
-    }
+  state: State = {
+    product: [],
+    allProducts: [],
+  };
 
-    fetchSpecificProduct = async () => {
-        const request = await axios.get('/products/:id')
-        this.setState({ product: request.data })
-        console.log(request)
-        return request;
-    }
+  fetchProducts = async () => {
+    const request = await axios.get("/products");
+    this.setState({ allProducts: request.data });
+    console.log(request.data);
+    return request;
+  };
 
-    fetchProducts = async () => {
-        const request = await axios.get('/products/')
-        this.setState({ allProducts: request.data });
-        console.log(request);
-        return request;
-    }
+  fetchSpecificProduct = async () => {
+    const request = await axios.get("/products/:id");
+    this.setState({ product: request.data });
+    console.log(request);
+    return request;
+  };
 
-    render() {
-        return (
-            <AxiosContext.Provider 
-                value={{
-                    ...this.state, 
-                    fetchProducts: this.fetchProducts,
-                    fetchSpecificProduct: this.fetchSpecificProduct,
-                }}
-                >
-                {this.props.children}
-            </AxiosContext.Provider>
-        )
-    }
+  componentDidMount = () => {
+    this.fetchProducts();
+  };
+
+  render() {
+    return (
+      <AxiosContext.Provider
+        value={{
+          ...this.state,
+          fetchProducts: this.fetchProducts,
+          fetchSpecificProduct: this.fetchSpecificProduct,
+        }}
+      >
+        {this.props.children}
+      </AxiosContext.Provider>
+    );
+  }
 }
 
 export default AxiosProvider;

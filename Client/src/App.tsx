@@ -7,6 +7,7 @@ import CartProvider from './contexts/CartContext';
 import UserProvider from './contexts/UserContext';
 import PaymentProvider from './contexts/PaymentContext';
 import AdminProvider  from './contexts/AdminContext';
+import AxiosProvider from './contexts/AxiosContext';
 
 class App extends Component {
 
@@ -14,13 +15,15 @@ class App extends Component {
     return (
       <CartProvider>
         <UserProvider>
-          <PaymentProvider>
-            <AdminProvider>
-              <BrowserRouter>
-                <Layout />
-              </BrowserRouter>
-            </AdminProvider>
-          </PaymentProvider>
+          <AxiosProvider>
+            <PaymentProvider>
+              <AdminProvider>
+                <BrowserRouter>
+                  <Layout />
+                </BrowserRouter>
+              </AdminProvider>
+            </PaymentProvider>
+          </AxiosProvider>
         </UserProvider>
       </CartProvider>
     );
