@@ -9,7 +9,7 @@ import productRouter from './Resources/Products/product.router';
 
 const app = express()
 
-const PORT = process.env.PORT || 5000 
+const PORT = process.env.PORT || 56000 
 
 const url = "mongodb://localhost:27017/lab-4"
 const options = { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false };

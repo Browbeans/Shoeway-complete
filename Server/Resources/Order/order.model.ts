@@ -1,11 +1,11 @@
 import mongoose, { Schema } from 'mongoose'
 
-// interface Product {
-//     product: string, 
-//     price: number, 
-//     amount: number, 
-//     size: number, 
-// }
+interface Product {
+    product: string, 
+    price: number, 
+    amount: number, 
+    size: number, 
+}
 
 // interface Customer {
 //     name: string, 
@@ -17,7 +17,7 @@ import mongoose, { Schema } from 'mongoose'
 
 interface Order extends Document {
     ordernumber: string, 
-    products: [],
+    products: Product[],
     customer: string, 
     isSent: Boolean
 }
@@ -29,8 +29,7 @@ const orderSchema = new mongoose.Schema({
         required: true
     }, 
     products: {
-        type: [Schema.Types.ObjectId], 
-        ref: 'Products',
+        type: Array, 
         required: true
     },
     customer: {
