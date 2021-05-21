@@ -5,15 +5,15 @@ import { inactiveBtn } from '../../style/GeneralStyle'
 import { CartContext } from "../../contexts/CartContext";
 import '../../style/productItem.css'
 import { Product } from "../../data/productData";
-import { AdminContext } from "../../contexts/AdminContext";
 import { useRouteMatch } from "react-router";
+import { AxiosContext } from "../../contexts/AxiosContext";
 
 const ProductItem = () => {
 
   const match = useRouteMatch<{ id: string }>();
   const cart = useContext(CartContext)
-  const admin = useContext(AdminContext)
-  let currentProduct = admin.products.find((specificProduct) => specificProduct.title === match.params.id)
+  const axios = useContext(AxiosContext);
+  let currentProduct = axios.allProducts.find((specificProduct: Product) => specificProduct.title === match.params.id)
   const [isSize, setSize] = useState(false)
 
   const handleClick = (size: number) => {
