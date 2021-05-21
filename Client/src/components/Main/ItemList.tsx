@@ -1,8 +1,7 @@
 import Item from './Item';
 import '../../style/Products.css';
 import { useContext, useEffect } from 'react';
-import { AxiosContext } from '../../contexts/AxiosContext';
-import axios from 'axios';
+import { ProductContext } from '../../contexts/ProductContext';
 
 interface Product {
   title: string,
@@ -13,11 +12,10 @@ interface Product {
 }
 const ItemList = () => {
   // const productDataList = useContext(AdminContext)
-  const productDataList = useContext(AxiosContext);
+  const productDataList = useContext(ProductContext);
 
   useEffect(() => {
     productDataList.fetchProducts();
-    console.log(productDataList.allProducts)
   });
 
     return (

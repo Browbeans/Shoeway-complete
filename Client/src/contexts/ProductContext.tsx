@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { Component, createContext } from 'react';
 
-
-interface Product {
+export interface Product {
+  id: string;
   title: string;
   info: string;
   price: number;
@@ -19,13 +19,15 @@ interface State {
 interface ContextProps extends State {
   fetchProducts: () => void;
   fetchSpecificProduct: () => void;
+  removeProduct: (product: string) => void;
 }
 
-export const AxiosContext = createContext<ContextProps>({
+export const ProductContext = createContext<ContextProps>({
   product: [],
   allProducts: [],
   fetchProducts: () => {},
   fetchSpecificProduct: () => {},
+  removeProduct: (product: string) => {},
 });
 
 class AxiosProvider extends Component<{}, State> {
@@ -48,21 +50,30 @@ class AxiosProvider extends Component<{}, State> {
     return request;
   };
 
+  removeProduct = async (product: string) => {
+    
+    const request = await axios.delete(`/products/:id`);
+    this.setState({ product: request.data });
+    console.log(request);
+    return request;
+  }
+
   componentDidMount = () => {
     this.fetchProducts();
   };
 
   render() {
     return (
-      <AxiosContext.Provider
+      <ProductContext.Provider
         value={{
           ...this.state,
           fetchProducts: this.fetchProducts,
           fetchSpecificProduct: this.fetchSpecificProduct,
+          removeProduct: this.removeProduct,
         }}
       >
         {this.props.children}
-      </AxiosContext.Provider>
+      </ProductContext.Provider>
     );
   }
 }
