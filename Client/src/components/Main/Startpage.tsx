@@ -28,8 +28,10 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
+
 function Startpage() {
     const classes = useStyles();
+
     return (
       <div className="start-container">
         <h1 className="start-title">

@@ -8,7 +8,6 @@ import { AdminContext } from '../../../contexts/AdminContext';
 import { useRouteMatch } from 'react-router';
 
 
-
 const AddNewProduct = () => {
   const match = useRouteMatch<{ id: string }>();
 
@@ -20,6 +19,7 @@ const AddNewProduct = () => {
     size: 0
   };
   const admin = useContext(AdminContext)
+ 
 
   let currentProduct = admin.products.find((specificProduct) => specificProduct.title === match.params.id)
 
