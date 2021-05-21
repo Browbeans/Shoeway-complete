@@ -31,9 +31,9 @@ const AddNewProduct = () => {
       if(isNewProduct) {
         axios.addProduct(product)
       }
-      // } else {
-      //   axios.submitAll(product, currentProduct)
-      // }
+       else {
+        axios.editProduct(product, currentProduct)
+      }
     }
 
     const handleTitle = (e: ChangeEvent<HTMLInputElement>) => {

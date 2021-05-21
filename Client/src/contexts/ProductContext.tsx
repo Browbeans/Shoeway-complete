@@ -23,6 +23,7 @@ interface ContextProps extends State {
   fetchSpecificProduct: () => void;
   removeProduct: (product: Product) => void;
   addProduct: (product: Product) => void;
+  editProduct: (editedProduct: Product, currentProduct: any) => void;
 }
 
 export const ProductContext = createContext<ContextProps>({
@@ -32,6 +33,7 @@ export const ProductContext = createContext<ContextProps>({
   fetchSpecificProduct: () => {},
   removeProduct: (product: Product) => {},
   addProduct: (product: Product) => {},
+  editProduct: (editedProduct: Product, currentProduct: any) => {}
 });
 
 class AxiosProvider extends Component<{}, State> {
@@ -63,10 +65,26 @@ class AxiosProvider extends Component<{}, State> {
   };
 
   addProduct = async (product: Product) => {
-    const completedProduct = { ...product, quantity: 1}
+    const completedProduct = { ...product, quantity: 1 };
     const request = await axios.post("/products/addProduct", completedProduct);
     this.fetchProducts();
     console.log(product);
+    return request;
+  };
+
+  editProduct = async (editedProduct: Product, currentProduct: any) => {
+    const id = editedProduct._id;
+    const request = await axios({
+      method: "put",
+      url: `/products/${id}`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: editedProduct,
+    });
+
+    this.fetchProducts();
+    console.log(editedProduct);
     return request;
   };
 
@@ -83,6 +101,7 @@ class AxiosProvider extends Component<{}, State> {
           fetchSpecificProduct: this.fetchSpecificProduct,
           removeProduct: this.removeProduct,
           addProduct: this.addProduct,
+          editProduct: this.editProduct
         }}
       >
         {this.props.children}
