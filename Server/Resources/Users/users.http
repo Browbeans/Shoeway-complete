@@ -2,15 +2,15 @@ POST http://localhost:5000/users/handleRegister
 Content-Type: application/json
 
 {
-    "name": "Oliver",
+    "name": "Test",
     "adress": {
         "city": "Sweden",
         "street": "Göteborg",
         "zip": 12345
     },
     "phone": "0705773264",
-    "email": "oliver@live.se",
-    "password": "123"
+    "email": "test@live.se",
+    "password": "asd"
 }
 
 ###
@@ -19,8 +19,8 @@ POST http://localhost:5000/users/handleLogin
 Content-Type: application/json
 
 {
-    "email": "petter@live.se",
-    "password": "abc"
+    "email": "test@live.se",
+    "password": "asd"
 }
 
 ###
@@ -43,7 +43,7 @@ Content-Type: application/json
         "street": "Sauerkraut 12",
         "zip": 12345
     },
-    "phone": 123456789,
+    "phone": 0705663266,
     "email": "peter@live.se",
     "password": "123"
 }
