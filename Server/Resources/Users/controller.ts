@@ -3,7 +3,7 @@ import { Request, Response } from 'express';
 import bcrypt from "bcrypt";
 
 module.exports.handleRegister = async function(req: Request, res: Response) {
-    const { name, adress, phone, email, password, zip } = req.body;
+    const { name, adress, phone, email, password } = req.body;
     const registeredUsers = await Users.find({email: email})
     const existingUsers = registeredUsers.find((u: any) => u.email === email);
 
@@ -14,14 +14,21 @@ module.exports.handleRegister = async function(req: Request, res: Response) {
     const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = new Users({
         name: name,
-        adress: adress,
+        adress: {
+            city: adress.city,
+            street: adress.street,
+            zip: adress.zip
+        },
         phone: phone,
         email: email,
         password: hashedPassword,
-        zip: zip
     })
-    newUser.save();
-    res.status(201).json(newUser)
+    await newUser.save((error: any) => {
+        if(error) {
+            return res.status(400).json(error.message)
+        }
+        res.status(201).json("Register Success!") 
+    })
 };
 
 
@@ -60,13 +67,12 @@ module.exports.fetchUsers = async function(req: Request, res: Response) {
 module.exports.handleLogout = async function(req: Request, res: Response) {
     if (req.session!.name) {
         req.session = null;
-        res.status(200).json("Logout Success!")
+        return res.status(200).json("Logout Success!")
     }
     res.status(400).json("You are already logged out!");
 }
 
 module.exports.handleUpdate = async function(req: Request, res: Response) {
-    
     if (req.session!.email) {
         const email = req.session!.email
         const registeredUsers = await Users.find({email: email})
