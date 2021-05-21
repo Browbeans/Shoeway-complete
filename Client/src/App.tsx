@@ -13,9 +13,9 @@ class App extends Component {
 
   render() {
     return (
+      <ProductProvider>
       <CartProvider>
         <UserProvider>
-          <ProductProvider>
             <PaymentProvider>
               <AdminProvider>
                 <BrowserRouter>
@@ -23,9 +23,9 @@ class App extends Component {
                 </BrowserRouter>
               </AdminProvider>
             </PaymentProvider>
-          </ProductProvider>
         </UserProvider>
       </CartProvider>
+      </ProductProvider>
     );
   }
 }

@@ -1,12 +1,10 @@
 import { Button, TextField } from '@material-ui/core'
-import { CSSProperties } from '@material-ui/styles'
-import { ChangeEvent, useContext, useState } from 'react'
+import { CSSProperties } from '@material-ui/styles';
+import { ChangeEvent, useContext, useState } from 'react';
 import { btnSmall } from "../../../style/GeneralStyle";
 import '../../../style/Admin.css';
-import { Product } from '../../../data/productData';
-import { AdminContext } from '../../../contexts/AdminContext';
+import { ProductContext, Product } from "../../../contexts/ProductContext";
 import { useRouteMatch } from 'react-router';
-
 
 const AddNewProduct = () => {
   const match = useRouteMatch<{ id: string }>();
@@ -16,22 +14,26 @@ const AddNewProduct = () => {
     image: "",
     price: 0,
     info: "",
-    size: 0
+    category: '',
+    quantity: 0,
+    size: 0,
+    stock: 0,
   };
-  const admin = useContext(AdminContext)
- 
 
-  let currentProduct = admin.products.find((specificProduct) => specificProduct.title === match.params.id)
+  const axios = useContext(ProductContext)
+
+  let currentProduct = axios.allProducts.find((specificProduct: Product) => specificProduct.title === match.params.id)
 
   const [product, setProduct] = useState<Product>(currentProduct || newProductData)
 
     const handleClick = () => {
       const isNewProduct = !currentProduct
       if(isNewProduct) {
-        admin.addNewProduct(product)
-      } else {
-        admin.submitAll(product, currentProduct)
+        axios.addProduct(product)
       }
+      // } else {
+      //   axios.submitAll(product, currentProduct)
+      // }
     }
 
     const handleTitle = (e: ChangeEvent<HTMLInputElement>) => {
@@ -49,6 +51,15 @@ const AddNewProduct = () => {
     const handleInfo = (e: ChangeEvent<HTMLInputElement>) => {
       setProduct({...product, info: e.target.value})
     }
+
+    const handleCategory = (e: ChangeEvent<HTMLInputElement>) => {
+      setProduct({ ...product, category: e.target.value });
+    };
+
+     const handleStock = (e: ChangeEvent<HTMLInputElement>) => {
+       setProduct({ ...product, stock: parseInt(e.target.value) });
+     };
+
     return (
       <div>
         <div className="container">
@@ -59,11 +70,11 @@ const AddNewProduct = () => {
               justifyContent: "center",
             }}
           >
-            {!currentProduct?
+            {!currentProduct ? (
               <h1 style={title}>Add new product</h1>
-              :
+            ) : (
               <h1 style={title}>Edit product</h1>
-            }
+            )}
             <TextField
               variant="outlined"
               margin="normal"
@@ -92,6 +103,18 @@ const AddNewProduct = () => {
               variant="outlined"
               margin="normal"
               required
+              id="category"
+              label="Category"
+              name="Category"
+              type="text"
+              value={product.category}
+              autoFocus
+              onChange={handleCategory}
+            />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
               id="price"
               label="Price..."
               name="price"
@@ -111,6 +134,18 @@ const AddNewProduct = () => {
               value={product.info}
               autoFocus
               onChange={handleInfo}
+            />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              id="stock"
+              label="Stock..."
+              name="stock"
+              type="number"
+              value={product.stock}
+              autoFocus
+              onChange={handleStock}
             />
             <div style={{ alignSelf: "center" }}>
               <Button onClick={handleClick} style={btnSmall}>

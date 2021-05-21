@@ -2,13 +2,15 @@ import axios from 'axios';
 import { Component, createContext } from 'react';
 
 export interface Product {
-  _id: string;
+  _id?: string;
   title: string;
   info: string;
   price: number;
   image: string;
   size: number;
   stock: number;
+  category: string, 
+  quantity: number,
 }
 
 interface State {
@@ -20,6 +22,7 @@ interface ContextProps extends State {
   fetchProducts: () => void;
   fetchSpecificProduct: () => void;
   removeProduct: (product: Product) => void;
+  addProduct: (product: Product) => void;
 }
 
 export const ProductContext = createContext<ContextProps>({
@@ -28,6 +31,7 @@ export const ProductContext = createContext<ContextProps>({
   fetchProducts: () => {},
   fetchSpecificProduct: () => {},
   removeProduct: (product: Product) => {},
+  addProduct: (product: Product) => {},
 });
 
 class AxiosProvider extends Component<{}, State> {
@@ -51,13 +55,20 @@ class AxiosProvider extends Component<{}, State> {
   };
 
   removeProduct = async (product: Product) => {
-    
     const id = product._id;
     const request = await axios.delete(`/products/${id}`);
     this.fetchProducts();
     console.log(id);
     return request;
-  }
+  };
+
+  addProduct = async (product: Product) => {
+    const completedProduct = { ...product, quantity: 1}
+    const request = await axios.post("/products/addProduct", completedProduct);
+    this.fetchProducts();
+    console.log(product);
+    return request;
+  };
 
   componentDidMount = () => {
     this.fetchProducts();
@@ -71,6 +82,7 @@ class AxiosProvider extends Component<{}, State> {
           fetchProducts: this.fetchProducts,
           fetchSpecificProduct: this.fetchSpecificProduct,
           removeProduct: this.removeProduct,
+          addProduct: this.addProduct,
         }}
       >
         {this.props.children}
