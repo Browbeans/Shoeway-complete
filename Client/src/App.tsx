@@ -8,6 +8,7 @@ import UserProvider from './contexts/UserContext';
 import PaymentProvider from './contexts/PaymentContext';
 import AdminProvider  from './contexts/AdminContext';
 import AxiosProvider from './contexts/AxiosContext';
+import OrderProvider from './contexts/OrderContext';
 
 class App extends Component {
 
@@ -16,6 +17,7 @@ class App extends Component {
       <CartProvider>
         <UserProvider>
           <AxiosProvider>
+            <OrderProvider>
             <PaymentProvider>
               <AdminProvider>
                 <BrowserRouter>
@@ -23,6 +25,7 @@ class App extends Component {
                 </BrowserRouter>
               </AdminProvider>
             </PaymentProvider>
+            </OrderProvider>
           </AxiosProvider>
         </UserProvider>
       </CartProvider>

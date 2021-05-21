@@ -11,10 +11,10 @@ POST http://localhost:5000/products/addProduct
 Content-Type: application/json
 
 {
-  "title": "Nike air",
-  "price": "349",
+  "title": "Adidas Stan Smith",
+  "price": "899",
   "size": "44",
-  "category": "woman",
+  "category": "Unisex",
   "stock": "10",
   "quantity": 1
 }
