@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
- import { Product } from '../../data/productData';
 import '../../style/Products.css';
-// import { Product } from "../../contexts/ProductAxiosContext";
+import { Product } from "../../contexts/ProductContext";
 
 interface Props{
   product: Product 

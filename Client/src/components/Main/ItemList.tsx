@@ -1,17 +1,10 @@
 import Item from './Item';
 import '../../style/Products.css';
 import { useContext, useEffect } from 'react';
-import { ProductContext } from '../../contexts/ProductContext';
+import { ProductContext, Product } from '../../contexts/ProductContext';
 
-interface Product {
-  title: string,
-  price: number,
-  info: string, 
-  size: number, 
-  image: string,
-}
 const ItemList = () => {
-  // const productDataList = useContext(AdminContext)
+  
   const productDataList = useContext(ProductContext);
 
   useEffect(() => {

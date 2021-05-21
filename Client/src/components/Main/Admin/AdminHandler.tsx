@@ -23,7 +23,7 @@ function AdminHandler() {
           <div>
             <DeleteOutlinedIcon
               style={adminIcons}
-              onClick={() => axios.removeProduct(product.id)}
+              onClick={() => axios.removeProduct(product)}
             />
             <Link to={"/editProduct/" + product.title}>
               <CreateOutlinedIcon
