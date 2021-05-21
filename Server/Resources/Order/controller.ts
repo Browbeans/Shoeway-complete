@@ -7,9 +7,14 @@ module.exports.addOrder = async (req: Request, res: Response) => {
     const { ordernumber, product, customer } = req.body
     const currentCustomer = await Users.findById(customer)
 
-    product.forEach(async (productID: any) =>  (
-        await Products.updateOne({ _id: productID.id }, { "$inc": { "stock" : -productID.qty }})
-    ))
+    product.forEach(async (productID: any) =>  {
+        await Products.update({ _id: productID.id }, 
+            { "$inc": { stock : -productID.qty }}
+        )
+        await Products.update({ _id: productID.id },
+            { "$set": { quantity : productID.qty }}
+        )
+        })
 
     const idArray: any = []
     product.forEach((element: any) => {
@@ -18,12 +23,6 @@ module.exports.addOrder = async (req: Request, res: Response) => {
 
     const currentProduct = await Products.find({ '_id': { $in: idArray } });
   
-    // currentProduct.map((p:any) => {
-    //    product.map((paramProduct: any) => {
-    //         p.quantity = paramProduct.qty
-    //         console.log(p.quantity)
-    //    })
-    // });
     currentProduct.map((productObject: any) => {
         productObject.qty = 4
         product.map((paramProduct: any) => {

@@ -29,12 +29,8 @@ Content-Type: application/json
     "ordernumber": "adsad12312", 
     "product": 
             [ {
-                "id":"60a63ea720764d2cbc21bdb3",
+                "id":"60a6667057fbd72e1443bf6e",
                 "qty": 2    
-            },
-            {
-                "id": "60a63e8e20764d2cbc21bdb2",
-                "qty": 1
             }
             ],
     "customer": "60a4fa6051ceee3f08a13335"
@@ -48,4 +44,4 @@ GET http://localhost:5000/order/order-products/60a4ddaa6fbe300c804bd6b7
 
 ###
 
-PATCH http://localhost:5000/order/sent-order/60a4fa9751ceee3f08a13336
+PATCH http://localhost:4000/order/sent-order/60a4fa9751ceee3f08a13336

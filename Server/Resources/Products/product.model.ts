@@ -1,9 +1,11 @@
+  
 import mongoose from 'mongoose';
 
 interface Product{
     title: string,
     price: number,
     size: number,
+    quantity: number,
     category: string,
     stock: number,
 }
@@ -28,6 +30,11 @@ const productSchema = new mongoose.Schema({
     type: Number,
     required: true,
     min: [0, "Size must be a positive number"],
+  },
+  quantity: {
+    type: Number,
+    required: true,
+    min: [1, "Quantity must be a positive number"],
   },
   category: {
     type: String,
