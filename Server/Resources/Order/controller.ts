@@ -7,21 +7,33 @@ module.exports.addOrder = async (req: Request, res: Response) => {
     const { ordernumber, product, customer } = req.body
     const currentCustomer = await Users.findById(customer)
 
-    product.forEach(async (productID: string) =>  (
-        await Products.updateOne({ _id: productID }, { "$inc": { "stock" : -1 }})
-    ))
-    
-    // const orderCustomer = {
-    //     name: currentCustomer.name, 
-    //     adress: currentCustomer.adress,
-    //     phoner: currentCustomer.phone,
-    //     email: currentCustomer.email,
-    //     zip: currentCustomer.zip
-    // }
+    product.forEach(async (productID: any) =>  {
+        await Products.update({ _id: productID.id }, 
+            { "$inc": { stock : -productID.qty }}
+        )
+        await Products.update({ _id: productID.id },
+            { "$set": { quantity : productID.qty }}
+        )
+        })
+
+    const idArray: any = []
+    product.forEach((element: any) => {
+        idArray.push(element.id)
+    });
+
+    const currentProduct = await Products.find({ '_id': { $in: idArray } });
+  
+    currentProduct.map((productObject: any) => {
+        productObject.qty = 4
+        product.map((paramProduct: any) => {
+            productObject.qty = paramProduct.qty
+            console.log(productObject)
+        })
+    })
 
     const newOrder = new Orders({
         ordernumber: ordernumber, 
-        products: product,
+        products: currentProduct,
         customer: customer,
         isSent: false 
     })

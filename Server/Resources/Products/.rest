@@ -11,12 +11,12 @@ POST http://localhost:5000/products/addProduct
 Content-Type: application/json
 
 {
-  "title": "Converse all star",
-  "price": "249",
-  "size": "41",
-  "quantity": "1",
+  "title": "Nike air",
+  "price": "349",
+  "size": "44",
   "category": "woman",
-  "stock": "7"
+  "stock": "10",
+  "quantity": 1
 }
 
 ###
@@ -31,7 +31,6 @@ Content-Type: application/json
 "title": "Timberland",
 "price": "449",
 "size": "44",
-"quantity": "1",
 "category": "man",
 "stock": "3"
 }
