@@ -81,7 +81,18 @@ const userSchema = new mongoose.Schema({
             message: "Email is not valid"
         }
     },
-    password: { type: String, required: true },
+    password: { 
+        type: String, 
+        required: true,
+        // validate: {
+        //     // Funkar ibland, ibland inte!!!!!!!!!!!!
+        //     validator: (value: any) => {
+        //         const phoneRegex = (/(?=[A-Za-z0-9@#$%^&+!=]+$)^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*)(?=.{8,}).*$/);
+        //         return phoneRegex.test(value);
+        //     },
+        //     message: "Password must be eight characters, atleast one number"
+        // } 
+    }
 })
 
 module.exports = mongoose.model<User>('Users', userSchema);
