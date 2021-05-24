@@ -56,7 +56,6 @@ module.exports.getSpecific = async function(req: Request, res: Response) {
 module.exports.getUserOrders = async function(req: Request, res: Response) {
     const urlId = req.params.id
     const user = await Users.findById(urlId)
-
     const userOrder = await Orders.find({customer: user._id}).populate('customer')
 
     res.status(200).json(userOrder)

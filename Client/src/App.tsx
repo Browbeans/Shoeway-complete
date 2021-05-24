@@ -9,15 +9,21 @@ import PaymentProvider from './contexts/PaymentContext';
 import AdminProvider  from './contexts/AdminContext';
 import AxiosProvider from './contexts/AxiosContext';
 import UserAxiosProvider from './contexts/userAxiosContext';
+import OrderProvider from './contexts/OrderContext';
+import ProductProvider from './contexts/ProductContext';
+
+
 
 class App extends Component {
 
   render() {
     return (
-      <UserAxiosProvider>
+     <UserAxiosProvider>
+      <ProductProvider>
         <CartProvider>
           <UserProvider>
-              <AxiosProvider>
+            <AxiosProvider>
+              <OrderProvider>
                 <PaymentProvider>
                   <AdminProvider>
                     <BrowserRouter>
@@ -25,10 +31,12 @@ class App extends Component {
                     </BrowserRouter>
                   </AdminProvider>
                 </PaymentProvider>
-              </AxiosProvider>
+              </OrderProvider>
+            </AxiosProvider>
           </UserProvider>
         </CartProvider>
-      </UserAxiosProvider>
+      </ProductProvider>
+     </UserAxiosProvider>
     );
   }
 }
