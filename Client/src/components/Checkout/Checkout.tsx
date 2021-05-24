@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import CloseIcon from "@material-ui/icons/Close";
 import "../../style/Checkout.css";
 import { inactiveBtn,btnMedium, cursorPointer } from "../../style/GeneralStyle";
@@ -11,6 +11,7 @@ import RemoveCircleIcon from "@material-ui/icons/RemoveCircle";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import { Link } from "react-router-dom";
 import { UserContext } from "../../contexts/UserContext";
+import HandleRegister from "./Accordian/handleRegister";
 
 const Checkout =  () => {
   const cartContext = useContext(CartContext)
@@ -29,6 +30,7 @@ const Checkout =  () => {
             <form action="/" style={form}>
               <h2 className="checkout-title">Checkout</h2>
               <Accordian />
+              {/* <HandleRegister/> */}
             </form>
           </div>
           <div className="order-container">

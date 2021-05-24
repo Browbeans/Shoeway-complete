@@ -8,24 +8,27 @@ import UserProvider from './contexts/UserContext';
 import PaymentProvider from './contexts/PaymentContext';
 import AdminProvider  from './contexts/AdminContext';
 import AxiosProvider from './contexts/AxiosContext';
+import UserAxiosProvider from './contexts/userAxiosContext';
 
 class App extends Component {
 
   render() {
     return (
-      <CartProvider>
-        <UserProvider>
-          <AxiosProvider>
-            <PaymentProvider>
-              <AdminProvider>
-                <BrowserRouter>
-                  <Layout />
-                </BrowserRouter>
-              </AdminProvider>
-            </PaymentProvider>
-          </AxiosProvider>
-        </UserProvider>
-      </CartProvider>
+      <UserAxiosProvider>
+        <CartProvider>
+          <UserProvider>
+              <AxiosProvider>
+                <PaymentProvider>
+                  <AdminProvider>
+                    <BrowserRouter>
+                      <Layout />
+                    </BrowserRouter>
+                  </AdminProvider>
+                </PaymentProvider>
+              </AxiosProvider>
+          </UserProvider>
+        </CartProvider>
+      </UserAxiosProvider>
     );
   }
 }
