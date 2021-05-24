@@ -8,12 +8,8 @@ import OrderView from '../Orderview/OrderView';
 import AdminPage from './Admin/AdminPage';
 import AddNewProduct from './Admin/AddNewProduct';
 import About from './About';
-<<<<<<< HEAD
-import AdimnLogin from './AdminLogin';
-=======
 import Profile from '../UserProfile/Profile'
->>>>>>> master
-
+import AdimnLogin from './AdminLogin'
 function MainContent() {
 
     return (
