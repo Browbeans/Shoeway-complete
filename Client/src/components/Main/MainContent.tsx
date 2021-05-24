@@ -9,7 +9,7 @@ import AdminPage from './Admin/AdminPage';
 import AddNewProduct from './Admin/AddNewProduct';
 import About from './About';
 import Profile from '../UserProfile/Profile'
-
+import AdimnLogin from './AdminLogin'
 function MainContent() {
 
     return (
@@ -35,6 +35,9 @@ function MainContent() {
           </Route>
           <Route path="/admin">
             <AdminPage />
+          </Route>
+          <Route path="/adminlog">
+            <AdimnLogin />
           </Route>
           <Route path="/addNewProduct">
             <AddNewProduct />
