@@ -3,14 +3,28 @@ import { Component, createContext } from 'react';
 
 interface Product {
     id: string,
-    qty: number   
+    quantity: number,
+    title?: string, 
+    price?: number,
+    size?: number,
+    category?: string   
+}
+
+interface Customer {
+  adress: string,
+  _id: string, 
+  name: string, 
+  phone: string, 
+  email: string 
 }
 
 export interface Order {
   ordernumber: string, 
-  product: Product[],
-  customer: string
+  products: Product[],
+  customer: string,
+  isSent?: boolean,
 }
+
 
 
 interface State {
@@ -20,21 +34,30 @@ interface State {
 interface ContextProps extends State {
   createOrder: (orderInfo: Order) => void
   getUserOrders: (user: string) => void
-//   fetchProducts: () => void;
-//   fetchSpecificProduct: () => void;
 }
 
 export const OrderContext = createContext<ContextProps>({
-  userOrders: [],
+  userOrders: [
+    {
+      ordernumber: '', 
+      products: [],
+      customer: ''
+    }  
+  ] 
+  ,
   createOrder: (orderInfo: Order) => {},
   getUserOrders: (user: string) => {}
-//   fetchProducts: () => {},
-//   fetchSpecificProduct: () => {},
 });
 
 class OrderProvider extends Component<{}, State> {
   state: State = {
-    userOrders: []
+    userOrders: [
+      {
+        ordernumber: '', 
+        products: [],
+        customer: ''
+      }
+    ] 
   };
 
   createOrderToDb = (orderInfo: Order) => {
@@ -51,9 +74,7 @@ class OrderProvider extends Component<{}, State> {
   getUserOrdersFromDb = async (user: string) => {
     const request = await axios.get(`/order/user-orders/${user}`)
     const result = request.data
-
-    const newUserOrder = [...this.state.userOrders, result]
-    this.setState({ userOrders: newUserOrder })
+    this.setState({ userOrders: result })
   }
 
   componentDidMount = () => {

@@ -22,21 +22,17 @@ const Checkout =  () => {
     userContext.shopStateFalse()
     const order = {
       ordernumber: "adsad12312", 
-        product:[ 
+        products:[ 
                   {
-                    id:"60a6667057fbd72e1443bf6e",
-                    qty: 5    
+                    id:"60a63e8e20764d2cbc21bdb2",
+                    quantity: 5    
                   }, 
-                  {
-                    id: "60a797b7423f574550025fc4",
-                    qty: 1
-                  },
-                  {
-                    id: "60a797d4423f574550025fc5", 
-                    qty: 2
+                  { 
+                    id: "60a63ea720764d2cbc21bdb3",
+                    quantity: 1
                   }
                 ],
-        customer: "60a79d8cbf69303b004dd159"
+        customer: "60a4fa6051ceee3f08a13335"
     }
     orderContext.createOrder(order)
   }

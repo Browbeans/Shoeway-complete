@@ -4,29 +4,28 @@ const Products = require('../Products/product.model')
 import { Request, Response } from 'express'
 
 module.exports.addOrder = async (req: Request, res: Response) => {
-    const { ordernumber, product, customer } = req.body
+    const { ordernumber, products, customer } = req.body
     const currentCustomer = await Users.findById(customer)
-
-    product.forEach(async (productID: any) =>  {
+    products.forEach(async (productID: any) =>  {
         await Products.update({ _id: productID.id }, 
-            { "$inc": { stock : -productID.qty }}
+            { "$inc": { stock : -productID.quantity }}
         )
         await Products.update({ _id: productID.id },
-            { "$set": { quantity : productID.qty }}
+            { "$set": { quantity : productID.quantity }}
         )
         })
 
     const idArray: any = []
-    product.forEach((element: any) => {
+    products.forEach((element: any) => {
         idArray.push(element.id)
     });
 
     const currentProduct = await Products.find({ '_id': { $in: idArray } });
   
     currentProduct.map((productObject: any) => {
-        productObject.qty = 4
-        product.map((paramProduct: any) => {
-            productObject.qty = paramProduct.qty
+        productObject.quantity = 4
+        products.map((paramProduct: any) => {
+            productObject.qty = paramProduct.quantity
             console.log(productObject)
         })
     })
