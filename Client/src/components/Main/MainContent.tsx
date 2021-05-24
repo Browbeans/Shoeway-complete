@@ -8,7 +8,11 @@ import OrderView from '../Orderview/OrderView';
 import AdminPage from './Admin/AdminPage';
 import AddNewProduct from './Admin/AddNewProduct';
 import About from './About';
+<<<<<<< HEAD
 import AdimnLogin from './AdminLogin';
+=======
+import Profile from '../UserProfile/Profile'
+>>>>>>> master
 
 function MainContent() {
 
@@ -44,7 +48,10 @@ function MainContent() {
           </Route>
           <Route path={"/editProduct/:id"}>
             <AddNewProduct />
-           </Route>
+          </Route>
+          <Route path="/user-profile">
+            <Profile/>
+          </Route>
         </Switch>
       </main>
     );
