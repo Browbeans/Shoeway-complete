@@ -8,6 +8,7 @@ import OrderView from '../Orderview/OrderView';
 import AdminPage from './Admin/AdminPage';
 import AddNewProduct from './Admin/AddNewProduct';
 import About from './About';
+import AdimnLogin from './AdminLogin';
 
 function MainContent() {
 
@@ -34,6 +35,9 @@ function MainContent() {
           </Route>
           <Route path="/admin">
             <AdminPage />
+          </Route>
+          <Route path="/adminlog">
+            <AdimnLogin />
           </Route>
           <Route path="/addNewProduct">
             <AddNewProduct />
