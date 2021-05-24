@@ -8,6 +8,7 @@ interface Product{
     quantity: number,
     category: string,
     stock: number,
+    image: string,
 }
 const productSchema = new mongoose.Schema({
   title: {
@@ -52,6 +53,10 @@ const productSchema = new mongoose.Schema({
     required: true,
     min: [1, "Stock must be a positive number"],
   },
+  image: {
+    type: String,
+    required: true, 
+  }
 });
 
 module.exports = mongoose.model<Product>('Products', productSchema);

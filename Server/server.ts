@@ -6,7 +6,6 @@ import usersRouter from "./Resources/Users/user-routes";
 import shiping from './Resources/Shiping/shiping-routers';
 import productRouter from './Resources/Products/product.router';
 
-
 const app = express()
 
 const PORT = process.env.PORT || 5000 

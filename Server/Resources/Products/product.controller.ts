@@ -27,6 +27,8 @@ module.exports.getSpecific = async function(req: Request, res: Response) {
 
 module.exports.addNewProduct = async function(req: Request, res: Response) {
 
+  console.log(req.file);
+
   if(req.body){
     if(!req.body.title){
       return res.status(400).json('Cant add product')
@@ -39,6 +41,7 @@ module.exports.addNewProduct = async function(req: Request, res: Response) {
       quantity: req.body.quantity,
       category: req.body.category,
       stock: req.body.stock,
+      image: req.file.path
     })
     await product.save(function(error: any){
       console.log(error)
