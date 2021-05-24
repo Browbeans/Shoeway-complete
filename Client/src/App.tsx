@@ -7,24 +7,32 @@ import CartProvider from './contexts/CartContext';
 import UserProvider from './contexts/UserContext';
 import PaymentProvider from './contexts/PaymentContext';
 import AdminProvider  from './contexts/AdminContext';
+import AxiosProvider from './contexts/AxiosContext';
+import OrderProvider from './contexts/OrderContext';
+
 import ProductProvider from './contexts/ProductContext';
+
 
 class App extends Component {
 
   render() {
     return (
       <ProductProvider>
-      <CartProvider>
-        <UserProvider>
-            <PaymentProvider>
-              <AdminProvider>
-                <BrowserRouter>
-                  <Layout />
-                </BrowserRouter>
-              </AdminProvider>
-            </PaymentProvider>
-        </UserProvider>
-      </CartProvider>
+        <CartProvider>
+          <UserProvider>
+            <AxiosProvider>
+              <OrderProvider>
+                <PaymentProvider>
+                  <AdminProvider>
+                    <BrowserRouter>
+                      <Layout />
+                    </BrowserRouter>
+                  </AdminProvider>
+                </PaymentProvider>
+              </OrderProvider>
+            </AxiosProvider>
+          </UserProvider>
+        </CartProvider>
       </ProductProvider>
     );
   }
