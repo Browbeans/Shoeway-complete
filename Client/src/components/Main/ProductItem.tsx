@@ -6,13 +6,13 @@ import { CartContext } from "../../contexts/CartContext";
 import '../../style/productItem.css'
 import { Product } from "../../data/productData";
 import { useRouteMatch } from "react-router";
-import { AxiosContext } from "../../contexts/AxiosContext";
+import { ProductContext } from "../../contexts/ProductContext";
 
 const ProductItem = () => {
 
   const match = useRouteMatch<{ id: string }>();
   const cart = useContext(CartContext)
-  const axios = useContext(AxiosContext);
+  const axios = useContext(ProductContext);
   let currentProduct = axios.allProducts.find((specificProduct: Product) => specificProduct.title === match.params.id)
   const [isSize, setSize] = useState(false)
 

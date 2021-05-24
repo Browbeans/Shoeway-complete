@@ -1,23 +1,14 @@
 import Item from './Item';
 import '../../style/Products.css';
 import { useContext, useEffect } from 'react';
-import { AxiosContext } from '../../contexts/AxiosContext';
-import axios from 'axios';
+import { ProductContext, Product } from '../../contexts/ProductContext';
 
-interface Product {
-  title: string,
-  price: number,
-  info: string, 
-  size: number, 
-  image: string,
-}
 const ItemList = () => {
-  // const productDataList = useContext(AdminContext)
-  const productDataList = useContext(AxiosContext);
+  
+  const productDataList = useContext(ProductContext);
 
   useEffect(() => {
     productDataList.fetchProducts();
-    console.log(productDataList.allProducts)
   });
 
     return (

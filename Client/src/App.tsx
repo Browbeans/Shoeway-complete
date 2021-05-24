@@ -10,25 +10,30 @@ import AdminProvider  from './contexts/AdminContext';
 import AxiosProvider from './contexts/AxiosContext';
 import OrderProvider from './contexts/OrderContext';
 
+import ProductProvider from './contexts/ProductContext';
+
+
 class App extends Component {
 
   render() {
     return (
-      <CartProvider>
-        <UserProvider>
-          <AxiosProvider>
-            <OrderProvider>
-            <PaymentProvider>
-              <AdminProvider>
-                <BrowserRouter>
-                  <Layout />
-                </BrowserRouter>
-              </AdminProvider>
-            </PaymentProvider>
-            </OrderProvider>
-          </AxiosProvider>
-        </UserProvider>
-      </CartProvider>
+      <ProductProvider>
+        <CartProvider>
+          <UserProvider>
+            <AxiosProvider>
+              <OrderProvider>
+                <PaymentProvider>
+                  <AdminProvider>
+                    <BrowserRouter>
+                      <Layout />
+                    </BrowserRouter>
+                  </AdminProvider>
+                </PaymentProvider>
+              </OrderProvider>
+            </AxiosProvider>
+          </UserProvider>
+        </CartProvider>
+      </ProductProvider>
     );
   }
 }

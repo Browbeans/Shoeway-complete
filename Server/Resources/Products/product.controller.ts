@@ -62,7 +62,7 @@ module.exports.deleteProduct = async function (req: Request, res: Response) {
 module.exports.editProduct = async function (req: Request, res: Response) {
 
   const id = req.params.id;
-  const product = await  Product.findByIdAndUpdate(id, {
+  const product = await Product.findByIdAndUpdate(id, {
     title: req.body.title,
     price: req.body.price,
     size: req.body.size,
