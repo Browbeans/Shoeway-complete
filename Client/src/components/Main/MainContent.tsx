@@ -8,8 +8,10 @@ import OrderView from '../Orderview/OrderView';
 import AdminPage from './Admin/AdminPage';
 import AddNewProduct from './Admin/AddNewProduct';
 import About from './About';
-import Profile from '../UserProfile/Profile'
-import AdimnLogin from './AdminLogin'
+import Profile from '../UserProfile/Profile';
+import AdimnLogin from './AdminLogin';
+import UserSelection from './userSelection'; 
+
 function MainContent() {
 
     return (
@@ -47,6 +49,9 @@ function MainContent() {
           </Route>
           <Route path="/user-profile">
             <Profile/>
+          </Route>
+          <Route path="/entry">
+            <UserSelection/>
           </Route>
         </Switch>
       </main>

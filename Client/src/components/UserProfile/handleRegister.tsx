@@ -1,11 +1,12 @@
 import { Button, TextField } from "@material-ui/core";
 import React, { ChangeEvent, CSSProperties, useContext, useState } from "react";
 import react from "react";
-import { RegisterContext } from "../../../contexts/registerContext";
+import { RegisterContext } from "../../contexts/registerContext";
+import '../../style/Entry.css'
 
 function HandleRegister() {
-
     const userContext = useContext(RegisterContext);
+
     const [nameError, setNameError] = useState("");
     const [cityError, setCityError] = useState("");
     const [streetError, setStreetError] = useState("");
@@ -13,7 +14,6 @@ function HandleRegister() {
     const [phoneError, setPhoneError] = useState("");
     const [emailError, setEmailError] = useState("");
     const [passwordError, setPasswordError] = useState("");
-    // console.log(userContext.users);
 
     const handleNameInput = (e: ChangeEvent<HTMLInputElement>) => {
         if (!/^[a-öA-Ö\s,'-]+$/.test(e.target.value)) {
@@ -81,7 +81,7 @@ function HandleRegister() {
 
     return(
         <div>
-            <h2>Register</h2>
+            {/* <h2 className="entry-title">Register</h2> */}
             <form action="/">
                 <TextField
                     fullWidth
@@ -208,18 +208,18 @@ function HandleRegister() {
 }
 
 const btn: CSSProperties = {
-  alignSelf: "center",
-  borderRadius: ".5rem",
-  outline: "none",
-  fontSize: "1rem",
-  background: "#56EAC6",
-  color: "#fff",
-  fontWeight: "bold",
-  border: "none",
-  cursor: "pointer",
-  padding: "1rem",
-  width: '10rem',
-  margin: "1rem 0rem"
-};
+    alignSelf: "center",
+    borderRadius: ".5rem",
+    outline: "none",
+    fontSize: "1rem",
+    background: "#56EAC6",
+    color: "#fff",
+    fontWeight: "bold",
+    border: "none",
+    cursor: "pointer",
+    padding: "0.7rem",
+    width: '100%',
+    margin: "1rem 0rem"
+  };
 
 export default HandleRegister

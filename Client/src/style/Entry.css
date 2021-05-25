@@ -1,0 +1,48 @@
+.entry-container {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 1rem;
+    width: 30rem;
+    margin: 1rem auto;
+}
+
+.entry-title {
+    text-align: center;
+}
+
+.break {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.break p {
+    color: #8e8e8e;
+    margin: 1rem;
+    font-size: 1.2rem;
+}
+
+.break div {
+    height: 1px;
+    width: 90%;
+    background: #8e8e8e;
+}
+
+.form-inputs {
+    background: red,
+}
+
+.option-container {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.1rem;
+}
+
+.option-container span {
+    margin-left: 0.5rem;
+    cursor: pointer;
+    color: rgb(86, 234, 198);
+}
