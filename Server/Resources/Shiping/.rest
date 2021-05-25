@@ -5,14 +5,13 @@ POST http://localhost:5000/Shiping/addshiping
 Content-Type: application/json
 
 {
-"name": "DHL",
-"days": "1-3dagar",
-"price": 29
+"name": "Bring",
+"days": "3-5 dagar",
+"price": 39
 }
 
 ###
-DELETE http://localhost:5000/Shiping/deleteShiping/60a5121197449d0d2cfeefa3
-
+DELETE http://localhost:5000/Shiping/deleteShiping/60a6335c6ab4ed4480efca21
 ###
 PUT http://localhost:5000/Shiping/editshiping/60a5127237cb7047d4b5bf20
 Content-Type: application/json
@@ -20,7 +19,7 @@ Content-Type: application/json
 {
 "name": "Postnord",
 "days": "2-3 dagar",
-"price": 1
+"price": 0
 }
  
 
