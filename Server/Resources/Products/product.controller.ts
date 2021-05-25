@@ -82,7 +82,7 @@ module.exports.editProduct = async function (req: Request, res: Response) {
   }
 };
 
-module.exports.addImage = async function (req: Request, res: Response) {
+module.exports.uploadImage = async function (req: Request, res: Response) {
 
   try {
     const uploadImage = new Image({

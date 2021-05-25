@@ -37,7 +37,7 @@ productRouter
   .get("/", controller.getProducts)
   .get("/:id", controller.getSpecific)
   .post("/addProduct", controller.addNewProduct)
-  .post("/uploadImage", upload.single("image"), controller.addImage)
+  .post("/uploadImage", upload.single("image"), controller.uploadImage)
   .get('/:id', controller.getImage)
   .delete("/:id", controller.deleteProduct)
   .put("/:id", controller.editProduct);
