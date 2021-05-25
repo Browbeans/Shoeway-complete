@@ -56,12 +56,12 @@ module.exports.handleLogin = async function(req: Request, res: Response) {
 }
 
 module.exports.fetchUsers = async function(req: Request, res: Response) {
-    if (req.session!.name) {
+    // if (req.session!.name) {
         const result = await Users.find({})
         res.json(result)
-    } else {
-        res.status(400).json("You must login");
-    }
+    // } else {
+    //     res.status(400).json("You must login");
+    // }
 }
 
 module.exports.handleLogout = async function(req: Request, res: Response) {
