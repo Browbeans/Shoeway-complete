@@ -36,12 +36,17 @@ const AddNewProduct = () => {
       }
     }
 
-    const handleTitle = (e: ChangeEvent<HTMLInputElement>) => {
-      setProduct({ ...product, title: e.target.value })
+    const fileSelectedHandler = () => {
     }
 
-    const handleImage = (e: ChangeEvent<HTMLInputElement>) => {
-      setProduct({...product, image: e.target.value})
+    // const fileUploadHandler = () => {
+    //   const fd = new FormData();
+    //   fd.append("image", selectedFile);
+    //   axios.post("http://localhost:5000/uploadImage", fd);
+    // }
+
+    const handleTitle = (e: ChangeEvent<HTMLInputElement>) => {
+      setProduct({ ...product, title: e.target.value })
     }
 
     const handlePrice = (e: ChangeEvent<HTMLInputElement>) => {
@@ -92,12 +97,12 @@ const AddNewProduct = () => {
               margin="normal"
               required
               id="image"
-              label="Image...(Url)"
+              // label="Image...(Url)"
               name="image"
-              type="text"
+              type="file"
               value={product.image}
               autoFocus
-              onChange={handleImage}
+              onChange={fileSelectedHandler}
             />
             <TextField
               variant="outlined"
