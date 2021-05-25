@@ -9,6 +9,7 @@ const PostNord = () => {
     const clickCallback = () => {
       value.addDelivery('Postnord', 3, 1, 0)
       value.filledState(true)
+      console.log('getShiping')
     }
 
     return (
