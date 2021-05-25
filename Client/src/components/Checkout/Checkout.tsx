@@ -13,31 +13,39 @@ import { Link } from "react-router-dom";
 import { UserContext } from "../../contexts/UserContext";
 import HandleRegister from "./Accordian/handleRegister";
 import { OrderContext } from "../../contexts/OrderContext";
+import { Guid } from 'js-guid';
+// interface OrderProduct {
+//   id: string, 
+//   quantity: number
+// }
 
 const Checkout =  () => {
+  const { cart } = useContext(CartContext)
   const cartContext = useContext(CartContext)
   const userContext = useContext(UserContext)
   const orderContext = useContext(OrderContext)
+  const productArray: any = []
+
+  useEffect(() => {
+  })
 
   const handleClick = () => {
+    let orderProduct = {}
+    cart.map((product) => {
+      orderProduct = {
+        id: product._id,
+        quantity: product.quantity
+      }
+      productArray.push(orderProduct)
+      console.log(productArray)
+    })
+
     userContext.shopStateFalse()
+    const ordernumber = Guid.newGuid().toString()
     const order = {
-      ordernumber: "adsad12312", 
-        product:[ 
-                  {
-                    id:"60a6667057fbd72e1443bf6e",
-                    qty: 5    
-                  }, 
-                  {
-                    id: "60a797b7423f574550025fc4",
-                    qty: 1
-                  },
-                  {
-                    id: "60a797d4423f574550025fc5", 
-                    qty: 2
-                  }
-                ],
-        customer: "60a79d8cbf69303b004dd159"
+      ordernumber: ordernumber, 
+        products: productArray,
+        customer: "60a4fa6051ceee3f08a13335"
     }
     orderContext.createOrder(order)
   }

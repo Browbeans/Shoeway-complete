@@ -3,11 +3,15 @@ import { OrderContext } from "../../contexts/OrderContext"
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+import '../../style/UserProfile.css'
 
 const useStyles = makeStyles({
     root: {
       minWidth: 275,
+      margin: "1rem"
     },
     bullet: {
       display: 'inline-block',
@@ -15,7 +19,8 @@ const useStyles = makeStyles({
       transform: 'scale(0.8)',
     },
     title: {
-      fontSize: 14,
+      fontSize: 20,
+      fontWeight: "bold"
     },
     pos: {
       marginBottom: 12,
@@ -23,23 +28,56 @@ const useStyles = makeStyles({
   });
 
 function Profile () {
-    const orderContext = useContext(OrderContext)
-    const orders = orderContext.userOrders
-    const [userOrder, getUserOrders] = useState([])
-    const classes = useStyles();
+    const { userOrders, getUserOrders } = useContext(OrderContext)
     
-    const handleClick = () => {
-        orderContext.getUserOrders('60a79d8cbf69303b004dd159')
-    }
 
     useEffect(() => {
-        handleClick()
-    })
+      getUserOrders('60a4fa6051ceee3f08a13335')
+    }, [getUserOrders])
+    
+    const totalAmount = (price: number | undefined, quantity: number) => {
+      if(price) {
+        const total = price * quantity
+        return total
+      }
+    }
+
+
+    const classes = useStyles()
 
     return(
-        <div>
-            <h1>USER PROFILE</h1>
+      <div className="profile-container">
+          <h1>Passed Orders</h1>
+        <div className="all-orders">
+            {userOrders.map((order) => (
+              <Card className={classes.root} variant="outlined">
+                  <CardContent>
+                  <Typography className={classes.title} gutterBottom>
+                    {'Ordernumber: ' + order.ordernumber}
+                  </Typography>
+                  {order.products.map((p) => (
+                    <div>
+                        <Typography className={classes.pos} color="textSecondary">
+                          {'Product: ' + p.title}
+                          <br/>
+                          {`Quantity:  ${p.quantity} X`}
+                          <br/>
+                          {`Totalprice:  ${totalAmount(p.price, p.quantity)} SEK`}
+                        </Typography>
+                    </div>
+                  ))}
+                  {order.isSent 
+                  ?
+                    'Your order has been shipped'
+                  :
+                    'Your order is being handled and waiting for shipment'
+                  }
+                </CardContent>
+              </Card>
+            ))}
         </div>
+
+      </div>
     )
 }
 
