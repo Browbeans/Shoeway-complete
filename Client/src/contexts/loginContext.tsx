@@ -1,9 +1,22 @@
 import { Component, createContext } from "react";
 import axios from "axios";
 
+
+interface SessionUser {
+    adress: {
+        city: string,
+        street: string,
+        zip: string
+    },
+    _id: string,
+    name: string,
+    phone: string,
+    email: string,
+}
 interface State {
     emailLogin: string
     passwordLogin: string
+    currentUser: SessionUser
 }
 
 interface ContextProps extends State {
@@ -16,6 +29,18 @@ interface ContextProps extends State {
 export const LoginContext = createContext<ContextProps>({
     emailLogin: "",
     passwordLogin: "",
+    currentUser: 
+        {
+            adress: {
+                city: "",
+                street: "",
+                zip: ""
+            },
+            _id: "",
+            name: "",
+            phone: "",
+            email: "",
+        },
     fetchUsers: () => {},
     handleEmailLogin: () => {},
     handlePasswordLogin: () => {},
@@ -45,7 +70,9 @@ class LoginProvider extends Component<{}, State> {
             }
     
             await axios.post("/users/handleLogin", userLogin);
-            // console.log(request)
+            const request = await axios.get("/users/currentUser")
+            const user = request.data
+            this.setState({currentUser: user})
         } catch (error) {
             console.log(error)   
         }

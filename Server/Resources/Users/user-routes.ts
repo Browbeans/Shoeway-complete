@@ -5,6 +5,7 @@ const usersRouter = express.Router();
 
 usersRouter
 .get("/", controller.fetchUsers)
+.get("/currentUser", controller.getCurrenUser)
 .post("/handleRegister", controller.handleRegister)
 .post("/handleLogin", controller.handleLogin)
 .put("/handleUpdate", controller.handleUpdate)

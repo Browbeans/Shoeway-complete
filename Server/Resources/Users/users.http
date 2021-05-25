@@ -19,9 +19,10 @@ POST http://localhost:5000/users/handleLogin
 Content-Type: application/json
 
 {
-    "email": "test@live.se",
+    "email": "petter@live.se",
     "password": "asd"
 }
+
 
 ###
 
@@ -47,3 +48,8 @@ Content-Type: application/json
     "email": "peter@live.se",
     "password": "123"
 }
+
+###
+
+
+GET http://localhost:5000/users/currentUser

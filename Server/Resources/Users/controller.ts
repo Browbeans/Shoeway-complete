@@ -93,3 +93,13 @@ module.exports.handleUpdate = async function(req: Request, res: Response) {
     res.status(400).json("You must login to update");
 }
 
+module.exports.getCurrenUser = async function (req: Request, res: Response) {
+    if(req.session!.email) {
+        const currentEmail = req.session!.email
+        const currentUser = await Users.findOne({email: currentEmail})
+        res.status(200).json(currentUser)
+    } else {
+        res.status(400).json('No user available')
+    }
+}
+
