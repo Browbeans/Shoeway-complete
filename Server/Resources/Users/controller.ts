@@ -34,9 +34,10 @@ module.exports.handleRegister = async function(req: Request, res: Response) {
 
 module.exports.handleLogin = async function(req: Request, res: Response) {
     const { email, password} = req.body
-
+    console.log(req.body)
     const registeredUsers = await Users.find({email: email})
     const user = registeredUsers.find((u: any) => u.email === email);
+    console.log(user)
     try {
         if(!user || !await bcrypt.compare(password, user.password)) {
             return res.status(401).json('Incorrect email or password');
@@ -49,19 +50,21 @@ module.exports.handleLogin = async function(req: Request, res: Response) {
             req.session.email = user.email;
             req.session.zip = user.zip;
         }
-        res.status(204).json(null)
+        res.status(200).json(null)
+        console.log(req.session!.name)
     } catch (error) {
         console.log(error);
     }
 }
 
 module.exports.fetchUsers = async function(req: Request, res: Response) {
-    // if (req.session!.name) {
+    console.log(req.session)
+    if (req.session!.email) {
         const result = await Users.find({})
         res.json(result)
-    // } else {
-    //     res.status(400).json("You must login");
-    // }
+    } else {
+        res.status(400).json("You must login");
+    }
 }
 
 module.exports.handleLogout = async function(req: Request, res: Response) {

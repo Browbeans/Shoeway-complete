@@ -2,15 +2,15 @@ POST http://localhost:5000/users/handleRegister
 Content-Type: application/json
 
 {
-    "name": "Eric",
+    "name": "Petter",
     "adress": {
         "city": "Sweden",
         "street": "Göteborg",
         "zip": 12345
     },
     "phone": "0705773264",
-    "email": "eric@live.se",
-    "password": "Broback1"
+    "email": "petter@live.se",
+    "password": "asd"
 }
 
 ###

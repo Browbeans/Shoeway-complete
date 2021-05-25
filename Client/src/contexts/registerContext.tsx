@@ -1,4 +1,4 @@
-import react, { Component, createContext } from "react";
+import { Component, createContext } from "react";
 import axios from "axios";
 
 interface State {
@@ -12,7 +12,6 @@ interface State {
 }
 
 interface ContextProps extends State {
-    fetchUsers: () => void;
     addName: (event: React.ChangeEvent<HTMLInputElement>) => void;
     addCity: (event: React.ChangeEvent<HTMLInputElement>) => void;
     addStreet: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -23,7 +22,7 @@ interface ContextProps extends State {
     registerRequest: (event: React.FormEvent) => void;
 }
 
-export const UserAxiosContext = createContext<ContextProps>({ 
+export const RegisterContext = createContext<ContextProps>({ 
     userName: "",
     userCity: "",
     userStreet: "",
@@ -31,7 +30,6 @@ export const UserAxiosContext = createContext<ContextProps>({
     userPhone: "",
     userEmail: "",
     userPassword: "",
-    fetchUsers: () => {},
     addName: () => {},
     addCity: () => {},
     addStreet: () => {},
@@ -39,15 +37,11 @@ export const UserAxiosContext = createContext<ContextProps>({
     addPhone: () => {},
     addEmail: () => {},
     addPassword: () => {},
-    registerRequest: () => {},
+    registerRequest: () => {}
 });
 
-class UserAxiosProvider extends Component<{}, State> {
+class RegisterProvider extends Component<{}, State> {
 
-    fetchUsersfromDatabase = async () => {
-        const request = await axios.get("/users");
-        console.log(request)
-    };
 
     addNameToState = (event: React.ChangeEvent<HTMLInputElement>) => {
         this.setState({ userName: event.target.value })
@@ -91,15 +85,14 @@ class UserAxiosProvider extends Component<{}, State> {
           password: this.state.userPassword
         }
         const request = await axios.post("/users/handleRegister", newUser);
-        console.log(request.data)
-    }
+        console.log(request)
+    };
 
     render() {
         return(
-            <UserAxiosContext.Provider
+            <RegisterContext.Provider
                 value={{
                     ...this.state,
-                    fetchUsers: this.fetchUsersfromDatabase,
                     addName: this.addNameToState,
                     addCity: this.addCityToState,
                     addStreet: this.addStreetToState,
@@ -107,12 +100,12 @@ class UserAxiosProvider extends Component<{}, State> {
                     addPhone: this.addPhoneToState,
                     addEmail: this.addEmailToState,
                     addPassword: this.addPasswordToState,
-                    registerRequest: this.handleRegisterRequest,
+                    registerRequest: this.handleRegisterRequest
                 }}>
                 {this.props.children}
-            </UserAxiosContext.Provider>
+            </RegisterContext.Provider>
         )
     }
 }
 
-export default UserAxiosProvider
+export default RegisterProvider
