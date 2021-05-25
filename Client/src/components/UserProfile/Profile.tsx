@@ -7,6 +7,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import '../../style/UserProfile.css'
+import { LoginContext } from "../../contexts/loginContext";
 
 const useStyles = makeStyles({
     root: {
@@ -28,13 +29,16 @@ const useStyles = makeStyles({
   });
 
 function Profile () {
-    const { userOrders, getUserOrders } = useContext(OrderContext)
-    
+  const { userOrders, getUserOrders } = useContext(OrderContext)
+  const { currentUser } = useContext(LoginContext)
 
-    useEffect(() => {
-      getUserOrders('60a4fa6051ceee3f08a13335')
-    }, [getUserOrders])
-    
+
+  useEffect(() => {
+    if (currentUser) {
+      getUserOrders(currentUser._id)
+    } 
+  }, [currentUser, getUserOrders])
+
     const totalAmount = (price: number | undefined, quantity: number) => {
       if(price) {
         const total = price * quantity
@@ -48,7 +52,13 @@ function Profile () {
     return(
       <div className="profile-container">
           <h1>Passed Orders</h1>
-        <div className="all-orders">
+          {currentUser === undefined 
+          ?
+          <div>
+            <p>You have to log in</p>
+          </div>
+          :
+          <div className="all-orders">
             {userOrders.map((order) => (
               <Card className={classes.root} variant="outlined">
                   <CardContent>
@@ -75,7 +85,8 @@ function Profile () {
                 </CardContent>
               </Card>
             ))}
-        </div>
+          </div>
+          }
 
       </div>
     )

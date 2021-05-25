@@ -52,7 +52,7 @@ function HandleLogin() {
                     // helperText={passwordError}
                     // error={Boolean(passwordError)}
                 />
-                <Link to="/user-profile">
+                <Link to="/user-profile" style={{ textDecoration: "none" }}>
                     <Button
                         onClick={userContext.loginRequest}
                         style={btn}
