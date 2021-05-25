@@ -150,7 +150,6 @@ const Checkout =  () => {
         ) : (
           <Button variant="contained" 
             style={inactiveBtn}
-            onClick={handleClick}
           >
             {" "}
             Confirm Order

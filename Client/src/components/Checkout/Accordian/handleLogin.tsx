@@ -1,16 +1,23 @@
 import { ChangeEvent, CSSProperties, useContext } from 'react';
 import { Button, TextField } from "@material-ui/core";
 import { LoginContext } from '../../../contexts/loginContext';
+import { UserContext } from '../../../contexts/UserContext';
 
 function HandleLogin() {
-    const userContext = useContext(LoginContext);
+    const loginContext = useContext(LoginContext);
+    const userContext = useContext(UserContext)
 
     const handleEmailInput = (e: ChangeEvent<HTMLInputElement>) => {
-        userContext.handleEmailLogin(e);
+        loginContext.handleEmailLogin(e);
     }
 
     const handlePasswordInput = (e: ChangeEvent<HTMLInputElement>) => {
-        userContext.handlePasswordLogin(e);
+        loginContext.handlePasswordLogin(e);
+    }
+
+    const handleClick = () => {
+        loginContext.loginRequest()
+        userContext.shopStateTrue()
     }
 
     return(
@@ -50,7 +57,7 @@ function HandleLogin() {
                     // error={Boolean(passwordError)}
                 />
                 <Button
-                    onClick={userContext.loginRequest}
+                    onClick={handleClick}
                     style={btn}
                     variant="contained"
                     >
