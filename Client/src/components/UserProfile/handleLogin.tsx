@@ -1,6 +1,8 @@
-import { ChangeEvent, CSSProperties, useContext } from 'react';
+import React, { ChangeEvent, CSSProperties, useContext } from 'react';
 import { Button, TextField } from "@material-ui/core";
-import { LoginContext } from '../../../contexts/loginContext';
+import { LoginContext } from '../../contexts/loginContext';
+import '../../style/Entry.css'
+import { Link } from 'react-router-dom';
 
 function HandleLogin() {
     const userContext = useContext(LoginContext);
@@ -15,9 +17,10 @@ function HandleLogin() {
 
     return(
         <div>
-            <h2>Login</h2>
+            <h2 className="entry-title">Login</h2>
             <form action="/">
                 <TextField
+                    className="form-inputs"
                     fullWidth
                     variant="outlined"
                     margin="normal"
@@ -49,13 +52,15 @@ function HandleLogin() {
                     // helperText={passwordError}
                     // error={Boolean(passwordError)}
                 />
-                <Button
-                    onClick={userContext.loginRequest}
-                    style={btn}
-                    variant="contained"
-                    >
-                    Login
-                </Button>
+                <Link to="/user-profile">
+                    <Button
+                        onClick={userContext.loginRequest}
+                        style={btn}
+                        variant="contained"
+                        >
+                        Login
+                    </Button>
+                </Link>
             </form>
         </div>
     );
@@ -71,8 +76,8 @@ const btn: CSSProperties = {
     fontWeight: "bold",
     border: "none",
     cursor: "pointer",
-    padding: "1rem",
-    width: '10rem',
+    padding: "0.5rem",
+    width: '100%',
     margin: "1rem 0rem"
   };
 
