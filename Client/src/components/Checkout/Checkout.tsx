@@ -11,8 +11,6 @@ import RemoveCircleIcon from "@material-ui/icons/RemoveCircle";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import { Link } from "react-router-dom";
 import { UserContext } from "../../contexts/UserContext";
-import HandleRegister from "./Accordian/handleRegister";
-import HandleLogin from "./Accordian/handleLogin";
 import { OrderContext } from "../../contexts/OrderContext";
 import { Guid } from 'js-guid';
 import { LoginContext } from "../../contexts/loginContext";
@@ -64,9 +62,7 @@ const Checkout =  () => {
           <div className="details-container">
             <form action="/" style={form}>
               <h2 className="checkout-title">Checkout</h2>
-              {/* <Accordian />
-              <HandleRegister/>*/}
-              <HandleLogin/> 
+              <Accordian />
             </form>
           </div>
           <div className="order-container">

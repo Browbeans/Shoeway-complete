@@ -47,7 +47,7 @@
 }
 
 nav {
-    width: 30%;
+    width: 35%;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -62,7 +62,7 @@ nav {
 }
 .nav-links li {
     margin: 0rem 1rem;
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+    /* text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3); */
 }
 
 @media (max-width: 1200px) {

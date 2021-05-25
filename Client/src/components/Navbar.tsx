@@ -69,13 +69,20 @@ class Navbar extends Component<{}, State> {
               >
                 <li>About</li>
               </Link>
+              <Link
+                style={{ textDecoration: "none", color: "#000" }}
+                to="/admin"
+                onClick={this.handleMenuClick}
+              >
+                <li>Admin</li>
+              </Link>
             </ul>
             <Link
               style={{
                 textDecoration: "none",
                 color: "#000",
               }}
-              to="/admin"
+              to="/entry"
               onClick={this.handleBurgerMenuExit}
             >
               <Avatar
