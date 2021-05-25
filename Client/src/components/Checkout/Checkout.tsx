@@ -13,6 +13,7 @@ import { Link } from "react-router-dom";
 import { UserContext } from "../../contexts/UserContext";
 import { OrderContext } from "../../contexts/OrderContext";
 import { Guid } from 'js-guid';
+import { LoginContext } from "../../contexts/loginContext";
 // interface OrderProduct {
 //   id: string, 
 //   quantity: number
@@ -23,12 +24,13 @@ const Checkout =  () => {
   const cartContext = useContext(CartContext)
   const userContext = useContext(UserContext)
   const orderContext = useContext(OrderContext)
+  const { currentUser } = useContext(LoginContext)
   const productArray: any = []
 
-  useEffect(() => {
-  })
+  
 
   const handleClick = () => {
+
     let orderProduct = {}
     cart.map((product) => {
       orderProduct = {
@@ -36,7 +38,6 @@ const Checkout =  () => {
         quantity: product.quantity
       }
       productArray.push(orderProduct)
-      console.log(productArray)
     })
 
     userContext.shopStateFalse()
@@ -44,7 +45,7 @@ const Checkout =  () => {
     const order = {
       ordernumber: ordernumber, 
         products: productArray,
-        customer: "60a4fa6051ceee3f08a13335"
+        customer: currentUser._id
     }
     orderContext.createOrder(order)
   }
