@@ -36,8 +36,8 @@ const AddNewProduct = () => {
       }
     }
 
-    const fileSelectedHandler = () => {
-    }
+    // const fileSelectedHandler = () => {
+    // }
 
     // const fileUploadHandler = () => {
     //   const fd = new FormData();
@@ -102,7 +102,7 @@ const AddNewProduct = () => {
               type="file"
               value={product.image}
               autoFocus
-              onChange={fileSelectedHandler}
+              // onChange={fileSelectedHandler}
             />
             <TextField
               variant="outlined"

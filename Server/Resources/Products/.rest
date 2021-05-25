@@ -34,3 +34,21 @@ Content-Type: application/json
 "category": "man",
 "stock": "3"
 }
+
+###
+
+POST http://localhost:5000/products/uploadImage
+Content-Type: multipart/form-data;boundary=FormDataRow
+
+--FormDataRow Content-Disposition: form-data; name="image"; filename="jeansJacket.jpg"
+Content-Type: image/image/jpeg
+
+<./jeansJacket.jpg
+
+ --FormDataRow--
+
+ ###
+
+ GET http://localhost:5000/products/
+
+ ###

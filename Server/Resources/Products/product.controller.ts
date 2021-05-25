@@ -1,4 +1,5 @@
 const Product = require('./product.model')
+const Image = require('./image.model');
 import { Request, Response } from 'express';
 
 module.exports.getProducts = async function(req: Request, res: Response) {
@@ -80,3 +81,22 @@ module.exports.editProduct = async function (req: Request, res: Response) {
     res.status(400).json(error);
   }
 };
+
+module.exports.addImage = async function (req: Request, res: Response) {
+
+  try {
+    const uploadImage = new Image({
+      image: req.file.path, 
+    });
+    await uploadImage.save();
+    res.status(200).json(uploadImage);
+  } catch(error){
+    console.log(error);
+  }
+};
+
+module.exports.getImage = async function (req: Request, res: Response){
+  const id = req.params.id;
+  const image = await Image.findbyId(id);
+  res.status(200).json(image);
+}
