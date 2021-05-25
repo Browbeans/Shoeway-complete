@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import CloseIcon from "@material-ui/icons/Close";
 import "../../style/Checkout.css";
 import { inactiveBtn,btnMedium, cursorPointer } from "../../style/GeneralStyle";
@@ -12,26 +12,38 @@ import AddCircleIcon from "@material-ui/icons/AddCircle";
 import { Link } from "react-router-dom";
 import { UserContext } from "../../contexts/UserContext";
 import { OrderContext } from "../../contexts/OrderContext";
+import { Guid } from 'js-guid';
+// interface OrderProduct {
+//   id: string, 
+//   quantity: number
+// }
 
 const Checkout =  () => {
+  const { cart } = useContext(CartContext)
   const cartContext = useContext(CartContext)
   const userContext = useContext(UserContext)
   const orderContext = useContext(OrderContext)
+  const productArray: any = []
+
+  useEffect(() => {
+  })
 
   const handleClick = () => {
+    let orderProduct = {}
+    cart.map((product) => {
+      orderProduct = {
+        id: product._id,
+        quantity: product.quantity
+      }
+      productArray.push(orderProduct)
+      console.log(productArray)
+    })
+
     userContext.shopStateFalse()
+    const ordernumber = Guid.newGuid().toString()
     const order = {
-      ordernumber: "adsad12312", 
-        products:[ 
-                  {
-                    id:"60a63e8e20764d2cbc21bdb2",
-                    quantity: 5    
-                  }, 
-                  { 
-                    id: "60a63ea720764d2cbc21bdb3",
-                    quantity: 1
-                  }
-                ],
+      ordernumber: ordernumber, 
+        products: productArray,
         customer: "60a4fa6051ceee3f08a13335"
     }
     orderContext.createOrder(order)

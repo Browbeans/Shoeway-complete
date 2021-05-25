@@ -21,14 +21,6 @@ module.exports.addOrder = async (req: Request, res: Response) => {
     });
 
     const currentProduct = await Products.find({ '_id': { $in: idArray } });
-  
-    currentProduct.map((productObject: any) => {
-        productObject.quantity = 4
-        products.map((paramProduct: any) => {
-            productObject.qty = paramProduct.quantity
-            console.log(productObject)
-        })
-    })
 
     const newOrder = new Orders({
         ordernumber: ordernumber, 
