@@ -35,13 +35,16 @@ Content-Type: application/json
 "stock": "3"
 }
 
-####
+###
 
-POST http://localhost:5000/uploadImage
-Content-Type: multipart/form-data; boundary=FormDataRow
+POST http://localhost:5000/image/uploadImage
+Content-Type: multipart/form-data; boundary=Row
 
---FormDataRow 
-Content-Disposition: form-data; name="image"; filename="jeansJacket.jpg" Content-Type: image/jpeg
+--Row 
+Content-Disposition: form-data; name="image"; filename="jeansJacket.jpg" 
+Content-Type: image/jpeg
 
 < ./jeansJacket.jpg
---FormDataRow-- 
+--Row-- 
+
+###

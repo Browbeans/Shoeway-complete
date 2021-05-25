@@ -5,7 +5,7 @@ import mongoose from 'mongoose'
 import usersRouter from "./Resources/Users/user-routes";
 import shiping from './Resources/Shiping/shiping-routers';
 import productRouter from './Resources/Products/product.router';
-
+import imageRouter from './Resources/Products/image.router';
 
 const app = express()
 
@@ -32,8 +32,8 @@ app.use(cookieSession({
 app.use('/order/', OrderRouter)
 app.use("/users", usersRouter);
 app.use('/products', productRouter);
-app.use("/Shiping", shiping )
-
+app.use("/Shiping", shiping );
+app.use('/image', imageRouter);
 
 app.get("/", (_: any, res: any) => {
     console.log('Server connected');

@@ -1,41 +1,35 @@
 import express, { Request, Response} from 'express';
 const imageRouter = express.Router();
 const multer = require('multer');
-const path = require('path');
+const controller = require("./image.controller");
 
 const storage = multer.diskStorage({
     destination: (req: Request, file: any, cb: any) => {
-        cb(null, './uploads/');
+        cb(null, 'uploads/');
     },
     filename: (req: Request, file: any, cb: any) => {
-        cb(null, file.fieldname + '_' + Date.now() + path.extname(file.originalname))
+        cb(null, Date.now() + req.file.originalname);
     }
 })
+
+const fileFilter = (req: Request, file: any, cb: any) => {
+  // reject a file
+  if (file.mimetype === "image/jpeg" || file.mimetype === "image/jpg") {
+    cb(null, true);
+  } else {
+    cb(null, false);
+  }
+};
 
 const upload = multer({
     storage: storage, 
     limits: {
         fileSize: 1024 * 1024 * 5,
     },
-    fileFilter: (req: Request, file: any, cb: any) => {
-         const fileTypes = /jpeg|jpg|png/;
-         const extName = fileTypes.test(
-             path.extname(file.originalname).toLowerCase()
-         );
-
-         if(extName) {
-             return cb(null, true);
-         } else {
-             cb('Only images like jpeg, jpg, png');
-         }
-    },
+    fileFilter: fileFilter
 })
 
-const { uploadImage, getImage } = require('./image.controller');
-
-imageRouter.use(express.json());
-
 imageRouter.
-post('/', upload.single('image'), uploadImage)
+    post('/uploadImage', upload.single('image'), controller.uploadImage)
 
 export default imageRouter;
