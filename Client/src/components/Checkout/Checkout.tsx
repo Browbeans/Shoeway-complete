@@ -12,6 +12,7 @@ import AddCircleIcon from "@material-ui/icons/AddCircle";
 import { Link } from "react-router-dom";
 import { UserContext } from "../../contexts/UserContext";
 import HandleRegister from "./Accordian/handleRegister";
+import HandleLogin from "./Accordian/handleLogin";
 import { OrderContext } from "../../contexts/OrderContext";
 import { Guid } from 'js-guid';
 // interface OrderProduct {
@@ -63,7 +64,8 @@ const Checkout =  () => {
             <form action="/" style={form}>
               <h2 className="checkout-title">Checkout</h2>
               <Accordian />
-              {/* <HandleRegister/> */}
+              <HandleRegister/>
+              {/* <HandleLogin/> */}
             </form>
           </div>
           <div className="order-container">

@@ -1,11 +1,11 @@
 import { Button, TextField } from "@material-ui/core";
 import React, { ChangeEvent, CSSProperties, useContext, useState } from "react";
 import react from "react";
-import { UserAxiosContext } from "../../../contexts/userAxiosContext";
+import { RegisterContext } from "../../../contexts/registerContext";
 
 function HandleRegister() {
 
-    const userContext = useContext(UserAxiosContext);
+    const userContext = useContext(RegisterContext);
     const [nameError, setNameError] = useState("");
     const [cityError, setCityError] = useState("");
     const [streetError, setStreetError] = useState("");
