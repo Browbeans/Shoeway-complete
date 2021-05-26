@@ -1,5 +1,4 @@
 import express from 'express'
-import fileUpload, { UploadedFile } from 'express-fileupload'
 const controller = require('./image-controller')
 const ImageRouter = express.Router()
 import multer from 'multer';
@@ -13,23 +12,23 @@ const storage = multer.diskStorage({
     }
 })
 
-const fileFilter = (req: Request, file: any, cb: any) => {
-    if(file.mimtype === 'image/jpeg' || file.mimtype === 'image/png') {
-        cb(null, true);
-    } else {
-        cb(null, false);
-    }
-}
-
 const upload = multer({
     storage: storage,
     limits: {
         fileSize: 1024 * 1024 * 5
     },
-    // fileFilter: fileFilter
+    fileFilter: (req, file, cb) => {
+    if(file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+        cb(null, true);
+    } else {
+        cb(null, false);
+    }
+}
 });
 
-ImageRouter.post('/uploadImage', upload.single('image'), controller.uploadImage);
+ImageRouter
+.post('/uploadImage', upload.single('image'), controller.uploadImage)
+.get('/getImage/:id', controller.getImage)
 
 
 export default ImageRouter

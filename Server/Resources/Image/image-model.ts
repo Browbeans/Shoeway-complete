@@ -3,7 +3,6 @@ import mongoose from 'mongoose';
 interface Image {
     image: String,
 }
-
 const imageSchema = new mongoose.Schema({
     image: String,
 })

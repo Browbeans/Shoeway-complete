@@ -7,3 +7,6 @@ Content-Type: image/jpeg
 
 < ./38a.jpg 
 --Row--
+
+### 
+GET http://localhost:5000/image/getImage/60ae45856fd9781d0d38e21a
