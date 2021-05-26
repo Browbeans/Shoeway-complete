@@ -24,8 +24,8 @@ interface ContextProps extends State {
     fetchUsers: () => void;
     handleEmailLogin: (event: React.ChangeEvent<HTMLInputElement>) => void;
     handlePasswordLogin: (event: React.ChangeEvent<HTMLInputElement>) => void;
-    loginRequest: (event: React.FormEvent) => void;
     logoutRequest: () => void;
+    loginRequest: () => void;
 }
 
 export const LoginContext = createContext<ContextProps>({

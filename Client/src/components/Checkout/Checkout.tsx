@@ -33,9 +33,11 @@ const Checkout =  () => {
 
     let orderProduct = {}
     cart.map((product) => {
+      console.log(product.size)
       orderProduct = {
         id: product._id,
-        quantity: product.quantity
+        quantity: product.quantity,
+        size: product.size
       }
       productArray.push(orderProduct)
     })
@@ -48,6 +50,12 @@ const Checkout =  () => {
         customer: currentUser._id
     }
     orderContext.createOrder(order)
+  }
+
+  const logStuff = () => {
+    cart.map((p) => (
+      console.log(p.size)
+    ))
   }
 
     return (
@@ -146,7 +154,7 @@ const Checkout =  () => {
         ) : (
           <Button variant="contained" 
             style={inactiveBtn}
-            onClick={handleClick}
+            onClick={logStuff}
           >
             {" "}
             Confirm Order
