@@ -7,20 +7,26 @@ module.exports.addOrder = async (req: Request, res: Response) => {
     const { ordernumber, products, customer } = req.body
     const currentCustomer = await Users.findById(customer)
     products.forEach(async (productID: any) =>  {
-        await Products.update({ _id: productID.id }, 
-            { "$inc": { stock : -productID.quantity }}
+        console.log(productID.size)
+        console.log(productID.quantity)
+        await Products.findOneAndUpdate({ _id: productID.id}, 
+            { "$set": { quantity : productID.quantity, size : productID.size }}
         )
-        await Products.update({ _id: productID.id },
-            { "$set": { quantity : productID.quantity }}
+        await Products.update({_id: productID.id},
+            { "$inc": { stock : -productID.quantity }}    
         )
-        })
+        // const singleProduct = await Products.findById(productID.id)
+        // console.log(singleProduct)
+    })
 
     const idArray: any = []
     products.forEach((element: any) => {
         idArray.push(element.id)
     });
+    
 
     const currentProduct = await Products.find({ '_id': { $in: idArray } });
+    console.log(currentProduct)
 
     const newOrder = new Orders({
         ordernumber: ordernumber, 
@@ -28,7 +34,6 @@ module.exports.addOrder = async (req: Request, res: Response) => {
         customer: customer,
         isSent: false 
     })
-
     await newOrder.save()
     res.status(200).json(newOrder)
 }

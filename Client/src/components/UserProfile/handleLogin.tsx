@@ -1,19 +1,26 @@
 import React, { ChangeEvent, CSSProperties, useContext } from 'react';
 import { Button, TextField } from "@material-ui/core";
+import { UserContext } from '../../contexts/UserContext';
 import { LoginContext } from '../../contexts/loginContext';
 import '../../style/Entry.css'
 import { Link } from 'react-router-dom';
 
 function HandleLogin() {
-    const userContext = useContext(LoginContext);
+    const loginContext = useContext(LoginContext);
+    const userContext = useContext(UserContext)
 
     const handleEmailInput = (e: ChangeEvent<HTMLInputElement>) => {
-        userContext.handleEmailLogin(e);
+        loginContext.handleEmailLogin(e);
     }
 
     const handlePasswordInput = (e: ChangeEvent<HTMLInputElement>) => {
-        userContext.handlePasswordLogin(e);
+        loginContext.handlePasswordLogin(e);
     }
+
+    // const handleClick = () => {
+    //     loginContext.loginRequest()
+    //     userContext.shopStateTrue()
+    // }
 
     return(
         <div>
@@ -54,7 +61,7 @@ function HandleLogin() {
                 />
                 <Link to="/user-profile" style={{ textDecoration: "none" }}>
                     <Button
-                        onClick={userContext.loginRequest}
+                        onClick={loginContext.loginRequest}
                         style={btn}
                         variant="contained"
                         >
