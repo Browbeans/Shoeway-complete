@@ -25,6 +25,7 @@ const AddNewProduct = () => {
   let currentProduct = axios.allProducts.find((specificProduct: Product) => specificProduct.title === match.params.id)
 
   const [product, setProduct] = useState<Product>(currentProduct || newProductData)
+  const [selectedFile, setSelectedFile] = useState(null);
 
     const handleClick = () => {
       const isNewProduct = !currentProduct
@@ -59,6 +60,14 @@ const AddNewProduct = () => {
      const handleStock = (e: ChangeEvent<HTMLInputElement>) => {
        setProduct({ ...product, stock: parseInt(e.target.value) });
      };
+    
+    const selectedFileHandler = (e: any) => {
+      setSelectedFile(e.target.files[0]);
+    };
+
+     const handleFileUpload = () => {
+        const fd = new FormData();
+     }
 
     return (
       <div>
@@ -147,6 +156,19 @@ const AddNewProduct = () => {
               autoFocus
               onChange={handleStock}
             />
+            <div style={{ display: "flex" }}>
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                id="image"
+                name="image"
+                type="file"
+                autoFocus
+                onChange={selectedFileHandler}
+              />
+              <button onClick={handleFileUpload}>Upload</button>
+            </div>
             <div style={{ alignSelf: "center" }}>
               <Button onClick={handleClick} style={btnSmall}>
                 Save
