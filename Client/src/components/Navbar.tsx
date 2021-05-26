@@ -9,7 +9,7 @@ import { LoginContext } from '../contexts/loginContext';
 
 function Navbar() {
     const cartContext = useContext(CartContext);
-    const { currentUser } = useContext(LoginContext);
+    const { isLoggedIn } = useContext(LoginContext);
     const [menuOpen, setMenuOpen] = useState(false);
     
     const handleMenuClick = () => {
@@ -69,7 +69,7 @@ function Navbar() {
               textDecoration: "none",
               color: "#000",
             }}
-            to={currentUser ? "/user-profile" : "/entry"}
+            to={isLoggedIn ? "/user-profile" : "/entry"}
             onClick={handleBurgerMenuExit}
           >
             <Avatar

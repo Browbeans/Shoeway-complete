@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react"
+import { CSSProperties, useContext, useEffect, useState } from "react"
 import { OrderContext } from "../../contexts/OrderContext"
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -8,6 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import '../../style/UserProfile.css'
 import { LoginContext } from "../../contexts/loginContext";
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles({
     root: {
@@ -30,7 +31,7 @@ const useStyles = makeStyles({
 
 function Profile () {
   const { userOrders, getUserOrders } = useContext(OrderContext)
-  const { currentUser } = useContext(LoginContext)
+  const { currentUser, isLoggedIn, logoutRequest } = useContext(LoginContext)
 
 
   useEffect(() => {
@@ -52,12 +53,17 @@ function Profile () {
     return(
       <div className="profile-container">
           <h1>Passed Orders</h1>
-          {currentUser === undefined 
+          {!isLoggedIn
           ?
-          <div>
-            <p>You have to log in</p>
+          // USER IS LOGGED OUT
+          <div className="out-logged-container">
+            <p>To review your profile, you have to</p>
+            <Link to="/entry" style={{ textDecoration: "none" }}>
+              <span>&nbsp;log in</span>
+            </Link>
           </div>
           :
+          // USER IS LOGGED IN
           <div className="all-orders">
             {userOrders.map((order) => (
               <Card className={classes.root} variant="outlined">
@@ -85,11 +91,35 @@ function Profile () {
                 </CardContent>
               </Card>
             ))}
+            <div>
+                <Link to="/entry" style={{ textDecoration: "none" }}>
+                  <Button
+                    style={btn}
+                    variant="contained"
+                    onClick={logoutRequest}
+                  >
+                    Log out
+                  </Button>
+                </Link>
+            </div>
           </div>
           }
-
       </div>
     )
 }
+
+const btn: CSSProperties = {
+  alignSelf: "center",
+  borderRadius: ".5rem",
+  outline: "none",
+  fontSize: "1rem",
+  background: "#56EAC6",
+  color: "#fff",
+  fontWeight: "bold",
+  border: "none",
+  cursor: "pointer",
+  padding: "0.7rem 1.2rem",
+  margin: "1rem 1rem"
+};
 
 export default Profile

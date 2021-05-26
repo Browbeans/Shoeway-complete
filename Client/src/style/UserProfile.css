@@ -3,10 +3,31 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
 }
 
 .all-orders {
     display: flex;
     flex-direction: column;
     width: 70%;
+}
+
+.out-logged-container {
+    background: #fff;
+    width: 30rem;
+    margin-top: 5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 20rem;
+    border-radius: 1rem;
+    font-size: 1.2rem;
+}
+
+.out-logged-container p {
+
+}
+
+.out-logged-container span {
+    color: #56EAC6;
 }
