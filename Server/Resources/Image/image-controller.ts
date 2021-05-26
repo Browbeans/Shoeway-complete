@@ -1,19 +1,19 @@
 import { Request, Response } from 'express';
-import fileUpload, { UploadedFile } from "express-fileupload";
+const Image = require('./image-model');
 
 module.exports.uploadImage = async function(req: Request, res: Response) {
 
-    res.send(req.files?.image);
-    console.log('hello');
+    try{
+        const uploadedImage = new Image({
+            Image: req.file.path
+        })
+        await uploadedImage.save();
+        res.send(req.file.path)
+        console.log("hello");
 
-    // if (req.files?.image) {
-    //   let f = req.files.image as UploadedFile;
-    //   const fileName = Date.now() + "-" + f.name;
-    //   f.mv("uploads/" + fileName, () => {
-    //     res.status(200).send();
-    //   });
-    // } else {
-    //   res.status(500).send();
-    // }
+    } catch(error){
+        console.log(error);
+    }
+
 }
 
