@@ -33,9 +33,9 @@ app.use(cookieSession({
 app.use('/order/', OrderRouter)
 app.use("/users", usersRouter);
 app.use('/products', productRouter);
-app.use("/Shiping", shiping )
-app.use('/image', ImageRouter)
-// app.use('/imaages', express.static('uploads'))
+app.use("/Shiping", shiping );
+app.use('/image', ImageRouter);
+
 app.get("/", (_: any, res: any) => {
     console.log('Server connected');
 })

@@ -1,7 +1,6 @@
 import { Component, createContext } from "react";
 import axios from "axios";
 
-
 interface SessionUser {
     adress: {
         city: string,
@@ -13,6 +12,7 @@ interface SessionUser {
     phone: string,
     email: string,
 }
+
 interface State {
     emailLogin: string
     passwordLogin: string

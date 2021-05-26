@@ -1,7 +1,9 @@
-import { ChangeEvent, CSSProperties, useContext } from 'react';
+import React, { ChangeEvent, CSSProperties, useContext } from 'react';
 import { Button, TextField } from "@material-ui/core";
-import { LoginContext } from '../../../contexts/loginContext';
-import { UserContext } from '../../../contexts/UserContext';
+import { UserContext } from '../../contexts/UserContext';
+import { LoginContext } from '../../contexts/loginContext';
+import '../../style/Entry.css'
+import { Link } from 'react-router-dom';
 
 function HandleLogin() {
     const loginContext = useContext(LoginContext);
@@ -15,16 +17,17 @@ function HandleLogin() {
         loginContext.handlePasswordLogin(e);
     }
 
-    const handleClick = () => {
-        loginContext.loginRequest()
-        userContext.shopStateTrue()
-    }
+    // const handleClick = () => {
+    //     loginContext.loginRequest()
+    //     userContext.shopStateTrue()
+    // }
 
     return(
         <div>
-            <h2>Login</h2>
+            <h2 className="entry-title">Login</h2>
             <form action="/">
                 <TextField
+                    className="form-inputs"
                     fullWidth
                     variant="outlined"
                     margin="normal"
@@ -56,13 +59,15 @@ function HandleLogin() {
                     // helperText={passwordError}
                     // error={Boolean(passwordError)}
                 />
-                <Button
-                    onClick={handleClick}
-                    style={btn}
-                    variant="contained"
-                    >
-                    Login
-                </Button>
+                <Link to="/user-profile" style={{ textDecoration: "none" }}>
+                    <Button
+                        onClick={loginContext.loginRequest}
+                        style={btn}
+                        variant="contained"
+                        >
+                        Login
+                    </Button>
+                </Link>
             </form>
         </div>
     );
@@ -78,8 +83,8 @@ const btn: CSSProperties = {
     fontWeight: "bold",
     border: "none",
     cursor: "pointer",
-    padding: "1rem",
-    width: '10rem',
+    padding: "0.5rem",
+    width: '100%',
     margin: "1rem 0rem"
   };
 

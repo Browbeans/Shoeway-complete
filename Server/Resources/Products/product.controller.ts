@@ -1,4 +1,4 @@
-const Product = require('./product.model')
+const Product = require('./product.model');
 import { Request, Response } from 'express';
 
 module.exports.getProducts = async function(req: Request, res: Response) {
@@ -77,3 +77,5 @@ module.exports.editProduct = async function (req: Request, res: Response) {
     res.status(400).json(error);
   }
 };
+
+
