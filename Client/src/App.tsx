@@ -7,10 +7,11 @@ import CartProvider from './contexts/CartContext';
 import UserProvider from './contexts/UserContext';
 import PaymentProvider from './contexts/PaymentContext';
 import AdminProvider  from './contexts/AdminContext';
-import RegisterProvider from './contexts/registerContext';
+import RegisterProvider from './contexts/User/registerContext';
 import OrderProvider from './contexts/OrderContext';
 import ProductProvider from './contexts/ProductContext';
-import LoginProvider from './contexts/loginContext';
+import LoginProvider from './contexts/User/loginContext';
+import UpdateProvider from './contexts/User/updateContext';
 
 class App extends Component {
 
@@ -18,21 +19,23 @@ class App extends Component {
     return (
      <RegisterProvider>
       <LoginProvider>
-        <ProductProvider>
-          <CartProvider>
-            <UserProvider>
-              <OrderProvider>
-                <PaymentProvider>
-                  <AdminProvider>
-                    <BrowserRouter>
-                      <Layout />
-                    </BrowserRouter>
-                  </AdminProvider>
-                </PaymentProvider>
-              </OrderProvider>
-            </UserProvider>
-          </CartProvider>
-        </ProductProvider>
+        <UpdateProvider>
+          <ProductProvider>
+            <CartProvider>
+              <UserProvider>
+                <OrderProvider>
+                  <PaymentProvider>
+                    <AdminProvider>
+                      <BrowserRouter>
+                        <Layout />
+                      </BrowserRouter>
+                    </AdminProvider>
+                  </PaymentProvider>
+                </OrderProvider>
+              </UserProvider>
+            </CartProvider>
+          </ProductProvider>
+        </UpdateProvider>
       </LoginProvider>
      </RegisterProvider>
     );

@@ -1,7 +1,8 @@
 import { Button, TextField } from "@material-ui/core";
 import React, { ChangeEvent, CSSProperties, useContext, useState } from "react";
 import react from "react";
-import { RegisterContext } from "../../contexts/registerContext";
+import { Link } from "react-router-dom";
+import { RegisterContext } from "../../contexts/User/registerContext";
 import '../../style/Entry.css'
 
 function HandleRegister() {
@@ -70,18 +71,16 @@ function HandleRegister() {
     }
 
     const handlePasswordInput = (e: ChangeEvent<HTMLInputElement>) => {
-        // funkar ej
-        // if (!/(?=[A-Za-z0-9@#$%^&+!=]+$)^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*)(?=.{8,}).*$/.test(e.target.value)) {
-        //     setPasswordError("Password must be eight characters or longer");
-        //   } else {
-        //     setPasswordError("")
-        //   }
+        if (!/(?=[A-Za-z0-9@#$%^&+!=]+$)^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*)(?=.{8,}).*$/.test(e.target.value)) {
+            setPasswordError("Password must be eight characters or longer");
+          } else {
+            setPasswordError("")
+          }
         userContext.addPassword(e)
     }
 
     return(
         <div>
-            {/* <h2 className="entry-title">Register</h2> */}
             <form action="/">
                 <TextField
                     fullWidth
@@ -195,13 +194,15 @@ function HandleRegister() {
                     helperText={passwordError}
                     error={Boolean(passwordError)}
                 />
-                <Button
-                    onClick={userContext.registerRequest}
-                    style={btn}
-                    variant="contained"
-                    >
-                    Register
-                </Button>
+                <Link to="/entry" style={{ textDecoration: "none" }}>
+                  <Button
+                      onClick={userContext.registerRequest}
+                      style={btn}
+                      variant="contained"
+                      >
+                      Register
+                  </Button>
+                </Link>
             </form>
         </div>
     )

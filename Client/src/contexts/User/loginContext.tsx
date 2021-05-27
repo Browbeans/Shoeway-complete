@@ -1,7 +1,7 @@
 import { Component, createContext } from "react";
 import axios from "axios";
 
-interface SessionUser {
+export interface SessionUser {
     adress: {
         city: string,
         street: string,
