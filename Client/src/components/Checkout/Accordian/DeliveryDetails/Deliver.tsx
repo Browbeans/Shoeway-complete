@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useContext, useState } from "react";
 import { deliveris, DeliveryContext } from "../../../../contexts/DeliverContext";
-
+import '../../../../style/Delivery.css'
 
 
 function Deliver (){
@@ -9,7 +9,8 @@ function Deliver (){
     const deliver = useContext(DeliveryContext)
     useEffect(()=>{
       getdelivery()
-      setdilverarray(deliver.DeliverOrders)
+      setdilverarray(deliver.DeliverOrders)  
+      deliver.getdeliverOrder()
     })
     const getdelivery = async()=> {
         const request = await axios.get("/Shiping/getall")
@@ -18,24 +19,16 @@ function Deliver (){
         console.log(respones)
         return respones
     }
-    const HandelClick = ()=>{
-        deliver.getdeliverOrder()
-    }
     return(
         <div>
             {/* {getdelivery} */}
-            <button onClick={HandelClick}>dad</button>
+           
             {dilverarray.map((d)=>(
-                <strong>{d.name}</strong>
-               
-            ) )}
-              {dilverarray.map((d)=>(
+                <div className="delivery-div">
+                <strong className="company">{d.name}</strong>
                 <span>{d.days}</span>
-               
-            ) )}
-                  {dilverarray.map((d)=>(
                 <span>{d.price}</span>
-               
+                </div>
             ) )}
         </div>
         

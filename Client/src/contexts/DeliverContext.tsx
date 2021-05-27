@@ -40,7 +40,7 @@ class DeliveryProvider extends Component<{}, State> {
 
   
   componentDidMount = () => {
-
+    this.getDeliveryOrderFromDB()
   };
 
   render() {
