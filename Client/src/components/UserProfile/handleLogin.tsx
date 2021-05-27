@@ -17,10 +17,10 @@ function HandleLogin() {
         loginContext.handlePasswordLogin(e);
     }
 
-    // const handleClick = () => {
-    //     loginContext.loginRequest()
-    //     userContext.shopStateTrue()
-    // }
+    const handleClick = () => {
+        loginContext.loginRequest()
+        userContext.shopStateTrue()
+    }
 
     return(
         <div>
@@ -61,7 +61,7 @@ function HandleLogin() {
                 />
                 <Link to="/user-profile" style={{ textDecoration: "none" }}>
                     <Button
-                        onClick={loginContext.loginRequest}
+                        onClick={handleClick}
                         style={btn}
                         variant="contained"
                         >

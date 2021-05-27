@@ -4,14 +4,16 @@ import "../../style/cartItems.css";
 import { Guid } from 'js-guid';
 import { CartContext } from "../../contexts/CartContext";
 import { PaymentContext } from "../../contexts/PaymentContext";
+import { LoginContext } from "../../contexts/loginContext";
 
 
 
 const UserInput = () =>{
-  const user = useContext(UserContext)
+  const userContext = useContext(UserContext)
   const cart = useContext(CartContext)
   const payment = useContext(PaymentContext)
-  console.log(user.user)
+  const { currentUser } = useContext(LoginContext)
+  console.log(userContext.user)
   console.log(payment.bankCard)
   console.log(payment.bankPayment)
   console.log(payment.swishNumber)
@@ -21,34 +23,36 @@ const UserInput = () =>{
           <div className="orderlisting-div1">
             <div className="order-listings">
               <h5>Name:</h5>
-              <p>{user.user.name}</p>
+              <p>{currentUser.name}</p>
             </div>
             <div className="order-listings">
               <h5>Emailadress:</h5>
-              <p>{user.user.email}</p>
+              <p>{currentUser.email}</p>
             </div>
             <div className="order-listings">
               <h5>Phonenumber:</h5>
-              <p>{user.user.phone}</p>
+              <p>{currentUser.phone}</p>
             </div>
             <div className="order-listings">
               <h5>Adress:</h5>
-              <p>{user.user.adress}</p>
+              <p>{currentUser.adress.city}</p>
+              <p>{currentUser.adress.street}</p>
+              <p>{currentUser.adress.zip}</p>
             </div>
           </div>
 
           <div className="orderlisting-div2">
             <div className="order-listings">
               <h5>Zip-Code:</h5>
-              <p>{user.user.zip}</p>
+              <p>{userContext.user.zip}</p>
             </div>
             <div className="order-listings">
               <h5>Shipping:</h5>
-              <p>{user.delivery.company}</p>
+              <p>{userContext.delivery.company}</p>
             </div>
             <div className="order-listings">
               <h5>Date of delivery: </h5>
-              <p>{user.delivery.date}</p>
+              <p>{userContext.delivery.date}</p>
             </div>
             <div className="order-listings">
               <h5>OrderNr:</h5>
@@ -58,7 +62,7 @@ const UserInput = () =>{
         </div>
         <div className="total-price">
           <h5>Total price</h5>
-          {`${user.shippingPriceState + cart.orderAmount} SEK`}
+          {`${userContext.shippingPriceState + cart.orderAmount} SEK`}
         </div>
       </div>
     );

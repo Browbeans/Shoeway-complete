@@ -37,6 +37,18 @@ Content-Type: application/json
 
 ###
 
+
+POST http://localhost:5000/products/add-size-stock/60af85697d01c10cb0ad8e7f
+Content-Type: application/json
+
+{
+"size": "38",
+"stock": "10",
+"quantity": "1"
+}
+
+###
+
 POST http://localhost:5000/image/uploadImage
 Content-Type: multipart/form-data; boundary=Row
 

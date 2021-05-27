@@ -30,7 +30,6 @@ const Checkout =  () => {
   
 
   const handleClick = () => {
-
     let orderProduct = {}
     cart.map((product) => {
       console.log(product.size)
@@ -137,7 +136,7 @@ const Checkout =  () => {
             </div>
           </div>
         </div>
-        {userContext.shopState ? (
+        {userContext.shopState && cartContext.cart.length >= 1 ? (
           <Link
             to="/orderview"
             style={{ textDecoration: "none", zIndex: 1, margin: "2rem 0rem" }}

@@ -6,36 +6,48 @@ import { Request, Response } from 'express'
 module.exports.addOrder = async (req: Request, res: Response) => {
     const { ordernumber, products, customer } = req.body
     const currentCustomer = await Users.findById(customer)
+
     products.forEach(async (productID: any) =>  {
-        console.log(productID.size)
-        console.log(productID.quantity)
-        await Products.findOneAndUpdate({ _id: productID.id}, 
-            { "$set": { quantity : productID.quantity, size : productID.size }}
-        )
-        await Products.update({_id: productID.id},
-            { "$inc": { stock : -productID.quantity }}    
-        )
-        // const singleProduct = await Products.findById(productID.id)
-        // console.log(singleProduct)
+        const singleProduct = await Products.findOne({_id: productID.id})
+        singleProduct.variants.forEach(async (product: {_id: string, size: string, stock: number, quantity: number}) => {
+            console.log(product.size)
+            if(productID.size === product.size) {
+                const variantArray = [ {
+                    size: productID.size,
+                    stock: product.stock - productID.quantity, 
+                    quantity: productID.quantity
+                }
+                ]
+                console.log(variantArray)
+                await Products.findOneAndUpdate(
+                {"_id": productID.id, "variants._id": product._id}, 
+                {
+                        "$set": {
+                            "variants.$": variantArray
+                        }
+                    }
+                )
+            }
+        })
     })
 
-    const idArray: any = []
-    products.forEach((element: any) => {
-        idArray.push(element.id)
-    });
+    // const idArray: any = []
+    // products.forEach((element: any) => {
+    //     idArray.push(element.id)
+    // });
     
 
-    const currentProduct = await Products.find({ '_id': { $in: idArray } });
-    console.log(currentProduct)
+    // const currentProduct = await Products.find({ '_id': { $in: idArray } });
+    // const newOrder = new Orders({
+    //     ordernumber: ordernumber, 
+    //     products: currentProduct,
+    //     customer: customer,
+    //     isSent: false 
+    // })
+    // await newOrder.save()
+    // res.status(200).json(newOrder)
 
-    const newOrder = new Orders({
-        ordernumber: ordernumber, 
-        products: currentProduct,
-        customer: customer,
-        isSent: false 
-    })
-    await newOrder.save()
-    res.status(200).json(newOrder)
+    res.json(products)
 }
 
 module.exports.getOrders = async function (req: Request, res: Response) {
