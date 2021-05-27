@@ -5,6 +5,7 @@ import { btnSmall } from "../../../style/GeneralStyle";
 import '../../../style/Admin.css';
 import { ProductContext, Product } from "../../../contexts/ProductContext";
 import { useRouteMatch } from 'react-router';
+import axios from "axios";
 
 const AddNewProduct = () => {
   const match = useRouteMatch<{ id: string }>();
@@ -20,29 +21,25 @@ const AddNewProduct = () => {
     stock: 0,
   };
 
-  const axios = useContext(ProductContext)
+  const axiosContext = useContext(ProductContext)
 
-  let currentProduct = axios.allProducts.find((specificProduct: Product) => specificProduct.title === match.params.id)
+  let currentProduct = axiosContext.allProducts.find((specificProduct: Product) => specificProduct.title === match.params.id)
 
   const [product, setProduct] = useState<Product>(currentProduct || newProductData)
-  const [selectedFile, setSelectedFile] = useState(null);
+  const [selectedFile, setSelectedFile] = useState('');
 
     const handleClick = () => {
       const isNewProduct = !currentProduct
       if(isNewProduct) {
-        axios.addProduct(product)
+        axiosContext.addProduct(product)
       }
        else {
-        axios.editProduct(product, currentProduct)
+        axiosContext.editProduct(product, currentProduct)
       }
     }
 
     const handleTitle = (e: ChangeEvent<HTMLInputElement>) => {
       setProduct({ ...product, title: e.target.value })
-    }
-
-    const handleImage = (e: ChangeEvent<HTMLInputElement>) => {
-      setProduct({...product, image: e.target.value})
     }
 
     const handlePrice = (e: ChangeEvent<HTMLInputElement>) => {
@@ -67,6 +64,19 @@ const AddNewProduct = () => {
 
      const handleFileUpload = () => {
         const fd = new FormData();
+        fd.append('image', selectedFile);
+        axios({
+        method: 'post',
+        url: '/image/uploadImage',
+        headers: {
+            'Content-Type': 'application/json'
+        }, 
+        data: fd
+      })
+      .then(res => {
+          console.log(res.data);
+      })
+    
      }
 
     return (
@@ -95,18 +105,6 @@ const AddNewProduct = () => {
               autoFocus
               value={product.title}
               onChange={handleTitle}
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              id="image"
-              label="Image...(Url)"
-              name="image"
-              type="text"
-              value={product.image}
-              autoFocus
-              onChange={handleImage}
             />
             <TextField
               variant="outlined"
