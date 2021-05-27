@@ -11,6 +11,7 @@ import About from './About';
 import Profile from '../UserProfile/Profile';
 import AdimnLogin from './AdminLogin';
 import UserSelection from './userSelection'; 
+import Deliver from '../Checkout/Accordian/DeliveryDetails/Deliver';
 
 function MainContent() {
 
@@ -52,6 +53,9 @@ function MainContent() {
           </Route>
           <Route path="/entry">
             <UserSelection/>
+          </Route>
+          <Route path="/deliver">
+            <Deliver/>
           </Route>
         </Switch>
       </main>
