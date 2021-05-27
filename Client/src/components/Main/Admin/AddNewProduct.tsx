@@ -75,6 +75,7 @@ const AddNewProduct = () => {
       })
       .then(res => {
           console.log(res.data);
+          setProduct({ ...product, image: res.data})
       })
     
      }
