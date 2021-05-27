@@ -9,5 +9,6 @@ productRouter
     .post('/addProduct', controller.addNewProduct)
     .delete('/:id', controller.deleteProduct)
     .put('/:id', controller.editProduct)
+    .post('/add-size-stock/:id', controller.addSizeAndStock)
 
 export default productRouter;

@@ -27,11 +27,19 @@ Content-Type: application/json
 
 {
     "ordernumber": "adsad12312", 
-    "product": 
-            [ {
-                "id":"60a6667057fbd72e1443bf6e",
-                "qty": 2    
-            }
+    "products": 
+            [ 
+              {
+                "id":"60af85697d01c10cb0ad8e7f",
+                "quantity": 2, 
+                "size": 37    
+              },
+              {
+                "id":"60af85697d01c10cb0ad8e7f",
+                "quantity": 2, 
+                "size": 38    
+              }
+              
             ],
     "customer": "60a79d8cbf69303b004dd159"
 }

@@ -53,6 +53,8 @@
     outline: none;
 }
 
+
+
 @media screen and (max-width: 1400px) {
     .product-item {
         width: 40%;
