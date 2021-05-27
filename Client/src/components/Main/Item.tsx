@@ -12,7 +12,7 @@ const Item = (props: Props) => {
   useEffect(() => {
     axios.get(`/image/getImage/${props.product._id}`)
     .then((res) => {
-      console.log(res);
+      console.log(res.config.url);
     })
   })
 
