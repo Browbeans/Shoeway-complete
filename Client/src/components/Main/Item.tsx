@@ -1,11 +1,20 @@
 import { Link } from 'react-router-dom';
 import '../../style/Products.css';
 import { Product } from "../../contexts/ProductContext";
+import { useEffect } from 'react';
+import axios from 'axios';
 
 interface Props{
   product: Product 
 }
 const Item = (props: Props) => {
+
+  useEffect(() => {
+    axios.get(`/image/getImage/${props.product._id}`)
+    .then((res) => {
+      console.log(res);
+    })
+  })
 
     return (
       <div className="product-item">

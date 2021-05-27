@@ -6,7 +6,7 @@ export interface Product {
   title: string;
   info: string;
   price: number;
-  image: string;
+  image: any;
   size: number;
   stock: number;
   category: string, 
@@ -45,7 +45,6 @@ class AxiosProvider extends Component<{}, State> {
   fetchProducts = async () => {
     const request = await axios.get("/products");
     this.setState({ allProducts: request.data });
-    console.log(request.data);
     return request;
   };
 
