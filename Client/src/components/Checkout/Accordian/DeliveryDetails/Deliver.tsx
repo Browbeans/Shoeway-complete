@@ -8,22 +8,15 @@ function Deliver (){
     const [dilverarray, setdilverarray]= useState<deliveris[]>([])
     const deliver = useContext(DeliveryContext)
     useEffect(()=>{
-      getdelivery()
-      setdilverarray(deliver.DeliverOrders)  
       deliver.getdeliverOrder()
-    })
-    const getdelivery = async()=> {
-        const request = await axios.get("/Shiping/getall")
-        
-        const respones =  request.data
-        console.log(respones)
-        return respones
-    }
+      console.log('test')
+    },[ deliver.getdeliverOrder])
+   
     return(
         <div>
             {/* {getdelivery} */}
            
-            {dilverarray.map((d)=>(
+            {deliver.DeliverOrders.map((d)=>(
                 <div className="delivery-div">
                 <strong className="company">{d.name}</strong>
                 <span>{d.days}</span>
