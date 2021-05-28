@@ -1,24 +1,28 @@
-import React, { ChangeEvent, CSSProperties, useContext } from 'react';
+import React, { ChangeEvent, CSSProperties, useContext, useState } from 'react';
 import { Button, TextField } from "@material-ui/core";
 import { UserContext } from '../../contexts/UserContext';
 import { LoginContext } from '../../contexts/User/loginContext';
 import '../../style/Entry.css'
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 function HandleLogin() {
-    const loginContext = useContext(LoginContext);
+    const { handleEmailLogin, handlePasswordLogin, loginRequest, isLoggedIn, loginError, errorTxt } = useContext(LoginContext);
     const userContext = useContext(UserContext)
+    // const history = useHistory()
 
     const handleEmailInput = (e: ChangeEvent<HTMLInputElement>) => {
-        loginContext.handleEmailLogin(e);
+        handleEmailLogin(e);
     }
 
     const handlePasswordInput = (e: ChangeEvent<HTMLInputElement>) => {
-        loginContext.handlePasswordLogin(e);
+        handlePasswordLogin(e);
     }
 
     const handleClick = () => {
-        loginContext.loginRequest()
+        loginRequest()
+        // if (isLoggedIn) {
+        //     history.push("/user-profile")
+        // }
         userContext.shopStateTrue()
     }
 
@@ -40,8 +44,6 @@ function HandleLogin() {
                     autoComplete="email"
                     autoFocus
                     onChange={handleEmailInput}
-                    // helperText={emailError}
-                    // error={Boolean(emailError)}
                 />
                 <TextField
                     fullWidth
@@ -56,10 +58,15 @@ function HandleLogin() {
                     autoComplete="password"
                     autoFocus
                     onChange={handlePasswordInput}
-                    // helperText={passwordError}
-                    // error={Boolean(passwordError)}
                 />
-                <Link to="/user-profile" style={{ textDecoration: "none", width: "100%" }}>
+                {loginError 
+                ?
+                <p style={{ color: "red" }}>{errorTxt}</p>
+                :
+                <></>
+                }
+                {/* {isLoggedIn ? "/user-profile" : "/entry"} */}
+                <Link to={isLoggedIn ? "/user-profile" : "/entry"} style={{ textDecoration: "none", width: "100%" }}>
                     <Button
                         onClick={handleClick}
                         style={btn}
