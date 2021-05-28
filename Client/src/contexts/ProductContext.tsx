@@ -22,6 +22,7 @@ interface ContextProps extends State {
   fetchProducts: () => void;
   fetchSpecificProduct: () => void;
   removeProduct: (product: Product) => void;
+  getImage: (product: Product) => void;
   addProduct: (product: Product) => void;
   editProduct: (editedProduct: Product, currentProduct: any) => void;
 }
@@ -31,9 +32,10 @@ export const ProductContext = createContext<ContextProps>({
   allProducts: [],
   fetchProducts: () => {},
   fetchSpecificProduct: () => {},
+  getImage: (product: Product) => {},
   removeProduct: (product: Product) => {},
   addProduct: (product: Product) => {},
-  editProduct: (editedProduct: Product, currentProduct: any) => {}
+  editProduct: (editedProduct: Product, currentProduct: any) => {},
 });
 
 class AxiosProvider extends Component<{}, State> {
@@ -67,6 +69,13 @@ class AxiosProvider extends Component<{}, State> {
     console.log(id);
     return request;
   };
+
+  getImage = async (product: Product) => {
+      const id = product._id;
+      const request = await axios.get(`/image/getImage/${id}`)
+      console.log(request)
+      return request;
+  }
 
   addProduct = async (product: Product) => {
     const completedProduct = { ...product, quantity: 1 };
@@ -105,6 +114,7 @@ class AxiosProvider extends Component<{}, State> {
           fetchSpecificProduct: this.fetchSpecificProduct,
           removeProduct: this.removeProduct,
           addProduct: this.addProduct,
+          getImage: this.getImage,
           editProduct: this.editProduct
         }}
       >

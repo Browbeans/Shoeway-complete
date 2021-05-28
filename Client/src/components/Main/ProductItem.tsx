@@ -1,20 +1,25 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { Button } from '@material-ui/core'
 import { btnMedium } from '../../style/GeneralStyle'
 import { inactiveBtn } from '../../style/GeneralStyle'
 import { CartContext } from "../../contexts/CartContext";
 import '../../style/productItem.css'
-import { Product } from "../../data/productData";
 import { useRouteMatch } from "react-router";
-import { ProductContext } from "../../contexts/ProductContext";
+import { ProductContext, Product } from "../../contexts/ProductContext";
 
 const ProductItem = () => {
 
   const match = useRouteMatch<{ id: string }>();
   const cart = useContext(CartContext)
-  const axios = useContext(ProductContext);
-  let currentProduct = axios.allProducts.find((specificProduct: Product) => specificProduct.title === match.params.id)
+  const productContext = useContext(ProductContext);
+  let currentProduct = productContext.allProducts.find((specificProduct: Product) => specificProduct.title === match.params.id)
   const [isSize, setSize] = useState(false)
+
+  console.log(currentProduct)
+
+  useEffect(() => {
+    productContext.getImage(currentProduct!);
+  });
 
   const handleClick = (size: number) => {
     //mutera ej statet
@@ -27,14 +32,15 @@ const ProductItem = () => {
     return <p>Product isnt available</p>
   }
 
-  console.log(currentProduct);
+
+  console.log(currentProduct.image);
     return (
       <div className="productitem-container">
         <div className="image-div">
           <img
             className="image-style"
             src={currentProduct.image}
-            alt=""
+            alt="a"
           />
         </div>
         <div className="product-div">

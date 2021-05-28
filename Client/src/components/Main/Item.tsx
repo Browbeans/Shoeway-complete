@@ -1,19 +1,18 @@
 import { Link } from 'react-router-dom';
 import '../../style/Products.css';
-import { Product } from "../../contexts/ProductContext";
-import { useEffect } from 'react';
-import axios from 'axios';
+import { Product, ProductContext } from "../../contexts/ProductContext";
+import { useContext, useEffect } from 'react';
+
 
 interface Props{
   product: Product 
 }
 const Item = (props: Props) => {
 
+  const productContext = useContext(ProductContext);
+
   useEffect(() => {
-    axios.get(`/image/getImage/${props.product._id}`)
-    .then((res) => {
-      console.log(res.config.url);
-    })
+    productContext.getImage(props.product);
   })
 
   console.log(props.product);
