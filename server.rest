@@ -38,8 +38,12 @@ Content-Type: application/json
                 "id":"60af85697d01c10cb0ad8e7f",
                 "quantity": 2, 
                 "size": 38    
-              }
-              
+              },
+              {
+                "id":"60b0a393d609e00a4858a53c",
+                "quantity": 2, 
+                "size": 38   
+              } 
             ],
     "customer": "60a79d8cbf69303b004dd159"
 }
