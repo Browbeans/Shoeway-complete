@@ -12,7 +12,8 @@ interface Product{
 const ProductVariant = new mongoose.Schema({
   size: Number, 
   stock: Number,
-  quantity: Number
+  quantity: Number,
+  title: String
 })
 
 

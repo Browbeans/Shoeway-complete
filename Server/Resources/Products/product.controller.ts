@@ -41,7 +41,8 @@ module.exports.addNewProduct = async function(req: Request, res: Response) {
     product.variants.push({
       size: req.body.size, 
       stock: req.body.stock, 
-      quantity: req.body.quantity
+      quantity: req.body.quantity,
+      title: req.body.title
     })
 
 
@@ -90,7 +91,8 @@ module.exports.addSizeAndStock = async function (req: Request, res: Response) {
     {$push: { "variants"  : { 
         size: req.body.size,
         stock: req.body.stock,
-        quantity: req.body.quantity 
+        quantity: req.body.quantity,
+        title: req.body.title 
       }}
     }
   )
