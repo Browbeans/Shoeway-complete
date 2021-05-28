@@ -71,10 +71,12 @@ class AxiosProvider extends Component<{}, State> {
   };
 
   getImage = async (product: Product) => {
-      const id = product._id;
-      const request = await axios.get(`/image/getImage/${id}`)
-      console.log(request)
-      return request;
+      // const id = product._id;
+      // const request = await axios.get(`/image/getImage/${id}`)
+      // // console.log(request)
+      // // console.log(product)
+      // console.log(id);
+      // return request;
   }
 
   addProduct = async (product: Product) => {
