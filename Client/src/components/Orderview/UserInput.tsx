@@ -4,7 +4,7 @@ import "../../style/cartItems.css";
 import { Guid } from 'js-guid';
 import { CartContext } from "../../contexts/CartContext";
 import { PaymentContext } from "../../contexts/PaymentContext";
-import { LoginContext } from "../../contexts/loginContext";
+import { LoginContext } from "../../contexts/User/loginContext";
 
 
 

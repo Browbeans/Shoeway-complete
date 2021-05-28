@@ -43,9 +43,14 @@ class AxiosProvider extends Component<{}, State> {
   };
 
   fetchProducts = async () => {
-    const request = await axios.get("/products");
-    this.setState({ allProducts: request.data });
-    return request;
+    try {
+      const request = await axios.get("/products");
+      this.setState({ allProducts: request.data });
+      console.log(request)
+      return request;
+    } catch (error) {
+      console.log(error)
+    }
   };
 
   fetchSpecificProduct = async () => {
