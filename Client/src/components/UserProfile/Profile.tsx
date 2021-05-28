@@ -7,8 +7,9 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import '../../style/UserProfile.css'
-import { LoginContext } from "../../contexts/loginContext";
+import { LoginContext } from "../../contexts/User/loginContext";
 import { Link } from 'react-router-dom';
+import UserDetails from './userDetails'
 
 const useStyles = makeStyles({
     root: {
@@ -52,7 +53,6 @@ function Profile () {
 
     return(
       <div className="profile-container">
-          <h1>Passed Orders</h1>
           {!isLoggedIn
           ?
           // USER IS LOGGED OUT
@@ -64,9 +64,12 @@ function Profile () {
           </div>
           :
           // USER IS LOGGED IN
+          
           <div className="all-orders">
+            <UserDetails/>
+            <h2>Passed Orders</h2>
             {userOrders.map((order) => (
-              <Card className={classes.root} variant="outlined">
+              <Card className={classes.root} variant="outlined" style={{ margin: "2rem 0rem" }}>
                   <CardContent>
                   <Typography className={classes.title} gutterBottom>
                     {'Ordernumber: ' + order.ordernumber}
@@ -92,15 +95,13 @@ function Profile () {
               </Card>
             ))}
             <div>
-                <Link to="/entry" style={{ textDecoration: "none" }}>
-                  <Button
-                    style={btn}
-                    variant="contained"
-                    onClick={logoutRequest}
-                  >
-                    Log out
-                  </Button>
-                </Link>
+              <Button
+                style={btn}
+                variant="contained"
+                onClick={logoutRequest}
+              >
+                Log out
+              </Button>
             </div>
           </div>
           }
@@ -119,7 +120,6 @@ const btn: CSSProperties = {
   border: "none",
   cursor: "pointer",
   padding: "0.7rem 1.2rem",
-  margin: "1rem 1rem"
 };
 
 export default Profile

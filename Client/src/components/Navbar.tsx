@@ -5,7 +5,7 @@ import { CartContext } from '../contexts/CartContext'
 import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
 import BurgerMenu from './BurgerMenu';
 import { Avatar } from '@material-ui/core';
-import { LoginContext } from '../contexts/loginContext';
+import { LoginContext } from '../contexts/User/loginContext';
 
 function Navbar() {
     const cartContext = useContext(CartContext);

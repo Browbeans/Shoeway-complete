@@ -76,17 +76,17 @@ module.exports.handleLogout = async function(req: Request, res: Response) {
 }
 
 module.exports.handleUpdate = async function(req: Request, res: Response) {
-    if (req.session!.email) {
-        const email = req.session!.email
-        const registeredUsers = await Users.find({email: email})
-        const user = registeredUsers.find((u: any) => u.email === email);
+    console.log(req.body)
+    if (req.session?.email) {
+        const email = req.session.email
+        console.log(email)
+        const registeredUsers = await Users.findOne({email: email})
     
-        await user.updateOne({
+        await registeredUsers.updateOne({
             name: req.body.name,
             adress: req.body.adress,
+            phone: req.body.phone, 
             email: req.body.email,
-            phone: req.body.phone,
-            password: req.body.password,
         })
         return res.status(202).json("User updated!")
     }

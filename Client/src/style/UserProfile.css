@@ -4,12 +4,14 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    margin-top: 2rem
 }
 
 .all-orders {
     display: flex;
     flex-direction: column;
-    width: 70%;
+    width: 50%;
+    margin-bottom: 2rem;
 }
 
 .out-logged-container {
@@ -24,10 +26,56 @@
     font-size: 1.2rem;
 }
 
-.out-logged-container p {
-
-}
-
 .out-logged-container span {
     color: #56EAC6;
+}
+
+/* USER DETAILS COMPONENT */
+.user-title {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-weight: normal;
+}
+
+.user-details-container {
+    background: #fff;
+    padding: 1rem;
+    margin-bottom: 2rem; 
+}
+
+.icon-holder {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem
+}
+
+.details-holder p {
+    margin: 1rem 0rem;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+form input {
+    padding: 0.5rem;
+    font-size: 1.1rem;
+    margin: 0.5rem 0rem
+}
+
+@media (max-width: 1200px) {
+    .all-orders {
+        width: 80%
+    }
+}
+
+@media (max-width: 768px) {
+    .all-orders {
+        width: 100%
+    }
 }

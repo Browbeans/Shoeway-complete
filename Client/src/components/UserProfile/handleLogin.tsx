@@ -1,7 +1,7 @@
 import React, { ChangeEvent, CSSProperties, useContext } from 'react';
 import { Button, TextField } from "@material-ui/core";
 import { UserContext } from '../../contexts/UserContext';
-import { LoginContext } from '../../contexts/loginContext';
+import { LoginContext } from '../../contexts/User/loginContext';
 import '../../style/Entry.css'
 import { Link } from 'react-router-dom';
 
@@ -59,7 +59,7 @@ function HandleLogin() {
                     // helperText={passwordError}
                     // error={Boolean(passwordError)}
                 />
-                <Link to="/user-profile" style={{ textDecoration: "none" }}>
+                <Link to="/user-profile" style={{ textDecoration: "none", width: "100%" }}>
                     <Button
                         onClick={handleClick}
                         style={btn}
