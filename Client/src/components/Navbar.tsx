@@ -1,110 +1,96 @@
-import React, { Component } from 'react';
+import React, { Component, useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../style/Navbar.css'
 import { CartContext } from '../contexts/CartContext'
 import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
 import BurgerMenu from './BurgerMenu';
 import { Avatar } from '@material-ui/core';
+import { LoginContext } from '../contexts/User/loginContext';
 
-
-
-interface State {
-  isMenuOpen: boolean;
-}
-
-class Navbar extends Component<{}, State> {
-    context!: React.ContextType<typeof CartContext>
-    static contextType = CartContext;
-
-    state: State = {
-      isMenuOpen: false
-    }
+function Navbar() {
+    const cartContext = useContext(CartContext);
+    const { isLoggedIn } = useContext(LoginContext);
+    const [menuOpen, setMenuOpen] = useState(false);
     
-    handleMenuClick = () => {
-      this.setState({
-        isMenuOpen: !this.state.isMenuOpen
-      })
+    const handleMenuClick = () => {
+      setMenuOpen(!menuOpen)
     }
 
-    handleBurgerMenuExit = () => {
-      this.setState({
-        isMenuOpen: false
-      })
+    const handleBurgerMenuExit = () => {
+      setMenuOpen(false);
     }
 
-    render() {
-      return (
-        <header className="main-header">
-          <Link 
-            style={{ textDecoration: "none" }} to="/"
-            onClick={this.handleBurgerMenuExit}
-            >
-            <h2 className="header-title">ShoeWay</h2>
-          </Link>
-          <nav>
-            <ul
-              className="nav-links"
-              style={{
-                right: this.state.isMenuOpen ? "0%" : "-100%",
-              }}
-            >
-              <Link 
-                style={{ textDecoration: "none", color: "#000" }} 
-                to="/"
-                onClick={this.handleMenuClick}
-                >
-                <li>Home</li>
-              </Link>
-              <Link
-                style={{ textDecoration: "none", color: "#000" }}
-                to="/products"
-                onClick={this.handleMenuClick}
+    return (
+      <header className="main-header">
+        <Link 
+          style={{ textDecoration: "none" }} to="/"
+          onClick={handleBurgerMenuExit}
+          >
+          <h2 className="header-title">ShoeWay</h2>
+        </Link>
+        <nav>
+          <ul
+            className="nav-links"
+            style={{
+              right: menuOpen ? "0%" : "-100%",
+            }}
+          >
+            <Link 
+              style={{ textDecoration: "none", color: "#000" }} 
+              to="/"
+              onClick={handleMenuClick}
               >
-                <li>Products</li>
-              </Link>
-              <Link
-                style={{ textDecoration: "none", color: "#000" }}
-                to="/about"
-                onClick={this.handleMenuClick}
-              >
-                <li>About</li>
-              </Link>
-              <Link
-                style={{ textDecoration: "none", color: "#000" }}
-                to="/admin"
-                onClick={this.handleMenuClick}
-              >
-                <li>Admin</li>
-              </Link>
-            </ul>
-            <Link
-              style={{
-                textDecoration: "none",
-                color: "#000",
-              }}
-              to="/entry"
-              onClick={this.handleBurgerMenuExit}
-            >
-              <Avatar
-                style={{ background: "#333", marginBottom: ".5rem" }}
-                
-                src=""
-              />
+              <li>Home</li>
             </Link>
-            <div className="cart-container">
-              <Link to="/checkout" style={{ color: "#333" }} onClick={this.handleBurgerMenuExit}>
-                <ShoppingCartOutlinedIcon style={{ fontSize: "2rem" }} />
-              </Link>
-              <div className="cart-content">{this.context.cart.length}</div>
-            </div>
-            <BurgerMenu
-              value={this.state.isMenuOpen}
-              handleClick={this.handleMenuClick}
+            <Link
+              style={{ textDecoration: "none", color: "#000" }}
+              to="/products"
+              onClick={handleMenuClick}
+            >
+              <li>Products</li>
+            </Link>
+            <Link
+              style={{ textDecoration: "none", color: "#000" }}
+              to="/about"
+              onClick={handleMenuClick}
+            >
+              <li>About</li>
+            </Link>
+            <Link
+              style={{ textDecoration: "none", color: "#000" }}
+              to="/admin"
+              onClick={handleMenuClick}
+            >
+              <li>Admin</li>
+            </Link>
+          </ul>
+          <Link
+            style={{
+              textDecoration: "none",
+              color: "#000",
+            }}
+            to={isLoggedIn ? "/user-profile" : "/entry"}
+            onClick={handleBurgerMenuExit}
+          >
+            <Avatar
+              style={{ background: "#333", marginBottom: ".5rem" }}
+              
+              src=""
             />
-          </nav>
-        </header>
-      );
-    }
+          </Link>
+          <div className="cart-container">
+            <Link to="/checkout" style={{ color: "#333" }} onClick={handleBurgerMenuExit}>
+              <ShoppingCartOutlinedIcon style={{ fontSize: "2rem" }} />
+            </Link>
+            <div className="cart-content">{cartContext.cart.length}</div>
+          </div>
+          <BurgerMenu
+            value={menuOpen}
+            handleClick={handleMenuClick}
+          />
+        </nav>
+      </header>
+    );
 }
 
 export default Navbar

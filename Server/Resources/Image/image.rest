@@ -1,0 +1,12 @@
+POST http://localhost:5000/image/uploadImage
+Content-Type: multipart/form-data; boundary=Row
+
+--Row
+Content-Disposition: form-data; name="image"; filename="38a.jpg"
+Content-Type: image/jpeg
+
+< ./38a.jpg 
+--Row--
+
+### 
+GET http://localhost:5000/image/getImage/60ae45856fd9781d0d38e21a

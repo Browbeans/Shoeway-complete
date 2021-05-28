@@ -1,4 +1,4 @@
-const Product = require('./product.model')
+const Product = require('./product.model');
 import { Request, Response } from 'express';
 
 module.exports.getProducts = async function(req: Request, res: Response) {
@@ -33,13 +33,18 @@ module.exports.addNewProduct = async function(req: Request, res: Response) {
     }
 
     const product = new Product({
-      title: req.body.title,
       price: req.body.price,
-      size: req.body.size,
-      quantity: req.body.quantity,
       category: req.body.category,
-      stock: req.body.stock,
+      title: req.body.title
     })
+
+    product.variants.push({
+      size: req.body.size, 
+      stock: req.body.stock, 
+      quantity: req.body.quantity
+    })
+
+
     await product.save(function(error: any){
       console.log(error)
     })
@@ -77,3 +82,19 @@ module.exports.editProduct = async function (req: Request, res: Response) {
     res.status(400).json(error);
   }
 };
+
+module.exports.addSizeAndStock = async function (req: Request, res: Response) {
+  const id = req.params.id
+
+  const product = await Product.update({_id: id},
+    {$push: { "variants"  : { 
+        size: req.body.size,
+        stock: req.body.stock,
+        quantity: req.body.quantity 
+      }}
+    }
+  )
+  res.status(200).json(product)
+}
+
+

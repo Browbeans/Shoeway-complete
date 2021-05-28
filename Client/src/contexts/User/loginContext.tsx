@@ -1,8 +1,7 @@
 import { Component, createContext } from "react";
 import axios from "axios";
 
-
-interface SessionUser {
+export interface SessionUser {
     adress: {
         city: string,
         street: string,
@@ -13,17 +12,20 @@ interface SessionUser {
     phone: string,
     email: string,
 }
+
 interface State {
     emailLogin: string
     passwordLogin: string
     currentUser: SessionUser
+    isLoggedIn: boolean
 }
 
 interface ContextProps extends State {
     fetchUsers: () => void;
     handleEmailLogin: (event: React.ChangeEvent<HTMLInputElement>) => void;
     handlePasswordLogin: (event: React.ChangeEvent<HTMLInputElement>) => void;
-    loginRequest: (event: React.FormEvent) => void;
+    logoutRequest: () => void;
+    loginRequest: () => void;
 }
 
 export const LoginContext = createContext<ContextProps>({
@@ -41,10 +43,12 @@ export const LoginContext = createContext<ContextProps>({
             phone: "",
             email: "",
         },
+    isLoggedIn: false,
     fetchUsers: () => {},
     handleEmailLogin: () => {},
     handlePasswordLogin: () => {},
-    loginRequest: () => {}
+    loginRequest: () => {},
+    logoutRequest: () => {}
 });
 
 class LoginProvider extends Component<{}, State> {
@@ -73,8 +77,18 @@ class LoginProvider extends Component<{}, State> {
             const request = await axios.get("/users/currentUser")
             const user = request.data
             this.setState({currentUser: user})
+            this.setState({ isLoggedIn: true })
         } catch (error) {
             console.log(error)   
+        }
+    };
+
+    handleLogoutRequest = async () => {
+        try {
+            await axios.delete("/users/handleLogout");
+            this.setState({ isLoggedIn: false })
+        } catch (error) {
+            console.log(error)
         }
     };
 
@@ -86,7 +100,8 @@ class LoginProvider extends Component<{}, State> {
                     fetchUsers: this.fetchUsersfromDatabase,
                     handleEmailLogin: this.handleEmailLoginInput,
                     handlePasswordLogin: this.handlePasswordLoginInput,
-                    loginRequest: this.handleLoginRequest
+                    loginRequest: this.handleLoginRequest,
+                    logoutRequest: this.handleLogoutRequest
                 }}>
                 {this.props.children}
             </LoginContext.Provider>

@@ -13,7 +13,7 @@ import { Link } from "react-router-dom";
 import { UserContext } from "../../contexts/UserContext";
 import { OrderContext } from "../../contexts/OrderContext";
 import { Guid } from 'js-guid';
-import { LoginContext } from "../../contexts/loginContext";
+import { LoginContext } from "../../contexts/User/loginContext";
 // interface OrderProduct {
 //   id: string, 
 //   quantity: number
@@ -30,12 +30,13 @@ const Checkout =  () => {
   
 
   const handleClick = () => {
-
     let orderProduct = {}
     cart.map((product) => {
+      console.log(product.size)
       orderProduct = {
         id: product._id,
-        quantity: product.quantity
+        quantity: product.quantity,
+        size: product.size
       }
       productArray.push(orderProduct)
     })
@@ -48,6 +49,12 @@ const Checkout =  () => {
         customer: currentUser._id
     }
     orderContext.createOrder(order)
+  }
+
+  const logStuff = () => {
+    cart.map((p) => (
+      console.log(p.size)
+    ))
   }
 
     return (
@@ -129,7 +136,7 @@ const Checkout =  () => {
             </div>
           </div>
         </div>
-        {userContext.shopState ? (
+        {userContext.shopState && cartContext.cart.length >= 1 ? (
           <Link
             to="/orderview"
             style={{ textDecoration: "none", zIndex: 1, margin: "2rem 0rem" }}
@@ -146,7 +153,7 @@ const Checkout =  () => {
         ) : (
           <Button variant="contained" 
             style={inactiveBtn}
-            onClick={handleClick}
+            onClick={logStuff}
           >
             {" "}
             Confirm Order

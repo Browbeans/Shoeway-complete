@@ -73,19 +73,23 @@ class RegisterProvider extends Component<{}, State> {
 
     handleRegisterRequest = async (event: React.FormEvent) => {
         event.preventDefault();
-        const newUser = {
-          name: this.state.userName,
-          adress: {
-              city: this.state.userCity,
-              street: this.state.userStreet,
-              zip: this.state.userZip,
-          },
-          phone: this.state.userPhone, 
-          email: this.state.userEmail,
-          password: this.state.userPassword
+        try {
+            const newUser = {
+                name: this.state.userName,
+                adress: {
+                    city: this.state.userCity,
+                    street: this.state.userStreet,
+                    zip: this.state.userZip,
+                },
+                phone: this.state.userPhone, 
+                email: this.state.userEmail,
+                password: this.state.userPassword
+              }
+              const request = await axios.post("/users/handleRegister", newUser);
+              console.log(request)
+        } catch (error) {
+            console.log(error)
         }
-        const request = await axios.post("/users/handleRegister", newUser);
-        console.log(request)
     };
 
     render() {

@@ -8,7 +8,6 @@ function UserSelection() {
 
     const handleToggle = () => {
         setToggle(!toggle)
-        console.log(toggle)
     }
 
     return(

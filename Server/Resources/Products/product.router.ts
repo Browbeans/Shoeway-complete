@@ -1,7 +1,6 @@
 import express, {Request, Response} from 'express';
 import mongoose from 'mongoose';
 const controller = require('./product.controller')
-
 const productRouter = express.Router();
 
 productRouter
@@ -10,5 +9,6 @@ productRouter
     .post('/addProduct', controller.addNewProduct)
     .delete('/:id', controller.deleteProduct)
     .put('/:id', controller.editProduct)
+    .post('/add-size-stock/:id', controller.addSizeAndStock)
 
 export default productRouter;

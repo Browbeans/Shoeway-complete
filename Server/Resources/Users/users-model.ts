@@ -5,7 +5,7 @@ interface User {
     adress: {
         city: string,
         street: string,
-        zip: number
+        zip: string
     },
     phone: string,
     email: string,
@@ -48,7 +48,7 @@ const userSchema = new mongoose.Schema({
             } 
         },
         zip: { 
-            type: Number, 
+            type: String, 
             required: true,
             validate: {
                 validator: (value: any) => {
@@ -84,14 +84,13 @@ const userSchema = new mongoose.Schema({
     password: { 
         type: String, 
         required: true,
-        // validate: {
-        //     // Funkar ibland, ibland inte!!!!!!!!!!!!
-        //     validator: (value: any) => {
-        //         const phoneRegex = (/(?=[A-Za-z0-9@#$%^&+!=]+$)^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*)(?=.{8,}).*$/);
-        //         return phoneRegex.test(value);
-        //     },
-        //     message: "Password must be eight characters, atleast one number"
-        // } 
+        validate: {
+            validator: (value: any) => {
+                const phoneRegex = (/(?=[A-Za-z0-9@#$%^&+!=]+$)^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*)(?=.{8,}).*$/);
+                return phoneRegex.test(value);
+            },
+            message: "Password must be eight characters, atleast one number"
+        } 
     }
 })
 

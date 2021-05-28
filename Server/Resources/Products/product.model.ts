@@ -1,4 +1,3 @@
-  
 import mongoose from 'mongoose';
 
 interface Product{
@@ -9,6 +8,14 @@ interface Product{
     category: string,
     stock: number,
 }
+
+const ProductVariant = new mongoose.Schema({
+  size: Number, 
+  stock: Number,
+  quantity: Number
+})
+
+
 const productSchema = new mongoose.Schema({
   title: {
     type: String,
@@ -26,16 +33,16 @@ const productSchema = new mongoose.Schema({
     required: true,
     min: [0, "Price must be a positive number"],
   },
-  size: {
-    type: Number,
-    required: true,
-    min: [0, "Size must be a positive number"],
-  },
-  quantity: {
-    type: Number,
-    required: true,
-    min: [1, "Quantity must be a positive number"],
-  },
+  // size: {
+  //   type: Number,
+  //   required: true,
+  //   min: [0, "Size must be a positive number"],
+  // },
+  // quantity: {
+  //   type: Number,
+  //   required: true,
+  //   min: [1, "Quantity must be a positive number"],
+  // },
   category: {
     type: String,
     required: true,
@@ -47,11 +54,12 @@ const productSchema = new mongoose.Schema({
       message: "Category must be a string",
     },
   },
-  stock: {
-    type: Number,
-    required: true,
-    min: [1, "Stock must be a positive number"],
-  },
+  // stock: {
+  //   type: Number,
+  //   required: true,
+  //   min: [1, "Stock must be a positive number"],
+  // },
+  variants: [ProductVariant]
 });
 
 module.exports = mongoose.model<Product>('Products', productSchema);
