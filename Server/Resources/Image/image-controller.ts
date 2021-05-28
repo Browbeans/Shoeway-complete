@@ -20,7 +20,9 @@ module.exports.uploadImage = async function(req: Request, res: Response) {
 module.exports.getImage = async function(req: Request, res: Response){
 
     const id = req.params.id;
+    console.log(id);
     const specificImage = await Image.findById(id);
     res.status(200).json(specificImage);
+    console.log(specificImage)
 }
 
