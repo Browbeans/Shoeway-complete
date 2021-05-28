@@ -1,7 +1,8 @@
-const Product = require('./product.model');
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from "express";
+const Product = require("./product.model");
+const ApiError = require("../../Error/ApiError");
 
-module.exports.getProducts = async function(req: Request, res: Response) {
+module.exports.getProducts = async function(req: Request, res: Response, next: NextFunction) {
 
     const products = await Product.find().sort()
 
@@ -9,7 +10,9 @@ module.exports.getProducts = async function(req: Request, res: Response) {
       res.status(200).json(products);
       console.log(Product);
     } catch (error) {
-      res.status(400).json(error);
+      next(ApiError.badRequest(error));
+      return;
+      // res.status(400).json(error);
     }
 };
 
