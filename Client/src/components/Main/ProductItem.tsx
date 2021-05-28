@@ -26,6 +26,8 @@ const ProductItem = () => {
   if(!currentProduct) {
     return <p>Product isnt available</p>
   }
+
+  console.log(currentProduct);
     return (
       <div className="productitem-container">
         <div className="image-div">

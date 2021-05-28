@@ -9,6 +9,7 @@ import ImageRouter from './Resources/Image/image-router';
 
 
 const app = express()
+app.use('/uploads', express.static('uploads'));
 
 const PORT = process.env.PORT || 5000 
 

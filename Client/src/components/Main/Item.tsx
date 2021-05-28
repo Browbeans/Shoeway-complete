@@ -16,8 +16,7 @@ const Item = (props: Props) => {
     })
   })
 
-  console.log(props.product.image)
-  console.log(props.product)
+  console.log(props.product);
 
     return (
       <div className="product-item">
