@@ -35,7 +35,8 @@ module.exports.addNewProduct = async function(req: Request, res: Response) {
     const product = new Product({
       price: req.body.price,
       category: req.body.category,
-      title: req.body.title
+      title: req.body.title,
+      image: req.body.image
     })
 
     product.variants.push({
@@ -73,7 +74,8 @@ module.exports.editProduct = async function (req: Request, res: Response) {
     size: req.body.size,
     quantity: req.body.quantity,
     category: req.body.category,
-    stock: req.body.stock
+    stock: req.body.stock,
+    image: req.body.image
   })
   
   try {
