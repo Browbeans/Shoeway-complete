@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 const Product = require("./product.model");
 const ApiError = require("../../Error/ApiError");
+//import ApiError from '../../Error/ApiError'
 
 module.exports.getProducts = async function(req: Request, res: Response, next: NextFunction) {
 
@@ -10,21 +11,26 @@ module.exports.getProducts = async function(req: Request, res: Response, next: N
       res.status(200).json(products);
       console.log(Product);
     } catch (error) {
-      next(ApiError.badRequest(error));
+      next(ApiError.status(400).badRequest(error));
       return;
       // res.status(400).json(error);
     }
 };
 
-module.exports.getSpecific = async function(req: Request, res: Response) {
-
+module.exports.getSpecific = async function (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
   const id = req.params.id;
-  const product = await Product.findById(id)
+  const product = await Product.findById(id);
 
   try {
     res.status(200).json(product);
   } catch (error) {
-    res.status(400).json(error)
+    next(ApiError.badRequest('Couldnt find the specific shoes'))
+    console.log('error works')
+    return;
   }
 };
 
