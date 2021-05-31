@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-
+import DeliveryProvider from './contexts/DeliverContext'
 import Layout from './components/Layout';
 import { BrowserRouter } from 'react-router-dom';
 import CartProvider from './contexts/CartContext';
@@ -26,9 +26,11 @@ class App extends Component {
                 <OrderProvider>
                   <PaymentProvider>
                     <AdminProvider>
+                    <DeliveryProvider>
                       <BrowserRouter>
                         <Layout />
                       </BrowserRouter>
+                      </DeliveryProvider>
                     </AdminProvider>
                   </PaymentProvider>
                 </OrderProvider>

@@ -41,3 +41,14 @@ module.exports.editShiping = async function(req: Request, res: Response){
     res.status(200).json(change)
 }
 
+ module.exports.getSpecific = async function (req: Request, res: Response) {
+     const id = req.params.id;
+     const Shiping = await shiping.findById(id)
+
+     try {
+        res.status(200).json(Shiping);
+      } catch (error) {
+        res.status(400).json(error)
+      }
+ };
+

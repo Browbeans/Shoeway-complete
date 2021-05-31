@@ -9,5 +9,6 @@ shiping
     .post('/addshiping', controller.addNewshiping)
     .delete('/deleteshiping/:id', controller.deletShiping)
     .put('/editshiping/:id', controller.editShiping)
+    .get('/:id', controller.getSpecific)
 
 export default shiping;
