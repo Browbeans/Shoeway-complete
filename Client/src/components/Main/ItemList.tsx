@@ -12,7 +12,7 @@ import FormLabel from '@material-ui/core/FormLabel';
 const ItemList = () => {
   
   const { fetchProducts, allProducts } = useContext(ProductContext);
-  const [category, setCategory] = useState('all')
+  const [categoryState, setCategory] = useState('all')
   const [categoryProduct, setProducts] = useState<Product[]>([])
   const [value, setValue] = React.useState('all');
 
@@ -21,10 +21,9 @@ const ItemList = () => {
   }
 
   const logProductOfCategory = (category: string) => {
-    console.log(category)
     setCategory(category)
     const sortedProduct = allProducts.filter((product) => {
-      return product.category.toLowerCase() === category
+      return product.category.indexOf(category) > -1
     })
     setProducts(sortedProduct)
   }
@@ -46,7 +45,7 @@ const ItemList = () => {
             </div>
           </RadioGroup>
         </FormControl>
-        {category === 'all'
+        {categoryState === 'all'
           ?
           <div className="product-list">
           <div className="product-container">

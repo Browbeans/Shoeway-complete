@@ -46,15 +46,17 @@ const productSchema = new mongoose.Schema({
   //   min: [1, "Quantity must be a positive number"],
   // },
   category: {
-    type: String,
+    type: [
+      String
+    ],
     required: true,
-    validate: {
-      validator: function (value: any) {
-        const titleRegex = /^[a-öA-Ö\s,'-]+$/;
-        return titleRegex.test(value);
-      },
-      message: "Category must be a string",
-    },
+    // validate: {
+    //   validator: function (value: any) {
+    //     const titleRegex = /^[a-öA-Ö\s,'-]+$/;
+    //     return titleRegex.test(value);
+    //   },
+    //   message: "Category must be a string",
+    // },
   },
   // stock: {
   //   type: Number,

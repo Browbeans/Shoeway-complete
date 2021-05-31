@@ -6,6 +6,7 @@ import '../../../style/Admin.css';
 import { ProductContext, Product } from "../../../contexts/ProductContext";
 import { useRouteMatch } from 'react-router';
 import axios from "axios";
+import CheckboxesGroup from './CheckBoxGroup';
 
 const AddNewProduct = () => {
   const match = useRouteMatch<{ id: string }>();
@@ -15,7 +16,7 @@ const AddNewProduct = () => {
     image: "",
     price: 0,
     info: "",
-    category: '',
+    category: [],
     quantity: 0,
     size: 0,
     stock: 0,
@@ -50,9 +51,10 @@ const AddNewProduct = () => {
       setProduct({...product, info: e.target.value})
     }
 
-    const handleCategory = (e: ChangeEvent<HTMLInputElement>) => {
-      setProduct({ ...product, category: e.target.value });
-    };
+    // const handleCategory = (e: ChangeEvent<HTMLInputElement>) => {
+    //   const categoryArray: string[] = [e.target.value]
+    //   setProduct({ ...product, category: categoryArray });
+    // };
 
      const handleStock = (e: ChangeEvent<HTMLInputElement>) => {
        setProduct({ ...product, stock: parseInt(e.target.value) });
@@ -107,7 +109,7 @@ const AddNewProduct = () => {
               value={product.title}
               onChange={handleTitle}
             />
-            <TextField
+            {/* <TextField
               variant="outlined"
               margin="normal"
               required
@@ -118,7 +120,8 @@ const AddNewProduct = () => {
               value={product.category}
               autoFocus
               onChange={handleCategory}
-            />
+            /> */}
+            <CheckboxesGroup/>
             <TextField
               variant="outlined"
               margin="normal"
