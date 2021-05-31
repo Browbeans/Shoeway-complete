@@ -1,9 +1,8 @@
 const Orders = require('./order.model')
 const Users = require('../Users/users-model')
 const Products = require('../Products/product.model')
-import { rejects } from 'assert/strict'
 import { Request, Response } from 'express'
-import { resolve } from 'path/posix'
+
 
 
 module.exports.addOrder = async (req: Request, res: Response) => {
@@ -41,7 +40,6 @@ module.exports.addOrder = async (req: Request, res: Response) => {
         })
     })
 
-    
 
     setTimeout(() => {
         const newOrder = new Orders({
