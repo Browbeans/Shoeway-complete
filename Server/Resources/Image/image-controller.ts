@@ -1,7 +1,8 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from "express";
 const Image = require('./image-model');
+const ApiError = require("../../Error/ApiError");
 
-module.exports.uploadImage = async function(req: Request, res: Response) {
+module.exports.uploadImage = async function(req: Request, res: Response, next: NextFunction) {
 
     try{
         const uploadedImage = new Image({
@@ -9,20 +10,26 @@ module.exports.uploadImage = async function(req: Request, res: Response) {
         })
         await uploadedImage.save();
         res.json(req.file.path)
-        console.log("hello");
 
     } catch(error){
-        console.log(error);
+        next(ApiError.badRequest('Couldnt upload image'));
     }
 
 }
 
-module.exports.getImage = async function(req: Request, res: Response){
+module.exports.getImage = async function (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+    
+  const id = req.params.id;
+  const specificImage = await Image.findById(id);
 
-    const id = req.params.id;
-    console.log(id);
-    const specificImage = await Image.findById(id);
+  if(specificImage){
     res.status(200).json(specificImage);
-    console.log(specificImage)
-}
+  } else {
+      next(ApiError.notFound('Couldnt find the image'));
+  }
+};
 

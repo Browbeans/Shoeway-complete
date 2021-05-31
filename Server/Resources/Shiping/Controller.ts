@@ -1,9 +1,6 @@
 const shiping = require ('./model')
 import { Request, Response } from 'express';
 
-
-
-
 module.exports.getShiping =  async function(req: Request, res: Response) {
     const result = await  shiping.find({})
     res.status(200).json(result)

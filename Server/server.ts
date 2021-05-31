@@ -6,6 +6,7 @@ import usersRouter from "./Resources/Users/user-routes";
 import shiping from './Resources/Shiping/shiping-routers';
 import productRouter from './Resources/Products/product.router';
 import ImageRouter from './Resources/Image/image-router';
+import errorHandler from './Error/ErrorHandler';
 
 const app = express()
 
@@ -36,6 +37,8 @@ app.use("/users", usersRouter);
 app.use('/products', productRouter);
 app.use("/Shiping", shiping );
 app.use('/image', ImageRouter);
+
+app.use(errorHandler);
 
 app.get("/", (_: any, res: any) => {
     console.log('Server connected');
