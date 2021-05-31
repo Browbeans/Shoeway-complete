@@ -5,19 +5,30 @@ export interface  deliveris{
     name: string
     price: number
     days: string
+    _id: string
 }
 
 interface State {
   DeliverOrders: deliveris[]
+  selectDeliver: deliveris 
 }
 
 interface ContextProps extends State {
    getdeliverOrder: () => void
+   fetchshiping: (id: string) => void
 }
 
 export const DeliveryContext = createContext<ContextProps>({
+    selectDeliver: {
+      name:"",
+      days:"",
+      price: 0,
+      _id: ""
+    },
+
     DeliverOrders: [],
-    getdeliverOrder:() => {}
+    getdeliverOrder:() => {},
+    fetchshiping:(id: string)=>{}
 });
 
 class DeliveryProvider extends Component<{}, State> {
@@ -26,9 +37,17 @@ class DeliveryProvider extends Component<{}, State> {
       {
         name: '', 
         days: '',
-        price: 0
+        price: 0,
+        _id: ""
       }
-    ] 
+    ] ,  
+    selectDeliver: {
+      name:"",
+      days:"",
+      price: 0,
+      _id: ""
+    },
+
   };
 
   getDeliveryOrderFromDB = async () => {
@@ -38,9 +57,15 @@ class DeliveryProvider extends Component<{}, State> {
     console.log(result)
   } 
 
-  
+  fetchSpecificshiping = async (id: string) => {
+   const request = await axios.get(`/Shiping/${id}`) 
+   this.setState({selectDeliver: request.data})
+   console.log(request.data)
+  };
+
   componentDidMount = () => {
     this.getDeliveryOrderFromDB()
+
   };
 
   render() {
@@ -48,7 +73,8 @@ class DeliveryProvider extends Component<{}, State> {
       <DeliveryContext.Provider
         value={{
         ...this.state, 
-        getdeliverOrder: this.getDeliveryOrderFromDB
+        getdeliverOrder: this.getDeliveryOrderFromDB,
+        fetchshiping: this.fetchSpecificshiping
         }}
       >
         {this.props.children}

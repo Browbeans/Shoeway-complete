@@ -11,16 +11,20 @@ function Deliver (){
       deliver.getdeliverOrder()
       console.log('test')
     },[ deliver.getdeliverOrder])
-   
+
+   const change = (id: string) => {
+       console.log("test")
+    deliver.fetchshiping(id)
+   }
     return(
-        <div>
+        <div >
             {/* {getdelivery} */}
            
             {deliver.DeliverOrders.map((d)=>(
-                <div className="delivery-div">
-                <strong className="company">{d.name}</strong>
-                <span>{d.days}</span>
-                <span>{d.price}</span>
+                <div className="delivery-div" onClick={() => change(d._id)}>
+                <strong className="company" >{d.name}</strong>
+                <span >{d.days}</span>
+                <span >{d.price} kr</span>
                 </div>
             ) )}
         </div>
