@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useContext, useState } from "react";
 import { deliveris, DeliveryContext } from "../../../../contexts/DeliverContext";
-import '../../../../style/Delivery.css'
+import '../../../../style/Deliverystyle.css'
 
 
 function Deliver (){

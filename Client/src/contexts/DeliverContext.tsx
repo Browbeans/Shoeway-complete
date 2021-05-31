@@ -40,7 +40,7 @@ class DeliveryProvider extends Component<{}, State> {
         price: 0,
         _id: ""
       }
-    ] ,  
+    ],  
     selectDeliver: {
       name:"",
       days:"",
@@ -65,7 +65,6 @@ class DeliveryProvider extends Component<{}, State> {
 
   componentDidMount = () => {
     this.getDeliveryOrderFromDB()
-
   };
 
   render() {
