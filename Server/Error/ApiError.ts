@@ -1,10 +1,10 @@
 
 class ApiError extends Error {
-  status: any;
+  code: any;
   message: any;
-  constructor(status: any, message: any) {
+  constructor(code: any, message: any) {
     super();
-    this.status = status;
+    this.code = code;
     this.message = message;
   }
 
@@ -16,5 +16,7 @@ class ApiError extends Error {
     return new ApiError(500, msg);
   }
 }
+
+
 
 module.exports = ApiError;

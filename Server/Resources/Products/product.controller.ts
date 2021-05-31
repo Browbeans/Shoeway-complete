@@ -25,11 +25,10 @@ module.exports.getSpecific = async function (
   const id = req.params.id;
   const product = await Product.findById(id);
 
-  try {
+  if(product){
     res.status(200).json(product);
-  } catch (error) {
+  } else {
     next(ApiError.badRequest('Couldnt find the specific shoes'))
-    console.log('error works')
     return;
   }
 };
