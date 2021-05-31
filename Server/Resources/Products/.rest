@@ -14,7 +14,7 @@ Content-Type: application/json
   "title": "Nike Air",
   "price": "899",
   "size": "44",
-  "category": "Unisex",
+  "category": ["mens", "unisex", "womens"],
   "stock": "10",
   "quantity": 1
 }
@@ -31,18 +31,20 @@ Content-Type: application/json
 "title": "Timberland",
 "price": "549",
 "size": "44",
-"category": "man",
-"stock": "3"
+"category": ["mens", "unisex", "womens"],
+"stock": "3",
+"image": "sadasd"
 }
 
 ###
 
 
-POST http://localhost:5000/products/add-size-stock/60b0a41031a35424c9999f43
+
+POST http://localhost:5000/products/add-size-stock/60b0e29215ebd3036c12c91f
 Content-Type: application/json
 
 {
-"size": "38",
+"size": "44",
 "stock": "10",
 "quantity": "1"
 }
