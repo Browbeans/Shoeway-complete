@@ -53,18 +53,9 @@ function Profile () {
 
     return(
       <div className="profile-container">
-          {!isLoggedIn
+          {isLoggedIn
           ?
-          // USER IS LOGGED OUT
-          <div className="out-logged-container">
-            <p>To review your profile, you have to</p>
-            <Link to="/entry" style={{ textDecoration: "none" }}>
-              <span>&nbsp;log in</span>
-            </Link>
-          </div>
-          :
           // USER IS LOGGED IN
-          
           <div className="all-orders">
             <UserDetails/>
             <h2>Passed Orders</h2>
@@ -104,6 +95,14 @@ function Profile () {
               </Button>
             </div>
           </div>
+          :
+          // USER IS LOGGED OUT
+          <div className="out-logged-container">
+          <p>To review your profile, you have to</p>
+          <Link to="/entry" style={{ textDecoration: "none" }}>
+            <span>&nbsp;log in</span>
+          </Link>
+        </div>
           }
       </div>
     )

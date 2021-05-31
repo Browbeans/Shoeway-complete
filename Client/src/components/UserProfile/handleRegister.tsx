@@ -6,7 +6,7 @@ import { RegisterContext } from "../../contexts/User/registerContext";
 import '../../style/Entry.css'
 
 function HandleRegister() {
-    const userContext = useContext(RegisterContext);
+    const { addName, addCity, addStreet, addZip, addPhone, addEmail, addPassword, registerRequest, registerError, errorTxt, registerSuccess } = useContext(RegisterContext);
 
     const [nameError, setNameError] = useState("");
     const [cityError, setCityError] = useState("");
@@ -22,7 +22,7 @@ function HandleRegister() {
           } else {
             setNameError("")
           }
-        userContext.addName(e);
+        addName(e);
     }
 
     const handleCityInput = (e: ChangeEvent<HTMLInputElement>) => {
@@ -31,7 +31,7 @@ function HandleRegister() {
           } else {
             setCityError("")
           }
-        userContext.addCity(e)
+        addCity(e)
     }
 
     const handleStreetInput = (e: ChangeEvent<HTMLInputElement>) => {
@@ -40,7 +40,7 @@ function HandleRegister() {
           } else {
             setStreetError("")
           }
-        userContext.addStreet(e)
+        addStreet(e)
     }
 
     const handleZipInput = (e: ChangeEvent<HTMLInputElement>) => {
@@ -49,7 +49,7 @@ function HandleRegister() {
           } else {
             setZipError("")
           }
-        userContext.addZip(e)
+        addZip(e)
     }
     
     const handlePhoneInput = (e: ChangeEvent<HTMLInputElement>) => {
@@ -58,7 +58,7 @@ function HandleRegister() {
         } else {
             setPhoneError("")
         }
-        userContext.addPhone(e)
+        addPhone(e)
     }
 
     const handleEmailInput = (e: ChangeEvent<HTMLInputElement>) => {
@@ -67,7 +67,7 @@ function HandleRegister() {
           } else {
             setEmailError("")
           }
-        userContext.addEmail(e)
+        addEmail(e)
     }
 
     const handlePasswordInput = (e: ChangeEvent<HTMLInputElement>) => {
@@ -76,7 +76,7 @@ function HandleRegister() {
           } else {
             setPasswordError("")
           }
-        userContext.addPassword(e)
+        addPassword(e)
     }
 
     return(
@@ -194,9 +194,21 @@ function HandleRegister() {
                     helperText={passwordError}
                     error={Boolean(passwordError)}
                 />
-                <Link to="/entry" style={{ textDecoration: "none" }}>
+                {registerError
+                ?
+                <p style={{ color: "red" }}>{errorTxt}</p>
+                :
+                <></>
+                }
+                {registerSuccess
+                ?
+                <p style={{ color: "#56EAC6" }}>Registration successful!</p>
+                :
+                <></>
+                }
+                <Link to="/entry" style={{ textDecoration: "none", width: "100%" }}>
                   <Button
-                      onClick={userContext.registerRequest}
+                      onClick={registerRequest}
                       style={btn}
                       variant="contained"
                       >

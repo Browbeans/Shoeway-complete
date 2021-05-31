@@ -1,26 +1,36 @@
 const Orders = require('./order.model')
 const Users = require('../Users/users-model')
 const Products = require('../Products/product.model')
+import { rejects } from 'assert/strict'
 import { Request, Response } from 'express'
+import { resolve } from 'path/posix'
+
 
 module.exports.addOrder = async (req: Request, res: Response) => {
     const { ordernumber, products, customer } = req.body
-    const currentCustomer = await Users.findById(customer)
+    const productVariant: any = []
 
-    products.forEach(async (productID: any) =>  {
+    products.map(async (productID: any) =>  {
         const singleProduct = await Products.findOne({_id: productID.id})
-        singleProduct.variants.forEach(async (product: {_id: string, size: string, stock: number, quantity: number}) => {
-            console.log(product.size)
+        singleProduct.variants.forEach(async (product: {_id: string, size: string, stock: number, quantity: number, title: string}) => {
             if(productID.size === product.size) {
                 const variantArray = [ {
                     size: productID.size,
-                    stock: product.stock - productID.quantity, 
+                    stock: product.stock - productID.quantity,
                     quantity: productID.quantity
                 }
                 ]
-                console.log(variantArray)
+                const object =
+                    {
+                        size: productID.size,
+                        stock: product.stock - productID.quantity,
+                        quantity: productID.quantity,
+                        title: singleProduct.title
+                    }
+                productVariant.push(object)
+                console.log(productVariant)
                 await Products.findOneAndUpdate(
-                {"_id": productID.id, "variants._id": product._id}, 
+                {"_id": productID.id, "variants._id": product._id},
                 {
                         "$set": {
                             "variants.$": variantArray
@@ -31,23 +41,29 @@ module.exports.addOrder = async (req: Request, res: Response) => {
         })
     })
 
+    
+
+    setTimeout(() => {
+        const newOrder = new Orders({
+            ordernumber: ordernumber,
+            products: productVariant,
+            customer: customer,
+            isSent: false
+        })
+    
+        newOrder.save()
+        res.status(200).json('Order Made')
+        console.log('efter loopen') 
+    }, 50);
+    
     // const idArray: any = []
     // products.forEach((element: any) => {
     //     idArray.push(element.id)
     // });
-    
 
     // const currentProduct = await Products.find({ '_id': { $in: idArray } });
-    // const newOrder = new Orders({
-    //     ordernumber: ordernumber, 
-    //     products: currentProduct,
-    //     customer: customer,
-    //     isSent: false 
-    // })
-    // await newOrder.save()
-    // res.status(200).json(newOrder)
-
-    res.json(products)
+    // console.log(currentProduct)
+    
 }
 
 module.exports.getOrders = async function (req: Request, res: Response) {

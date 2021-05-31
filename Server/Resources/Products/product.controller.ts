@@ -1,71 +1,89 @@
-const Product = require('./product.model');
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from "express";
+const Product = require("./product.model");
+const ApiError = require("../../Error/ApiError");
 
-module.exports.getProducts = async function(req: Request, res: Response) {
+module.exports.getProducts = async function(req: Request, res: Response, next: NextFunction) {
 
     const products = await Product.find().sort()
 
-    try {
+    if(products){
       res.status(200).json(products);
       console.log(Product);
-    } catch (error) {
-      res.status(400).json(error);
+    }else {
+      next(ApiError.notFound('Couldnt find any products'));
+      return;
     }
 };
 
-module.exports.getSpecific = async function(req: Request, res: Response) {
-
+module.exports.getSpecific = async function (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
   const id = req.params.id;
-  const product = await Product.findById(id)
+  const product = await Product.findById(id);
 
-  try {
+  if(product){
     res.status(200).json(product);
-  } catch (error) {
-    res.status(400).json(error)
+  } else {
+    next(ApiError.notFound('Couldnt find the specific product'))
+    return;
   }
 };
 
-module.exports.addNewProduct = async function(req: Request, res: Response) {
-
-  if(req.body){
-    if(!req.body.title){
-      return res.status(400).json('Cant add product')
+module.exports.addNewProduct = async function (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  if (req.body) {
+    if (!req.body.title) {
+      next(ApiError.badRequest('Couldnt add product'));
+      return;
     }
 
     const product = new Product({
       price: req.body.price,
       category: req.body.category,
-      title: req.body.title
-    })
+      title: req.body.title,
+      image: req.body.image,
+    });
 
     product.variants.push({
-      size: req.body.size, 
-      stock: req.body.stock, 
-      quantity: req.body.quantity
-    })
+      size: req.body.size,
+      stock: req.body.stock,
+      quantity: req.body.quantity,
+      title: req.body.title,
+    });
 
-
-    await product.save(function(error: any){
-      console.log(error)
-    })
-    res.status(201).json(product)
+    await product.save(function (error: any) {
+      console.log(error);
+    });
+    res.status(201).json(product);
   }
 };
 
-module.exports.deleteProduct = async function (req: Request, res: Response) {
-
+module.exports.deleteProduct = async function (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
   const id = req.params.id;
-  const product = await Product.findByIdAndDelete(id)
+  const product = await Product.findByIdAndDelete(id);
 
-      try {
-        res.status(202).json(product);
-      } catch (error) {
-        res.status(400).json(error);
-      }
+  if (product) {
+    res.status(202).json(product);
+  } else {
+    next(ApiError.notFound('This product does not exist'));
+    return;
+  }
 };
 
-module.exports.editProduct = async function (req: Request, res: Response) {
-
+module.exports.editProduct = async function (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
   const id = req.params.id;
   const product = await Product.findByIdAndUpdate(id, {
     title: req.body.title,
@@ -73,28 +91,45 @@ module.exports.editProduct = async function (req: Request, res: Response) {
     size: req.body.size,
     quantity: req.body.quantity,
     category: req.body.category,
-    stock: req.body.stock
-  })
-  
-  try {
+    stock: req.body.stock,
+    image: req.body.image,
+  });
+
+  if (product) {
     res.status(202).json(product);
-  } catch (error) {
-    res.status(400).json(error);
+  } else {
+    next(ApiError.notFound('Cant find the product'));
+    return;
   }
 };
 
-module.exports.addSizeAndStock = async function (req: Request, res: Response) {
-  const id = req.params.id
+module.exports.addSizeAndStock = async function (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  const id = req.params.id;
 
-  const product = await Product.update({_id: id},
-    {$push: { "variants"  : { 
-        size: req.body.size,
-        stock: req.body.stock,
-        quantity: req.body.quantity 
-      }}
+  const product = await Product.update(
+    { _id: id },
+    {
+      $push: {
+        variants: {
+          size: req.body.size,
+          stock: req.body.stock,
+          quantity: req.body.quantity,
+          title: req.body.title,
+        },
+      },
     }
-  )
-  res.status(200).json(product)
-}
+  );
+
+  if(product) {
+    res.status(200).json(product);
+  } else {
+    next(ApiError.notFound('Couldnt find the product'));
+    return;
+  }
+};
 
 

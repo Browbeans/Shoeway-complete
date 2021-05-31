@@ -18,6 +18,8 @@ interface State {
     passwordLogin: string
     currentUser: SessionUser
     isLoggedIn: boolean
+    loginError: boolean
+    errorTxt: string
 }
 
 interface ContextProps extends State {
@@ -44,6 +46,8 @@ export const LoginContext = createContext<ContextProps>({
             email: "",
         },
     isLoggedIn: false,
+    loginError: false,
+    errorTxt: "",
     fetchUsers: () => {},
     handleEmailLogin: () => {},
     handlePasswordLogin: () => {},
@@ -54,8 +58,7 @@ export const LoginContext = createContext<ContextProps>({
 class LoginProvider extends Component<{}, State> {
 
     fetchUsersfromDatabase = async () => {
-        const request = await axios.get("/users");
-        console.log(request.data)
+        await axios.get("/users");
     };
 
     handleEmailLoginInput = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -74,12 +77,16 @@ class LoginProvider extends Component<{}, State> {
             }
     
             await axios.post("/users/handleLogin", userLogin);
-            const request = await axios.get("/users/currentUser")
-            const user = request.data
+            const response = await axios.get("/users/currentUser")
+            const user = response.data
             this.setState({currentUser: user})
             this.setState({ isLoggedIn: true })
+            this.setState({ loginError: false })
+
+            console.log(this.state.isLoggedIn)
         } catch (error) {
-            console.log(error)   
+            this.setState({ loginError: true })   
+            this.setState({ errorTxt: error.response.data })
         }
     };
 

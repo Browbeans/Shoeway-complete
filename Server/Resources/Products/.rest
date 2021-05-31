@@ -11,7 +11,7 @@ POST http://localhost:5000/products/addProduct
 Content-Type: application/json
 
 {
-  "title": "Adidas Stan Smith",
+  "title": "Nike Air",
   "price": "899",
   "size": "44",
   "category": "Unisex",
@@ -20,16 +20,16 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://localhost:5000/products/60a3902c9d4c586bd057254f
+DELETE http://localhost:5000/products/60b0a41031a35424c9999f42
 
 ###
 
-PUT http://localhost:5000/products/60a38aa04b4dfd5e42ef19b4
+PUT http://localhost:5000/products/60b0a41031a35424c9999f42
 Content-Type: application/json
 
 {
 "title": "Timberland",
-"price": "449",
+"price": "549",
 "size": "44",
 "category": "man",
 "stock": "3"
@@ -38,7 +38,7 @@ Content-Type: application/json
 ###
 
 
-POST http://localhost:5000/products/add-size-stock/60af85697d01c10cb0ad8e7f
+POST http://localhost:5000/products/add-size-stock/60b0a41031a35424c9999f43
 Content-Type: application/json
 
 {

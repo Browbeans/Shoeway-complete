@@ -8,7 +8,10 @@ interface State {
     userZip: string,
     userPhone: string,
     userEmail: string,
-    userPassword: string
+    userPassword: string,
+    registerError: boolean,
+    errorTxt: string,
+    registerSuccess: boolean
 }
 
 interface ContextProps extends State {
@@ -30,6 +33,9 @@ export const RegisterContext = createContext<ContextProps>({
     userPhone: "",
     userEmail: "",
     userPassword: "",
+    registerError: false,
+    errorTxt: "",
+    registerSuccess: false,
     addName: () => {},
     addCity: () => {},
     addStreet: () => {},
@@ -87,8 +93,10 @@ class RegisterProvider extends Component<{}, State> {
               }
               const request = await axios.post("/users/handleRegister", newUser);
               console.log(request)
+              this.setState({ registerSuccess: true })
         } catch (error) {
-            console.log(error)
+            this.setState({ registerError: true })
+            this.setState({ errorTxt: error.response.data })
         }
     };
 

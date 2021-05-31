@@ -7,12 +7,14 @@ interface Product{
     quantity: number,
     category: string,
     stock: number,
+    image: string, 
 }
 
 const ProductVariant = new mongoose.Schema({
   size: Number, 
   stock: Number,
-  quantity: Number
+  quantity: Number,
+  title: String
 })
 
 
@@ -59,6 +61,9 @@ const productSchema = new mongoose.Schema({
   //   required: true,
   //   min: [1, "Stock must be a positive number"],
   // },
+  image: {
+    type: String,
+  },
   variants: [ProductVariant]
 });
 
