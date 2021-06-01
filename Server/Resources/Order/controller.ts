@@ -95,25 +95,26 @@ module.exports.getSpecific = async function(req: Request, res: Response, next: N
 }
 
 module.exports.getUserOrders = async function(req: Request, res: Response, next: NextFunction) {
-    const urlId = req.params.id
-    const user = await Users.findById(urlId)
-    const userOrder = await Orders.find({customer: user._id}).populate('customer')
+    const urlId = req.params.id;
+    const user = await Users.findById(urlId);
 
     if(user){
-        res.status(200).json(user);
+         const userOrder = await Orders.find({ customer: user._id }).populate(
+           "customer"
+         );
+         res.status(200).json(user);
 
-        if (userOrder) {
-         return res.status(200).json(userOrder);
-
-        } else {
-          next(ApiError.notFound("Couldnt find the the order"));
-          return;
-
-        }
+         if(userOrder){
+            res.status(200).json(userOrder);
+         } else {
+             next(ApiError.notFound('Couldnt find the order'));
+         }
     } else {
-        next(ApiError.notFound("Couldnt find the the user"));
+        next(ApiError.notFound("Couldnt find the user"));
         return;
     }
+   
+        
 }
 
 module.exports.orderSent = async function(req: Request, res: Response, next: NextFunction) {

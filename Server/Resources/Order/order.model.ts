@@ -7,21 +7,12 @@ interface Product {
     size: number, 
 }
 
-// interface Customer {
-//     name: string, 
-//     adress: string, 
-//     zip: number,
-//     email: string,
-//     phone: number
-// }
-
 interface Order extends Document {
     ordernumber: string, 
     products: Product[],
     customer: string, 
     isSent: Boolean
 }
-
 
 const orderSchema = new mongoose.Schema({
     ordernumber: {
