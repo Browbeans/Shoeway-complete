@@ -16,7 +16,8 @@ Content-Type: application/json
   "size": "44",
   "category": ["mens", "unisex", "womens"],
   "stock": "10",
-  "quantity": 1
+  "quantity": 1,
+  "info": " bla",
 }
 
 ###
@@ -33,7 +34,8 @@ Content-Type: application/json
 "size": "44",
 "category": ["mens", "unisex", "womens"],
 "stock": "3",
-"image": "sadasd"
+"image": "sadasd",
+"info": "bla"
 }
 
 ###

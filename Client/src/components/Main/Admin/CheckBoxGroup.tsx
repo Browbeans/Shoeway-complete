@@ -12,6 +12,7 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       display: 'flex',
+      flexDirection: 'row'
     },
     formControl: {
       marginTop: theme.spacing(3),
@@ -50,23 +51,37 @@ export default function CheckboxesGroup() {
       <FormControl component="fieldset" className={classes.formControl}>
         <FormLabel component="legend">Category</FormLabel>
         <div>
-            <FormGroup>
+          <FormGroup row>
             <FormControlLabel
-                control={<Checkbox checked={mens} onChange={handleChange} name="mens" />}
-                label="Mens"
+              control={
+                <Checkbox checked={mens} onChange={handleChange} name="mens" />
+              }
+              label="Mens"
             />
             <FormControlLabel
-                control={<Checkbox checked={unisex} onChange={handleChange} name="unisex" />}
-                label="Unisex"
+              control={
+                <Checkbox
+                  checked={unisex}
+                  onChange={handleChange}
+                  name="unisex"
+                />
+              }
+              label="Unisex"
             />
             <FormControlLabel
-                control={<Checkbox checked={womens} onChange={handleChange} name="womens" />}
-                label="Womens"
+              control={
+                <Checkbox
+                  checked={womens}
+                  onChange={handleChange}
+                  name="womens"
+                />
+              }
+              label="Womens"
             />
-            </FormGroup>
-                <FormHelperText>Be careful</FormHelperText>
+          </FormGroup>
+          <FormHelperText>Be careful</FormHelperText>
         </div>
-       </FormControl> 
+      </FormControl>
     </div>
   );
 }

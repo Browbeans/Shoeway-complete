@@ -37,10 +37,10 @@ module.exports.handleRegister = async function(req: Request, res: Response, next
 
 
 module.exports.handleLogin = async function(req: Request, res: Response, next: NextFunction) {
-    const { email, password} = req.body
+    const { email, password } = req.body
     const registeredUsers = await Users.find({email: email})
     const user = registeredUsers.find((u: any) => u.email === email);
-    try {
+    if(user) {
         if(!user || !await bcrypt.compare(password, user.password)) {
 
             next(ApiError.unauthorized("Incorrect email or password"))
@@ -56,8 +56,9 @@ module.exports.handleLogin = async function(req: Request, res: Response, next: N
             req.session.role = user.role;
         }
         return res.status(200).json(null)
-    } catch (error) {
-        return next(ApiError.badRequest(error.message));
+    } else {
+        next(ApiError.badRequest(''));
+        return;
     }
 }
 

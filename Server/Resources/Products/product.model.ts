@@ -8,15 +8,15 @@ interface Product{
     category: string,
     stock: number,
     image: string, 
+    info: string,
 }
 
 const ProductVariant = new mongoose.Schema({
   size: Number, 
   stock: Number,
   quantity: Number,
-  title: String
+  title: String,
 })
-
 
 const productSchema = new mongoose.Schema({
   title: {
@@ -35,35 +35,16 @@ const productSchema = new mongoose.Schema({
     required: true,
     min: [0, "Price must be a positive number"],
   },
-  // size: {
-  //   type: Number,
-  //   required: true,
-  //   min: [0, "Size must be a positive number"],
-  // },
-  // quantity: {
-  //   type: Number,
-  //   required: true,
-  //   min: [1, "Quantity must be a positive number"],
-  // },
   category: {
     type: [
       String
     ],
     required: true,
-    // validate: {
-    //   validator: function (value: any) {
-    //     const titleRegex = /^[a-öA-Ö\s,'-]+$/;
-    //     return titleRegex.test(value);
-    //   },
-    //   message: "Category must be a string",
-    // },
   },
-  // stock: {
-  //   type: Number,
-  //   required: true,
-  //   min: [1, "Stock must be a positive number"],
-  // },
   image: {
+    type: String,
+  },
+  info: {
     type: String,
   },
   variants: [ProductVariant]

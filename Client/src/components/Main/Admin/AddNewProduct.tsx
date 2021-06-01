@@ -89,13 +89,13 @@ const AddNewProduct = () => {
      }
 
     return (
-      <div>
+      <div className="wrapper">
         <div className="container">
           <div
             style={{
               display: "flex",
               flexDirection: "column",
-              justifyContent: "center",
+              justifyContent: "center"
             }}
           >
             {!currentProduct ? (
