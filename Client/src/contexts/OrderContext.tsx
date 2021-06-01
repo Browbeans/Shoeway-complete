@@ -23,6 +23,7 @@ export interface Order {
   products: Product[],
   customer: string,
   isSent?: boolean,
+  orderAmount: Number
 }
 
 
@@ -41,7 +42,8 @@ export const OrderContext = createContext<ContextProps>({
     {
       ordernumber: '', 
       products: [],
-      customer: ''
+      customer: '',
+      orderAmount: 0
     }  
   ] 
   ,
@@ -55,12 +57,14 @@ class OrderProvider extends Component<{}, State> {
       {
         ordernumber: '', 
         products: [],
-        customer: ''
+        customer: '',
+        orderAmount: 0
       }
     ] 
   };
 
   createOrderToDb = (orderInfo: Order) => {
+    console.log(orderInfo)
     axios({
         method: 'post',
         url: '/order/add-order',

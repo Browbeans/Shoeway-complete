@@ -26,8 +26,10 @@ const Checkout =  () => {
   const orderContext = useContext(OrderContext)
   const { currentUser } = useContext(LoginContext)
   const productArray: any = []
-
-  
+ 
+  useEffect(() => {
+    console.log(cartContext.totalAmount)
+  })
 
   const handleClick = () => {
     let orderProduct = {}
@@ -45,8 +47,9 @@ const Checkout =  () => {
     const ordernumber = Guid.newGuid().toString()
     const order = {
       ordernumber: ordernumber, 
-        products: productArray,
-        customer: currentUser._id
+      products: productArray,
+      customer: currentUser._id,
+      orderAmount: cartContext.totalAmount
     }
     orderContext.createOrder(order)
   }

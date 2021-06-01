@@ -6,7 +6,7 @@ import { Request, Response } from 'express'
 
 
 module.exports.addOrder = async (req: Request, res: Response) => {
-    const { ordernumber, products, customer } = req.body
+    const { ordernumber, products, customer, orderAmount } = req.body
     const productVariant: any = []
 
     products.map(async (productID: any) =>  {
@@ -46,6 +46,7 @@ module.exports.addOrder = async (req: Request, res: Response) => {
             ordernumber: ordernumber,
             products: productVariant,
             customer: customer,
+            orderAmount: orderAmount,
             isSent: false
         })
     

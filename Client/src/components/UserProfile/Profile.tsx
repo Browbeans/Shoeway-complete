@@ -72,7 +72,6 @@ function Profile () {
                           <br/>
                           {`Quantity:  ${p.quantity} X`}
                           <br/>
-                          {`Totalprice:  ${totalAmount(p.price, p.quantity)} SEK`}
                         </Typography>
                     </div>
                   ))}
@@ -82,6 +81,7 @@ function Profile () {
                   :
                     'Your order is being handled and waiting for shipment'
                   }
+                  <p>{`Totalprice:  ${order.orderAmount} SEK`}</p>
                 </CardContent>
               </Card>
             ))}
