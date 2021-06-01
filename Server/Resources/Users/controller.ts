@@ -55,10 +55,9 @@ module.exports.handleLogin = async function(req: Request, res: Response, next: N
             req.session.zip = user.zip;
             req.session.role = user.role;
         }
-        res.status(200).json(null)
-        console.log(req.session!.name)
+        return res.status(200).json(null)
     } catch (error) {
-        next(ApiError.badRequest(error.message));
+        return next(ApiError.badRequest(error.message));
     }
 }
 
@@ -96,7 +95,7 @@ module.exports.getCurrenUser = async function ( req: Request, res: Response, nex
     if(req.session!.email) {
         const currentEmail = req.session!.email
         const currentUser = await Users.findOne({email: currentEmail})
-        res.status(200).json(currentUser)
+        return res.status(200).json(currentUser)
     } else {
         next(ApiError.badRequest("No user available"));
         return;

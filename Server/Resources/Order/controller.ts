@@ -5,7 +5,7 @@ const ApiError = require("../../Error/ApiError");
 import { Request, Response, NextFunction } from 'express'
 
 module.exports.addOrder = async (req: Request, res: Response, next: NextFunction) => {
-    const { ordernumber, products, customer, orderAmount } = req.body
+    const { ordernumber, products, customer, orderAmount, shipment } = req.body
     const productVariant: any = []
 
     let isError = false;
@@ -73,7 +73,7 @@ module.exports.getOrders = async function (req: Request, res: Response, next: Ne
     const result = await Orders.find()
 
     if(result){
-        res.status(200).json(result);
+        return res.status(200).json(result);
     } else {
         next(ApiError.badRequest('Something went wrong'));
         return;
@@ -86,7 +86,7 @@ module.exports.getSpecific = async function(req: Request, res: Response, next: N
     const order = await Orders.findById(id)
 
     if(order){
-      res.status(200).json(order);
+      return res.status(200).json(order);
     } else {
        next(ApiError.notFound('Couldnt find the specific order'));
        return;
@@ -101,7 +101,6 @@ module.exports.getUserOrders = async function(req: Request, res: Response, next:
          const userOrder = await Orders.find({ customer: user._id }).populate(
            "customer"
          );
-         res.status(200).json(user);
 
          if(userOrder){
             res.status(200).json(userOrder);
