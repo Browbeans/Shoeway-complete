@@ -1,26 +1,18 @@
 GET http://localhost:5000
 
-
 ###
-
 
 GET http://localhost:5000/order/all-orders
 
-
 ###
-
 
 GET http://localhost:5000/order/specific-order/60a3acf14d8c473434e7e3e3
 
-
 ###
 
-
-GET http://localhost:5000/order/user-orders/60a79d8cbf69303b004dd159
-
+GET http://localhost:5000/order/user-orders/60a3acf14d8c473434e7e3e3
 
 ###
-
 
 POST http://localhost:5000/order/add-order
 Content-Type: application/json
@@ -48,12 +40,8 @@ Content-Type: application/json
     "customer": "60a79d8cbf69303b004dd159"
 }
 
-
 ###
 
-GET http://localhost:5000/order/order-products/60a4ddaa6fbe300c804bd6b7
-
+PATCH http://localhost:5000/order/sent-order/60a3acf14d8c473434e7e3e2
 
 ###
-
-PATCH http://localhost:4000/order/sent-order/60a4fa9751ceee3f08a13336

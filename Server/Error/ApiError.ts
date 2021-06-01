@@ -12,7 +12,11 @@ class ApiError extends Error {
     return new ApiError(400, msg);
   }
 
-  static notFound(msg: any){
+  static unauthorized(msg: any){
+    return new ApiError(401, msg);
+  };
+
+  static notFound(msg: any) {
     return new ApiError(404, msg);
   }
 

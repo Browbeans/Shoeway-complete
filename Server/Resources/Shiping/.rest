@@ -11,9 +11,10 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://localhost:5000/Shiping/deleteShiping/60a6335c6ab4ed4480efca21
+DELETE http://localhost:5000/Shiping/deleteShiping/60b5e4c13e35f60c35f638cd
 ###
-PUT http://localhost:5000/Shiping/editshiping/60a5127237cb7047d4b5bf20
+
+PUT http://localhost:5000/Shiping/editshiping/60b5e4c23e35f60c35f638ce
 Content-Type: application/json
 
 {
@@ -22,4 +23,8 @@ Content-Type: application/json
 "price": 0
 }
  
+###
 
+GET http://localhost:5000/Shiping/60b5e4c13e35f60c35f638cd
+
+###
