@@ -4,7 +4,7 @@ import { ChangeEvent, useContext, useState } from 'react';
 import { btnSmall } from "../../../style/GeneralStyle";
 import '../../../style/Admin.css';
 import { ProductContext, Product } from "../../../contexts/ProductContext";
-import { useRouteMatch } from 'react-router';
+import { useHistory, useRouteMatch } from 'react-router';
 import axios from "axios";
 import CheckboxesGroup from './CheckBoxGroup';
 
@@ -18,7 +18,7 @@ export interface StockSizeProduct {
 
 const AddStockAndSize = () => {
   const match = useRouteMatch<{ id: string }>();
-
+  const history = useHistory()
   
   const axiosContext = useContext(ProductContext)
   let currentProduct = axiosContext.allProducts.find((specificProduct: Product) => specificProduct.title === match.params.id)
@@ -33,6 +33,7 @@ const AddStockAndSize = () => {
 
     const handleClick = () => {
         axiosContext.addStockSize(product)
+        history.push('/admin')
     }
 
     const handleSize = (e: ChangeEvent<HTMLInputElement>) => {
