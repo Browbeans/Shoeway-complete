@@ -4,13 +4,13 @@ import { ChangeEvent, useContext, useState } from 'react';
 import { btnSmall } from "../../../style/GeneralStyle";
 import '../../../style/Admin.css';
 import { ProductContext, Product } from "../../../contexts/ProductContext";
-import { useRouteMatch } from 'react-router';
+import { useHistory, useRouteMatch } from 'react-router';
 import axios from "axios";
 import CheckboxesGroup from './CheckBoxGroup';
 
 const AddNewProduct = () => {
   const match = useRouteMatch<{ id: string }>();
-
+  const history = useHistory()
   const newProductData: Product = {
     title: "",
     image: "",
@@ -33,9 +33,11 @@ const AddNewProduct = () => {
       const isNewProduct = !currentProduct
       if(isNewProduct) {
         axiosContext.addProduct(product)
+        history.push('/admin')
       }
        else {
         axiosContext.editProduct(product, currentProduct)
+        history.push('/admin')
       }
     }
 
@@ -60,9 +62,9 @@ const AddNewProduct = () => {
     //   setProduct({ ...product, category: categoryArray });
     // };
 
-     const handleStock = (e: ChangeEvent<HTMLInputElement>) => {
-       setProduct({ ...product, stock: parseInt(e.target.value) });
-     };
+    const handleStock = (e: ChangeEvent<HTMLInputElement>) => {
+      setProduct({ ...product, stock: parseInt(e.target.value) });
+    };
     
     const selectedFileHandler = (e: any) => {
       setSelectedFile(e.target.files[0]);
