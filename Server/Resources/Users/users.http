@@ -2,15 +2,15 @@ POST http://localhost:5000/users/handleRegister
 Content-Type: application/json
 
 {
-    "name": "Admina",
+    "name": "Admino",
     "adress": {
         "city": "Sweden",
         "street": "Göteborg",
         "zip": "12345"
     },
     "phone": "0705773264",
-    "email": "admin@live.se",
-    "password": "Testing1",
+    "email": "admin@live.com",
+    "password": "Testing112",
     "role": "admin"
 }
 
@@ -20,8 +20,8 @@ POST http://localhost:5000/users/handleLogin
 Content-Type: application/json
 
 {
-    "email": "admin@live.se",
-    "password": "Testing1"
+    "email": "admin@live.com",
+    "password": "Testing112"
 }
 
 
@@ -56,7 +56,7 @@ GET http://localhost:5000/users/currentUser
 
 ###
 
-PUT http://localhost:5000/users/handleRole/60b4dea8f7a4bd2584d59d6a
+PUT http://localhost:5000/users/handleRole/60b5f6b4dbc9351ba78c039b
 Content-Type: application/json
 
 {

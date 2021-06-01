@@ -7,14 +7,6 @@ interface Product {
     size: number, 
 }
 
-// interface Customer {
-//     name: string, 
-//     adress: string, 
-//     zip: number,
-//     email: string,
-//     phone: number
-// }
-
 interface Order extends Document {
     ordernumber: string, 
     products: Product[],
@@ -27,7 +19,6 @@ const shipment = new mongoose.Schema({
     price: Number, 
     name: String
 })
-
 
 const orderSchema = new mongoose.Schema({
     ordernumber: {
