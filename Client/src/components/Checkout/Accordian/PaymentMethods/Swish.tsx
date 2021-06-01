@@ -34,7 +34,6 @@ const Swish = () => {
               name="phone"
               autoComplete="phone"
               autoFocus
-              value={user.user.phone}
               helperText={swishError}
               error={Boolean(swishError)}
               onChange={handleSwishChange}

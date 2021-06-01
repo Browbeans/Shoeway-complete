@@ -29,12 +29,14 @@ export interface Order {
 
 
 interface State {
-  userOrders: Order[]
+  userOrders: Order[],
+  orderNumber: string
 }
 
 interface ContextProps extends State {
   createOrder: (orderInfo: Order) => void
   getUserOrders: (user: string) => void
+  setOrderNumber: (ordernumber: string) => void
 }
 
 export const OrderContext = createContext<ContextProps>({
@@ -45,10 +47,11 @@ export const OrderContext = createContext<ContextProps>({
       customer: '',
       orderAmount: 0
     }  
-  ] 
-  ,
+  ],
+  orderNumber: '',
   createOrder: (orderInfo: Order) => {},
-  getUserOrders: (user: string) => {}
+  getUserOrders: (user: string) => {}, 
+  setOrderNumber: (ordernumber: string) => {}
 });
 
 class OrderProvider extends Component<{}, State> {
@@ -60,7 +63,8 @@ class OrderProvider extends Component<{}, State> {
         customer: '',
         orderAmount: 0
       }
-    ] 
+    ],
+    orderNumber: '' 
   };
 
   createOrderToDb = (orderInfo: Order) => {
@@ -81,6 +85,10 @@ class OrderProvider extends Component<{}, State> {
     this.setState({ userOrders: result })
   }
 
+  setOrderNumberToState = (ordernumber: string) => {
+    this.setState({ orderNumber: ordernumber})
+  }
+
   componentDidMount = () => {
 
   };
@@ -90,8 +98,10 @@ class OrderProvider extends Component<{}, State> {
       <OrderContext.Provider
         value={{
           userOrders: this.state.userOrders,
+          orderNumber: this.state.orderNumber,
           createOrder: this.createOrderToDb,
-          getUserOrders: this.getUserOrdersFromDb
+          getUserOrders: this.getUserOrdersFromDb,
+          setOrderNumber: this.setOrderNumberToState
         }}
       >
         {this.props.children}
