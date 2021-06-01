@@ -50,7 +50,7 @@ export const OrderContext = createContext<ContextProps>({
     }  
   ],
   allOrders: [],
-  fetchAllOrders: () => {}
+  fetchAllOrders: () => {},
   orderNumber: '',
   createOrder: (orderInfo: Order) => {},
   getUserOrders: (user: string) => {}, 
@@ -86,7 +86,6 @@ class OrderProvider extends Component<{}, State> {
   getUserOrdersFromDb = async (user: string) => {
     const request = await axios.get(`/order/user-orders/${user}`)
     const result = request.data
-    console.log(result)
     this.setState({ userOrders: result })
   }
 
@@ -97,7 +96,8 @@ class OrderProvider extends Component<{}, State> {
     } catch (error) {
       console.log(error) 
     }
-    
+  }
+
   setOrderNumberToState = (ordernumber: string) => {
     this.setState({ orderNumber: ordernumber})
   }
