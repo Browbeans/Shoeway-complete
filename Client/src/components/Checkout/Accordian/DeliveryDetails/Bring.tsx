@@ -7,7 +7,7 @@ const Bring = () => {
   const value = useContext(UserContext)
   
   const clickCallback = () => {
-    value.addDelivery('Bring', 5, 3, 39)
+    value.addDelivery('Bring', 5, 3)
     value.filledState(true)
   }
 

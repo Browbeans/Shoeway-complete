@@ -5,12 +5,16 @@ import { Guid } from 'js-guid';
 import { CartContext } from "../../contexts/CartContext";
 import { PaymentContext } from "../../contexts/PaymentContext";
 import { LoginContext } from "../../contexts/User/loginContext";
+import { DeliveryContext } from "../../contexts/DeliverContext";
+import { OrderContext } from "../../contexts/OrderContext";
 
 
 
 const UserInput = () =>{
   const userContext = useContext(UserContext)
   const cart = useContext(CartContext)
+  const { orderNumber } = useContext(OrderContext)
+  const { selectDeliver } = useContext(DeliveryContext)
   const payment = useContext(PaymentContext)
   const { currentUser } = useContext(LoginContext)
   console.log(userContext.user)
@@ -37,18 +41,17 @@ const UserInput = () =>{
               <h5>Adress:</h5>
               <p>{currentUser.adress.city}</p>
               <p>{currentUser.adress.street}</p>
-              <p>{currentUser.adress.zip}</p>
             </div>
           </div>
 
           <div className="orderlisting-div2">
             <div className="order-listings">
               <h5>Zip-Code:</h5>
-              <p>{userContext.user.zip}</p>
+              <p>{currentUser.adress.zip}</p>
             </div>
             <div className="order-listings">
               <h5>Shipping:</h5>
-              <p>{userContext.delivery.company}</p>
+              <p>{selectDeliver.name}</p>
             </div>
             <div className="order-listings">
               <h5>Date of delivery: </h5>
@@ -56,7 +59,7 @@ const UserInput = () =>{
             </div>
             <div className="order-listings">
               <h5>OrderNr:</h5>
-              <p>{Guid.newGuid().toString()}</p>
+              <p>{orderNumber}</p>
             </div>
           </div>
         </div>

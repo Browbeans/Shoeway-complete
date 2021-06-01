@@ -28,7 +28,8 @@ export interface Order {
 
 interface State {
   userOrders: Order[],
-  allOrders: []
+  allOrders: [],
+  orderNumber: string
 }
 
 interface ContextProps extends State {
@@ -36,6 +37,7 @@ interface ContextProps extends State {
   createOrder: (orderInfo: Order) => void
   getUserOrders: (user: string) => void
   fetchAllOrders: () => void
+  setOrderNumber: (ordernumber: string) => void
 }
 
 export const OrderContext = createContext<ContextProps>({
@@ -48,9 +50,11 @@ export const OrderContext = createContext<ContextProps>({
     }  
   ],
   allOrders: [],
-  createOrder: (orderInfo: Order) => {},
-  getUserOrders: (user: string) => {},
   fetchAllOrders: () => {}
+  orderNumber: '',
+  createOrder: (orderInfo: Order) => {},
+  getUserOrders: (user: string) => {}, 
+  setOrderNumber: (ordernumber: string) => {}
 });
 
 class OrderProvider extends Component<{}, State> {
@@ -63,7 +67,8 @@ class OrderProvider extends Component<{}, State> {
         orderAmount: 0
       }
     ],
-    allOrders: []
+    allOrders: [],
+    orderNumber: '' 
   };
 
   createOrderToDb = (orderInfo: Order) => {
@@ -92,6 +97,9 @@ class OrderProvider extends Component<{}, State> {
     } catch (error) {
       console.log(error) 
     }
+    
+  setOrderNumberToState = (ordernumber: string) => {
+    this.setState({ orderNumber: ordernumber})
   }
 
   componentDidMount = () => {
@@ -106,7 +114,9 @@ class OrderProvider extends Component<{}, State> {
           allOrders: this.state.allOrders,
           createOrder: this.createOrderToDb,
           getUserOrders: this.getUserOrdersFromDb,
-          fetchAllOrders: this.fetchAllOrdersRequest
+          fetchAllOrders: this.fetchAllOrdersRequest,
+          orderNumber: this.state.orderNumber,
+          setOrderNumber: this.setOrderNumberToState
         }}
       >
         {this.props.children}

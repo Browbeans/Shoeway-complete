@@ -11,7 +11,7 @@ const PaymentDetails = () => {
           <div style={{marginBottom: '1rem'}}>
             Payment Details
           </div>
-          <div>
+          <div style={{width: '70%'}}>
             <Creditcard />
             <Swish />
             <BankTransfer />
@@ -28,7 +28,7 @@ const form: CSSProperties = {
   margin: "1rem 0rem",
   background: "lightgrey",
   fontSize: "1.2rem",
-  width: "21rem",
+  width: "100%",
   padding: "2rem 4rem",
   boxShadow: "1px 1px 3px grey",
 };

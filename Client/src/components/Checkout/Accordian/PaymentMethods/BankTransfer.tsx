@@ -87,7 +87,7 @@ const BankTransfer = () => {
 export default BankTransfer
 
 const container: CSSProperties = {
-  width: "10rem",
+  width: "80%",
   textAlign: "center",
   display: "flex",
   justifyContent: "center",
