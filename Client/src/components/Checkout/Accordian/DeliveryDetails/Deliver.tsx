@@ -21,9 +21,9 @@ function Deliver (){
             {/* {getdelivery} */}
            
             {deliver.DeliverOrders.map((d)=>(
-                <div className="delivery-div" onClick={() => change(d._id)}>
-                <strong className="company" >{d.name}</strong>
-                <span >{d.days}</span>
+                <div className="delivery-div hover" onClick={() => change(d._id)}>
+                <strong className="company hover" >{d.name}</strong>
+                <span className="hover" >{d.days}</span>
                 <span >{d.price} kr</span>
                 </div>
             ) )}
