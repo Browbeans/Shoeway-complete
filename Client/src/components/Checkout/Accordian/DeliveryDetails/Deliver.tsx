@@ -11,23 +11,6 @@ function Deliver() {
     getdeliverOrder();
   }, [getdeliverOrder]);
 
-<<<<<<< HEAD
-   const change = (id: string) => {
-       console.log("test")
-    deliver.fetchshiping(id)
-   }
-    return(
-        <div >
-            {/* {getdelivery} */}
-           
-            {deliver.DeliverOrders.map((d)=>(
-                <div className="delivery-div hover" onClick={() => change(d._id)}>
-                <strong className="company hover" >{d.name}</strong>
-                <span className="hover" >{d.days}</span>
-                <span >{d.price} kr</span>
-                </div>
-            ) )}
-=======
   const change = (id: string) => {
     console.log("test");
     fetchshiping(id);
@@ -43,7 +26,6 @@ function Deliver() {
           <strong className="company">{d.name}</strong>
           <span>{d.days}</span>
           <span>{d.price} kr</span>
->>>>>>> master
         </div>
       ))}
     </div>
