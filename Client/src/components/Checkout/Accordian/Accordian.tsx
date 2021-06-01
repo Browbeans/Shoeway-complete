@@ -1,4 +1,3 @@
-import PersonalDetails from './PersonalDetails';
 import DelivaryDetails from './DelivaryDetails';
 import PaymentDetails from './PaymentDetails';
 import { Button, Step, StepLabel, Stepper } from '@material-ui/core';
@@ -8,6 +7,7 @@ import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import { UserContext } from '../../../contexts/UserContext';
 import { PaymentContext } from '../../../contexts/PaymentContext';
 import { CartContext } from '../../../contexts/CartContext';
+import Deliver from './DeliveryDetails/Deliver';
 
 const muiTheme = createMuiTheme({
   overrides: {
@@ -26,17 +26,15 @@ const muiTheme = createMuiTheme({
 });
 
   function getSteps(){
-    return [ <PersonalDetails/>, <DelivaryDetails/>, <PaymentDetails/>];
+    return [ <DelivaryDetails/>, <PaymentDetails/>];
   }
 
   function getStepContent(stepIndex: number){
     switch (stepIndex) {
       case 0: 
-        return <PersonalDetails/>;
+        return <Deliver/>;
       case 1: 
-        return <DelivaryDetails/>;
-      case 2: 
-        return <PaymentDetails/>;
+        return <PaymentDetails/>; 
       default:
         return 'unknown step'; 
     }
@@ -54,11 +52,11 @@ const Accordian = () => {
   }
 
   const nextStep = () => {
-    if(activeStep < 2) {
+    if(activeStep < 1) {
       setActiveStep((currentStep) => currentStep + 1)
       value.shopStateFalse()
     }
-    else if(activeStep < 3){
+    else if(activeStep < 2){
       if(cart.cart.length > 0 ) {
         value.shopStateTrue()
       }
@@ -81,13 +79,13 @@ const Accordian = () => {
           ))}
         </Stepper>
 
-        <div>
+        <div style={{width: '100%'}}>
           {activeStep === steps.length ? (
             <div>
               <Typography>All Steps are completed</Typography>
             </div>
           ) : (
-            <div>
+            <div style={{width: '100%'}}>
               <Typography>{getStepContent(activeStep)}</Typography>
             </div>
           )}

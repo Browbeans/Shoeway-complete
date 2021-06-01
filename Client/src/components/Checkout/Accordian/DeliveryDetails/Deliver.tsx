@@ -1,34 +1,34 @@
-import axios from "axios";
-import { useEffect, useContext, useState } from "react";
-import { deliveris, DeliveryContext } from "../../../../contexts/DeliverContext";
-import '../../../../style/Deliverystyle.css'
+import { useEffect, useContext } from "react";
+import { DeliveryContext } from "../../../../contexts/DeliverContext";
+import { UserContext } from "../../../../contexts/UserContext";
+import "../../../../style/Deliverystyle.css";
 
+function Deliver() {
+  const {getdeliverOrder, fetchshiping, selectDeliver, DeliverOrders}  = useContext(DeliveryContext);
+  const { filledState, addDelivery } = useContext(UserContext)  
 
-function Deliver (){
-    const [dilverarray, setdilverarray]= useState<deliveris[]>([])
-    const deliver = useContext(DeliveryContext)
-    useEffect(()=>{
-      deliver.getdeliverOrder()
-      console.log('test')
-    },[ deliver.getdeliverOrder])
+  useEffect(() => {
+    getdeliverOrder();
+  }, [getdeliverOrder]);
 
-   const change = (id: string) => {
-       console.log("test")
-    deliver.fetchshiping(id)
-   }
-    return(
-        <div >
-            {/* {getdelivery} */}
-           
-            {deliver.DeliverOrders.map((d)=>(
-                <div className="delivery-div" onClick={() => change(d._id)}>
-                <strong className="company" >{d.name}</strong>
-                <span >{d.days}</span>
-                <span >{d.price} kr</span>
-                </div>
-            ) )}
+  const change = (id: string) => {
+    console.log("test");
+    fetchshiping(id);
+    addDelivery(selectDeliver.name, 2, selectDeliver.price)
+    filledState(true)
+  };
+  return (
+    <div>
+      {/* {getdelivery} */}
+
+      {DeliverOrders.map((d) => (
+        <div className="delivery-div" onClick={() => change(d._id)}>
+          <strong className="company">{d.name}</strong>
+          <span>{d.days}</span>
+          <span>{d.price} kr</span>
         </div>
-        
-    );
+      ))}
+    </div>
+  );
 }
-export default Deliver
+export default Deliver;

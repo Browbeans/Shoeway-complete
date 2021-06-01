@@ -20,10 +20,6 @@ function HandleLogin() {
 
     const handleClick = () => {
         loginRequest()
-        // if (isLoggedIn) {
-        //     history.push("/user-profile")
-        // }
-        userContext.shopStateTrue()
     }
 
     return(
@@ -66,7 +62,7 @@ function HandleLogin() {
                 <></>
                 }
                 {/* {isLoggedIn ? "/user-profile" : "/entry"} */}
-                <Link to={isLoggedIn ? "/user-profile" : "/entry"} style={{ textDecoration: "none", width: "100%" }}>
+                {window.location.pathname === '/checkout' ?
                     <Button
                         onClick={handleClick}
                         style={btn}
@@ -74,7 +70,17 @@ function HandleLogin() {
                         >
                         Login
                     </Button>
-                </Link>
+                :
+                    <Link to={isLoggedIn ? "/user-profile" : "/entry"} style={{ textDecoration: "none", width: "100%" }}>
+                        <Button
+                            onClick={handleClick}
+                            style={btn}
+                            variant="contained"
+                            >
+                            Login
+                        </Button>
+                    </Link>
+                }
             </form>
         </div>
     );

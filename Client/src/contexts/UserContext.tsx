@@ -29,7 +29,7 @@ interface ContextProp extends State {
   addEmail: (event: React.ChangeEvent<HTMLInputElement>) => void;
   addZip: (event: React.ChangeEvent<HTMLInputElement>) => void;
   addToObject: (event: React.FormEvent) => void;
-  addDelivery: (deliverCompany: string, randomDay: number, addNumber: number, shippingPrice: number) => void; 
+  addDelivery: (deliverCompany: string, randomDay: number, shippingPrice: number) => void; 
   shopStateTrue: () => void;
   shopStateFalse: () => void;
   filledState: (filled: boolean) => void;
@@ -110,10 +110,10 @@ export default class UserProvider extends Component<{}, State> {
   addZipToState = (event: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({ user: { ...this.state.user, zip: event.target.value } });
   };
-  addDeliveryToState = (deliverCompany: string, randomDay: number, addNumber: number, shippingPrice: number) => {
+  addDeliveryToState = (deliverCompany: string, randomDay: number, shippingPrice: number) => {
     let today = new Date();
     let tomorrow = new Date();
-    tomorrow.setDate(today.getDate() + (Math.floor(Math.random() * randomDay) + addNumber));
+    tomorrow.setDate(today.getDate() + (Math.floor(Math.random() * randomDay) + 2));
     let deliverDay = tomorrow.toString().split(' ')[0]
     let deliverDate = tomorrow.toString().split(' ')[2]
     let deliverMonth = tomorrow.toString().split(' ')[1]
