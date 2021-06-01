@@ -4,8 +4,6 @@ const Products = require('../Products/product.model')
 const ApiError = require("../../Error/ApiError");
 import { Request, Response, NextFunction } from 'express'
 
-
-
 module.exports.addOrder = async (req: Request, res: Response, next: NextFunction) => {
     const { ordernumber, products, customer, orderAmount } = req.body
     const productVariant: any = []
@@ -57,6 +55,7 @@ module.exports.addOrder = async (req: Request, res: Response, next: NextFunction
             products: productVariant,
             customer: customer,
             orderAmount: orderAmount,
+            delivery: shipment,
             isSent: false
         })
         if(!isError){

@@ -164,7 +164,7 @@ const form: CSSProperties = {
   background: "lightgrey",
   fontSize: "1.2rem",
   padding: "1rem",
-  width: "20rem",
+  width: "40rem",
   borderRadius: ".5rem",
   boxShadow: "1px 1px 3px grey",
 };
