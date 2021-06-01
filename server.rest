@@ -42,6 +42,9 @@ Content-Type: application/json
 
 ###
 
-PATCH http://localhost:5000/order/sent-order/60a3acf14d8c473434e7e3e2
+PATCH http://localhost:5000/order/sent-order/60b5f16dce657e1de0367c6e
+Content-Type: application/json
 
-###
+{
+  "isSent": true
+}
