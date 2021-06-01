@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import "../../../style/Checkout.css";
 import "../../../style/Admin.css";
 import DeleteOutlinedIcon from "@material-ui/icons/DeleteOutlined";
@@ -6,12 +6,43 @@ import CreateOutlinedIcon from "@material-ui/icons/CreateOutlined";
 import { Link } from "react-router-dom";
 import { adminIcons } from "../../../style/GeneralStyle";
 import { ProductContext, Product } from "../../../contexts/ProductContext";
+import { LoginContext } from "../../../contexts/User/loginContext";
+import HandlePending from "./handlePending";
 
 function AdminHandler() {
-  const axios = useContext(ProductContext);
-  
+  const axios = useContext(ProductContext); 
+  const { registeredUsers, isLoggedIn } = useContext(LoginContext);
+
   return (
     <div className="admin-handler-container">
+      <div className="all-users-container">
+        {registeredUsers.map((user: any) => (
+            <div className="user-holder">
+              <div>
+                <p>{user.name}</p>
+              </div>
+              <div>
+                <p>{user.adress.city}</p>
+              </div>
+              <div>
+                <p>{user.adress.street}</p>
+              </div>
+              <div>
+                <p>{user.adress.zip}</p>
+              </div>
+              <div>
+                <p>{user.phone}</p>
+              </div>
+              <div>
+                <p>{user.email}</p>
+              </div>
+              <div>
+              <HandlePending value={user}/>
+              </div>
+            </div>
+        ))}
+      </div>
+      <div className="all-products-container">
       {axios.allProducts.map((product: Product) => (
         <div className="admin-item">
           {/* <img className="imageStyle" src={product.image} alt="of product" /> */}
@@ -33,6 +64,7 @@ function AdminHandler() {
           </div>
         </div>
       ))}
+      </div>
     </div>
   );
 }

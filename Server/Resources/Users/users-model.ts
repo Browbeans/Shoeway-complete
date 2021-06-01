@@ -10,6 +10,7 @@ interface User {
     phone: string,
     email: string,
     password: string
+    role: string
 }
 
 const userSchema = new mongoose.Schema({
@@ -91,6 +92,9 @@ const userSchema = new mongoose.Schema({
             },
             message: "Password must be eight characters, atleast one number"
         } 
+    },
+    role: {
+        type: String
     }
 })
 

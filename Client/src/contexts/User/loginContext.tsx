@@ -1,5 +1,6 @@
 import { Component, createContext } from "react";
 import axios from "axios";
+import { AnyARecord } from "node:dns";
 
 export interface SessionUser {
     adress: {
@@ -20,6 +21,9 @@ interface State {
     isLoggedIn: boolean
     loginError: boolean
     errorTxt: string
+    admin: boolean
+    registeredUsers: SessionUser[]
+    pendingReq: boolean
 }
 
 interface ContextProps extends State {
@@ -48,6 +52,9 @@ export const LoginContext = createContext<ContextProps>({
     isLoggedIn: false,
     loginError: false,
     errorTxt: "",
+    admin: false,
+    registeredUsers: [],
+    pendingReq: false,
     fetchUsers: () => {},
     handleEmailLogin: () => {},
     handlePasswordLogin: () => {},
@@ -58,7 +65,13 @@ export const LoginContext = createContext<ContextProps>({
 class LoginProvider extends Component<{}, State> {
 
     fetchUsersfromDatabase = async () => {
-        await axios.get("/users");
+        try {
+            const response = await axios.get("/users");
+            const result = response.data
+            this.setState({ registeredUsers: result })   
+        } catch (error) {
+            console.log(error) 
+        }
     };
 
     handleEmailLoginInput = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -83,7 +96,12 @@ class LoginProvider extends Component<{}, State> {
             this.setState({ isLoggedIn: true })
             this.setState({ loginError: false })
 
-            console.log(this.state.isLoggedIn)
+            if (user.role === 'admin') {
+                this.setState({ admin: true })
+                this.fetchUsersfromDatabase();
+            } else {
+                this.setState({ admin: false })
+            }
         } catch (error) {
             this.setState({ loginError: true })   
             this.setState({ errorTxt: error.response.data })

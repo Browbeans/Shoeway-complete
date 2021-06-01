@@ -10,5 +10,6 @@ usersRouter
 .post("/handleLogin", controller.handleLogin)
 .put("/handleUpdate", controller.handleUpdate)
 .delete("/handleLogout", controller.handleLogout)
+.put("/handleRole/:id", controller.handleRole)
 
 export default usersRouter;

@@ -3,7 +3,7 @@ import { Request, Response } from 'express';
 import bcrypt from "bcrypt";
 
 module.exports.handleRegister = async function(req: Request, res: Response) {
-    const { name, adress, phone, email, password } = req.body;
+    const { name, adress, phone, email, password, role } = req.body;
     const registeredUsers = await Users.find({email: email})
     const existingUsers = registeredUsers.find((u: any) => u.email === email);
 
@@ -22,6 +22,7 @@ module.exports.handleRegister = async function(req: Request, res: Response) {
         phone: phone,
         email: email,
         password: hashedPassword,
+        role: role
     })
     await newUser.save((error: any) => {
         if(error) {
@@ -49,21 +50,12 @@ module.exports.handleLogin = async function(req: Request, res: Response) {
             req.session.phone = user.phone;
             req.session.email = user.email;
             req.session.zip = user.zip;
+            req.session.role = user.role;
         }
         res.status(200).json(null)
         console.log(req.session!.name)
     } catch (error) {
         console.log(error);
-    }
-}
-
-module.exports.fetchUsers = async function(req: Request, res: Response) {
-    console.log(req.session)
-    if (req.session!.email) {
-        const result = await Users.find({})
-        res.json(result)
-    } else {
-        res.status(400).json("You must login");
     }
 }
 
@@ -93,7 +85,7 @@ module.exports.handleUpdate = async function(req: Request, res: Response) {
     res.status(400).json("You must login to update");
 }
 
-module.exports.getCurrenUser = async function (req: Request, res: Response) {
+module.exports.getCurrenUser = async function ( req: Request, res: Response) {
     if(req.session!.email) {
         const currentEmail = req.session!.email
         const currentUser = await Users.findOne({email: currentEmail})
@@ -103,3 +95,23 @@ module.exports.getCurrenUser = async function (req: Request, res: Response) {
     }
 }
 
+module.exports.fetchUsers = async (req: Request, res: Response) => {
+    if (req.session?.email) {
+        if (req.session?.role === 'admin') {
+            const result = await Users.find({})
+            res.json(result)
+        } else {
+            return res.status(403).json("You dont have authorization")
+        }
+    } else {
+        res.status(400).json("You must login");
+    }
+};
+
+module.exports.handleRole = async (req: Request, res: Response) => {
+    const id = req.params.id
+    const user = await Users.findByIdAndUpdate( id, {
+        role: req.body.role
+    })
+    res.status(200).json('Role updated!')
+}

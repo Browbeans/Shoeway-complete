@@ -1,13 +1,32 @@
 import { CSSProperties } from '@material-ui/styles'
+import { Link } from 'react-router-dom'
+import { useContext } from 'react';
+import { LoginContext } from '../../../contexts/User/loginContext'
 import AddItem from './AddItem'
 import AdminHandler from './AdminHandler'
+import '../../../style/UserProfile.css'
 
 const AdminPage = () => {
+    const { isLoggedIn } = useContext(LoginContext)
+
     return (
-        <div>
-            <h1 style={title}>Admin</h1>
-           <AdminHandler/> 
-           <AddItem/>
+        <div className="profile-container">
+            {isLoggedIn
+            ?
+            <div style={{ width: "80%"}}>
+                <h1 style={title}>Admin</h1>
+               <AdminHandler/> 
+               <AddItem/> 
+            </div>
+            :
+            // USER IS LOGGED OUT
+            <div className="out-logged-container">
+                <p>To review your profile, you have to</p>
+                <Link to="/entry" style={{ textDecoration: "none" }}>
+                    <span>&nbsp;log in</span>
+                </Link>
+            </div>
+            }
         </div>
     )
 }
