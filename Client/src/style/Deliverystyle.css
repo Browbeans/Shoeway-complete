@@ -11,7 +11,11 @@
     color: black;
     font-size: 1.5rem;
     outline: 5px black;
+<<<<<<< HEAD
     
+=======
+    width: 100%;
+>>>>>>> master
 }
 .company{
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);

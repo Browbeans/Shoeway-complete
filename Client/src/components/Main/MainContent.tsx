@@ -12,6 +12,7 @@ import Profile from '../UserProfile/Profile';
 import AdimnLogin from './AdminLogin';
 import UserSelection from './userSelection'; 
 import Deliver from '../Checkout/Accordian/DeliveryDetails/Deliver';
+import AddStockAndSize from './Admin/AddStockAndSize';
 
 function MainContent() {
 
@@ -47,6 +48,9 @@ function MainContent() {
           </Route>
           <Route path={"/editProduct/:id"}>
             <AddNewProduct />
+          </Route>
+          <Route path={"/addStockAndSize/:id"}>
+            <AddStockAndSize />
           </Route>
           <Route path="/user-profile">
             <Profile/>

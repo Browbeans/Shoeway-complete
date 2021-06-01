@@ -4,13 +4,13 @@ import { ChangeEvent, useContext, useState } from 'react';
 import { btnSmall } from "../../../style/GeneralStyle";
 import '../../../style/Admin.css';
 import { ProductContext, Product } from "../../../contexts/ProductContext";
-import { useRouteMatch } from 'react-router';
+import { useHistory, useRouteMatch } from 'react-router';
 import axios from "axios";
 import CheckboxesGroup from './CheckBoxGroup';
 
 const AddNewProduct = () => {
   const match = useRouteMatch<{ id: string }>();
-
+  const history = useHistory()
   const newProductData: Product = {
     title: "",
     image: "",
@@ -33,9 +33,11 @@ const AddNewProduct = () => {
       const isNewProduct = !currentProduct
       if(isNewProduct) {
         axiosContext.addProduct(product)
+        history.push('/admin')
       }
        else {
         axiosContext.editProduct(product, currentProduct)
+        history.push('/admin')
       }
     }
 
@@ -51,14 +53,18 @@ const AddNewProduct = () => {
       setProduct({...product, info: e.target.value})
     }
 
+    const handleSize = (e: ChangeEvent<HTMLInputElement>) => {
+      setProduct({...product, size: parseInt(e.target.value)})
+    }
+
     // const handleCategory = (e: ChangeEvent<HTMLInputElement>) => {
     //   const categoryArray: string[] = [e.target.value]
     //   setProduct({ ...product, category: categoryArray });
     // };
 
-     const handleStock = (e: ChangeEvent<HTMLInputElement>) => {
-       setProduct({ ...product, stock: parseInt(e.target.value) });
-     };
+    const handleStock = (e: ChangeEvent<HTMLInputElement>) => {
+      setProduct({ ...product, stock: parseInt(e.target.value) });
+    };
     
     const selectedFileHandler = (e: any) => {
       setSelectedFile(e.target.files[0]);
@@ -109,18 +115,6 @@ const AddNewProduct = () => {
               value={product.title}
               onChange={handleTitle}
             />
-            {/* <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              id="category"
-              label="Category"
-              name="Category"
-              type="text"
-              value={product.category}
-              autoFocus
-              onChange={handleCategory}
-            /> */}
             <CheckboxesGroup/>
             <TextField
               variant="outlined"
@@ -133,6 +127,18 @@ const AddNewProduct = () => {
               value={product.price}
               autoFocus
               onChange={handlePrice}
+            />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              id="size"
+              label="Size..."
+              name="size"
+              type="number"
+              value={product.size}
+              autoFocus
+              onChange={handleSize}
             />
             <TextField
               variant="outlined"

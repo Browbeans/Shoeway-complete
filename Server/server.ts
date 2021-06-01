@@ -8,14 +8,16 @@ import productRouter from './Resources/Products/product.router';
 import ImageRouter from './Resources/Image/image-router';
 import errorHandler from './Error/ErrorHandler';
 
+
+
 const app = express()
 
 app.use('/uploads', express.static('uploads'));
 
 const PORT = process.env.PORT || 5000 
 
-const url = "mongodb://localhost:27017/lab-4"
-const options = { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false };
+const url = "mongodb+srv://Browbeans:Freak219@cluster0.ghtls.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+const options = { useNewUrlParser: true, useUnifiedTopology: true };
 
 mongoose.connect(url,  options)
 .then((result: any) => app.listen(PORT))

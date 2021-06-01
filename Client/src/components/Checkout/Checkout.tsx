@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import { useContext } from "react";
 import CloseIcon from "@material-ui/icons/Close";
 import "../../style/Checkout.css";
 import { inactiveBtn,btnMedium, cursorPointer } from "../../style/GeneralStyle";
@@ -14,20 +14,17 @@ import { UserContext } from "../../contexts/UserContext";
 import { OrderContext } from "../../contexts/OrderContext";
 import { Guid } from 'js-guid';
 import { LoginContext } from "../../contexts/User/loginContext";
-// interface OrderProduct {
-//   id: string, 
-//   quantity: number
-// }
+import { DeliveryContext } from "../../contexts/DeliverContext";
+import UserSelection from "../Main/userSelection";
 
 const Checkout =  () => {
   const { cart } = useContext(CartContext)
   const cartContext = useContext(CartContext)
   const userContext = useContext(UserContext)
   const orderContext = useContext(OrderContext)
-  const { currentUser } = useContext(LoginContext)
+  const { currentUser, isLoggedIn } = useContext(LoginContext)
+  const { selectDeliver } = useContext(DeliveryContext)
   const productArray: any = []
-
-  
 
   const handleClick = () => {
     let orderProduct = {}
@@ -43,18 +40,15 @@ const Checkout =  () => {
 
     userContext.shopStateFalse()
     const ordernumber = Guid.newGuid().toString()
+    orderContext.setOrderNumber(ordernumber)
     const order = {
       ordernumber: ordernumber, 
-        products: productArray,
-        customer: currentUser._id
+      products: productArray,
+      customer: currentUser._id,
+      orderAmount: cartContext.totalAmount + userContext.shippingPriceState, 
+      shipment: selectDeliver
     }
     orderContext.createOrder(order)
-  }
-
-  const logStuff = () => {
-    cart.map((p) => (
-      console.log(p.size)
-    ))
   }
 
     return (
@@ -69,7 +63,11 @@ const Checkout =  () => {
           <div className="details-container">
             <form action="/" style={form}>
               <h2 className="checkout-title">Checkout</h2>
-              <Accordian />
+              {isLoggedIn ? 
+                <Accordian />
+              :
+                <UserSelection/>
+              }
             </form>
           </div>
           <div className="order-container">
@@ -127,7 +125,7 @@ const Checkout =  () => {
               <p>{Math.round(cartContext.totalAmount * 0.2) + " SEK"}</p>
             </div>
             <div className="total-amount-container">
-              <strong className="total-amount">Delivary:</strong>
+              <strong className="total-amount">Delivery:</strong>
               <p>{userContext.shippingPriceState + " SEK"}</p>
             </div>
             <div className="total-amount-container">
@@ -136,7 +134,7 @@ const Checkout =  () => {
             </div>
           </div>
         </div>
-        {userContext.shopState && cartContext.cart.length >= 1 ? (
+        {userContext.shopState && cartContext.cart.length >= 1 && isLoggedIn ? (
           <Link
             to="/orderview"
             style={{ textDecoration: "none", zIndex: 1, margin: "2rem 0rem" }}
@@ -153,7 +151,6 @@ const Checkout =  () => {
         ) : (
           <Button variant="contained" 
             style={inactiveBtn}
-            onClick={logStuff}
           >
             {" "}
             Confirm Order
@@ -166,9 +163,10 @@ const Checkout =  () => {
 const form: CSSProperties = {
   display: "flex",
   flexDirection: "column",
-  justifyContent: "center",
+  alignItems: 'center',
   margin: "0.5rem 1rem",
   fontSize: "1.2rem",
+  width: "70%"
 };
 
 export default Checkout;

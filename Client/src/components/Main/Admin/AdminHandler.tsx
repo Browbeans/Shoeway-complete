@@ -3,11 +3,13 @@ import "../../../style/Checkout.css";
 import "../../../style/Admin.css";
 import DeleteOutlinedIcon from "@material-ui/icons/DeleteOutlined";
 import CreateOutlinedIcon from "@material-ui/icons/CreateOutlined";
+import AddBoxOutlinedIcon from '@material-ui/icons/AddBoxOutlined';
 import { Link } from "react-router-dom";
 import { adminIcons } from "../../../style/GeneralStyle";
 import { ProductContext, Product } from "../../../contexts/ProductContext";
 import { LoginContext } from "../../../contexts/User/loginContext";
 import HandlePending from "./handlePending";
+import HandleAllOrders from "./handleAllOrders";
 
 function AdminHandler() {
   const axios = useContext(ProductContext); 
@@ -16,6 +18,30 @@ function AdminHandler() {
   return (
     <div className="admin-handler-container">
       <div className="all-users-container">
+      <h2 className="title">All Users</h2>
+      <div className="user-holder sort">
+                <div>
+                    <p>Name</p>
+                </div>
+                <div>
+                    <p>City</p>
+                </div>
+                <div>
+                    <p>Street</p>
+                </div>
+                <div>
+                    <p>Zip</p>
+                </div>
+                <div>
+                    <p>Phone</p>
+                </div>
+                <div>
+                    <p>Email</p>
+                </div>
+                <div>
+                    <p>Role</p>
+                </div>
+            </div>
         {registeredUsers.map((user: any) => (
             <div className="user-holder">
               <div>
@@ -42,7 +68,9 @@ function AdminHandler() {
             </div>
         ))}
       </div>
+      <HandleAllOrders/>
       <div className="all-products-container">
+        <h2 className="title">All Products</h2>
       {axios.allProducts.map((product: Product) => (
         <div className="admin-item">
           {/* <img className="imageStyle" src={product.image} alt="of product" /> */}
@@ -52,6 +80,11 @@ function AdminHandler() {
             <p className="admin-info">{product.info}</p>
           </div>
           <div>
+            <Link to={"/addStockAndSize/" + product.title}>
+              <AddBoxOutlinedIcon
+                style={adminIcons}
+              />
+            </Link>
             <DeleteOutlinedIcon
               style={adminIcons}
               onClick={() => axios.removeProduct(product)}

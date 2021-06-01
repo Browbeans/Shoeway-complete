@@ -15,7 +15,7 @@ interface Customer {
   _id: string, 
   name: string, 
   phone: string, 
-  email: string 
+  email: string,
 }
 
 export interface Order {
@@ -23,17 +23,21 @@ export interface Order {
   products: Product[],
   customer: string,
   isSent?: boolean,
+  orderAmount: Number
 }
 
-
-
 interface State {
-  userOrders: Order[]
+  userOrders: Order[],
+  allOrders: [],
+  orderNumber: string
 }
 
 interface ContextProps extends State {
+  allOrders: []
   createOrder: (orderInfo: Order) => void
   getUserOrders: (user: string) => void
+  fetchAllOrders: () => void
+  setOrderNumber: (ordernumber: string) => void
 }
 
 export const OrderContext = createContext<ContextProps>({
@@ -41,12 +45,16 @@ export const OrderContext = createContext<ContextProps>({
     {
       ordernumber: '', 
       products: [],
-      customer: ''
+      customer: '',
+      orderAmount: 0
     }  
-  ] 
-  ,
+  ],
+  allOrders: [],
+  fetchAllOrders: () => {},
+  orderNumber: '',
   createOrder: (orderInfo: Order) => {},
-  getUserOrders: (user: string) => {}
+  getUserOrders: (user: string) => {}, 
+  setOrderNumber: (ordernumber: string) => {}
 });
 
 class OrderProvider extends Component<{}, State> {
@@ -55,12 +63,16 @@ class OrderProvider extends Component<{}, State> {
       {
         ordernumber: '', 
         products: [],
-        customer: ''
+        customer: '',
+        orderAmount: 0
       }
-    ] 
+    ],
+    allOrders: [],
+    orderNumber: '' 
   };
 
   createOrderToDb = (orderInfo: Order) => {
+    console.log(orderInfo)
     axios({
         method: 'post',
         url: '/order/add-order',
@@ -77,6 +89,19 @@ class OrderProvider extends Component<{}, State> {
     this.setState({ userOrders: result })
   }
 
+  fetchAllOrdersRequest = async () => {
+    try {
+      const request = await axios.get('/order/all-orders');
+      this.setState({ allOrders: request.data })
+    } catch (error) {
+      console.log(error) 
+    }
+  }
+
+  setOrderNumberToState = (ordernumber: string) => {
+    this.setState({ orderNumber: ordernumber})
+  }
+
   componentDidMount = () => {
 
   };
@@ -86,8 +111,12 @@ class OrderProvider extends Component<{}, State> {
       <OrderContext.Provider
         value={{
           userOrders: this.state.userOrders,
+          allOrders: this.state.allOrders,
           createOrder: this.createOrderToDb,
-          getUserOrders: this.getUserOrdersFromDb
+          getUserOrders: this.getUserOrdersFromDb,
+          fetchAllOrders: this.fetchAllOrdersRequest,
+          orderNumber: this.state.orderNumber,
+          setOrderNumber: this.setOrderNumberToState
         }}
       >
         {this.props.children}

@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { Component, createContext } from 'react';
+import { StockSizeProduct } from '../components/Main/Admin/AddStockAndSize';
 
 interface Variants {
   size: number;
@@ -42,6 +43,7 @@ interface ContextProps extends State {
   addProduct: (product: Product) => void;
   editProduct: (editedProduct: Product, currentProduct: any) => void;
   getCategories: (categories: String[]) => void
+  addStockSize: (product: StockSizeProduct) => void
 }
 
 export const ProductContext = createContext<ContextProps>({
@@ -67,6 +69,7 @@ export const ProductContext = createContext<ContextProps>({
   removeProduct: (product: Product) => {},
   addProduct: (product: Product) => {},
   editProduct: (editedProduct: Product, currentProduct: any) => {},
+  addStockSize: (product: StockSizeProduct) => {}
 });
 
 class AxiosProvider extends Component<{}, State> {
@@ -147,9 +150,31 @@ class AxiosProvider extends Component<{}, State> {
     return request;
   };
 
+  addStockAndSize = async (productValues: StockSizeProduct) => {
+
+    const id = productValues.id;
+    const request = await axios({
+      method: "post",
+      url: `/products/add-size-stock/${id}`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: productValues,
+    });
+
+    this.fetchProducts();
+    console.log(productValues);
+    return request;
+  }
+
   setCategoriesToState = (categories: String[]) => {
-    this.setState({ categories: categories})
-    console.log(categories)
+    categories.forEach((category) => {
+      if(category === 'unisex'){
+        this.setState({categories: ['mens', 'unisex', 'womens']})
+      } else {
+        this.setState({ categories: categories})
+      }
+    })
   }
 
   componentDidMount = () => {
@@ -167,7 +192,8 @@ class AxiosProvider extends Component<{}, State> {
           addProduct: this.addProduct,
           getImage: this.getImage,
           editProduct: this.editProduct, 
-          getCategories: this.setCategoriesToState
+          getCategories: this.setCategoriesToState,
+          addStockSize: this.addStockAndSize
         }}
       >
         {this.props.children}

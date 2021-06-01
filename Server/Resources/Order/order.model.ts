@@ -1,4 +1,4 @@
-import mongoose, { Schema } from 'mongoose'
+import mongoose, { Mongoose, Schema } from 'mongoose'
 
 interface Product {
     product: string, 
@@ -7,14 +7,6 @@ interface Product {
     size: number, 
 }
 
-// interface Customer {
-//     name: string, 
-//     adress: string, 
-//     zip: number,
-//     email: string,
-//     phone: number
-// }
-
 interface Order extends Document {
     ordernumber: string, 
     products: Product[],
@@ -22,6 +14,11 @@ interface Order extends Document {
     isSent: Boolean
 }
 
+const shipment = new mongoose.Schema({
+    days: String, 
+    price: Number, 
+    name: String
+})
 
 const orderSchema = new mongoose.Schema({
     ordernumber: {
@@ -40,7 +37,14 @@ const orderSchema = new mongoose.Schema({
     isSent: {
         type: Boolean, 
         required: true
-    }
+    },
+    orderAmount: {
+        type: Number, 
+        required: true
+    },
+    
+    delivery: shipment 
+
 }, { timestamps: true })
 
 module.exports = mongoose.model<Order>('Orders', orderSchema)

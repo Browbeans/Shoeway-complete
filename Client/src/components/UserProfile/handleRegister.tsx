@@ -215,6 +215,18 @@ function HandleRegister() {
                 :
                 <></>
                 }
+                {window.location.pathname === '/checkout' 
+                ? 
+                <Link to="/checkout" style={{ textDecoration: "none", width: "100%" }}>
+                  <Button
+                      onClick={registerRequest}
+                      style={btn}
+                      variant="contained"
+                      >
+                      Register
+                  </Button>
+                </Link>
+                :
                 <Link to="/entry" style={{ textDecoration: "none", width: "100%" }}>
                   <Button
                       onClick={registerRequest}
@@ -224,6 +236,7 @@ function HandleRegister() {
                       Register
                   </Button>
                 </Link>
+                }
             </form>
         </div>
     )
