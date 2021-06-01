@@ -3,6 +3,7 @@ import "../../../style/Checkout.css";
 import "../../../style/Admin.css";
 import DeleteOutlinedIcon from "@material-ui/icons/DeleteOutlined";
 import CreateOutlinedIcon from "@material-ui/icons/CreateOutlined";
+import AddBoxOutlinedIcon from '@material-ui/icons/AddBoxOutlined';
 import { Link } from "react-router-dom";
 import { adminIcons } from "../../../style/GeneralStyle";
 import { ProductContext, Product } from "../../../contexts/ProductContext";
@@ -52,6 +53,11 @@ function AdminHandler() {
             <p className="admin-info">{product.info}</p>
           </div>
           <div>
+            <Link to={"/addStockAndSize/" + product.title}>
+              <AddBoxOutlinedIcon
+                style={adminIcons}
+              />
+            </Link>
             <DeleteOutlinedIcon
               style={adminIcons}
               onClick={() => axios.removeProduct(product)}

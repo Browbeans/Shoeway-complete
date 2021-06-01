@@ -103,11 +103,7 @@ module.exports.editProduct = async function (
   }
 };
 
-module.exports.addSizeAndStock = async function (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) {
+module.exports.addSizeAndStock = async function (req: Request, res: Response, next: NextFunction ) {
   const id = req.params.id;
 
   const product = await Product.update(

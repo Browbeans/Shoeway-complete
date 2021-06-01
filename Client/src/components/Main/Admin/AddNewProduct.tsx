@@ -60,9 +60,9 @@ const AddNewProduct = () => {
     //   setProduct({ ...product, category: categoryArray });
     // };
 
-     const handleStock = (e: ChangeEvent<HTMLInputElement>) => {
-       setProduct({ ...product, stock: parseInt(e.target.value) });
-     };
+    const handleStock = (e: ChangeEvent<HTMLInputElement>) => {
+      setProduct({ ...product, stock: parseInt(e.target.value) });
+    };
     
     const selectedFileHandler = (e: any) => {
       setSelectedFile(e.target.files[0]);
