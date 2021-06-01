@@ -13,12 +13,42 @@
 
 /* Admin Handler */
 .admin-handler-container {
-    background: #fff;
     display: flex;
+    flex-direction: column;
     flex-wrap: wrap;
     justify-content: space-between;
     padding: 2rem;
     width: 100%;
+}
+
+.all-users-container {
+    background: #fff;
+    margin-bottom: 2rem;
+    padding: 1rem;
+}
+
+.user-holder {
+    display: flex;
+    align-self: flex-start;
+    justify-content: space-between;
+    padding: 1rem 0rem;
+    border-bottom: 1px solid #333;
+}
+
+.user-holder div {
+    flex: 1;
+}
+
+.user-holder select {
+    border: none;
+    outline: none;
+    width: 10rem;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.all-products-container {
+    background: #fff;
 }
 
 .admin-item {

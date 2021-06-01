@@ -9,7 +9,7 @@ import { LoginContext } from '../contexts/User/loginContext';
 
 function Navbar() {
     const cartContext = useContext(CartContext);
-    const { isLoggedIn } = useContext(LoginContext);
+    const { isLoggedIn, admin } = useContext(LoginContext);
     const [menuOpen, setMenuOpen] = useState(false);
     
     const handleMenuClick = () => {
@@ -56,6 +56,8 @@ function Navbar() {
             >
               <li>About</li>
             </Link>
+            {admin
+            ?
             <Link
               style={{ textDecoration: "none", color: "#000" }}
               to="/admin"
@@ -63,6 +65,9 @@ function Navbar() {
             >
               <li>Admin</li>
             </Link>
+            :
+            <></>
+            }
           </ul>
           <Link
             style={{

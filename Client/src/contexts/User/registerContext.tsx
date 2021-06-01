@@ -9,6 +9,8 @@ interface State {
     userPhone: string,
     userEmail: string,
     userPassword: string,
+    role: string,
+    pending: boolean,
     registerError: boolean,
     errorTxt: string,
     registerSuccess: boolean
@@ -22,6 +24,7 @@ interface ContextProps extends State {
     addPhone: (event: React.ChangeEvent<HTMLInputElement>) => void;
     addEmail: (event: React.ChangeEvent<HTMLInputElement>) => void;
     addPassword: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    addPending: (event: React.ChangeEvent<HTMLInputElement>) => void;
     registerRequest: (event: React.FormEvent) => void;
 }
 
@@ -33,6 +36,8 @@ export const RegisterContext = createContext<ContextProps>({
     userPhone: "",
     userEmail: "",
     userPassword: "",
+    role: "",
+    pending: false,
     registerError: false,
     errorTxt: "",
     registerSuccess: false,
@@ -43,11 +48,16 @@ export const RegisterContext = createContext<ContextProps>({
     addPhone: () => {},
     addEmail: () => {},
     addPassword: () => {},
+    addPending: () => {},
     registerRequest: () => {}
 });
 
 class RegisterProvider extends Component<{}, State> {
+    state: any = {
+        role: "customer"
+    }
 
+    
 
     addNameToState = (event: React.ChangeEvent<HTMLInputElement>) => {
         this.setState({ userName: event.target.value })
@@ -77,8 +87,17 @@ class RegisterProvider extends Component<{}, State> {
         this.setState({ userPassword: event.target.value });
     };
 
+    addPendingToState = (event: React.ChangeEvent<HTMLInputElement>) => {
+        if (event.target.checked) {
+            this.setState({ role: "pending" })
+        } else {
+            this.setState({ role: "customer" })
+        } 
+    }
+    
     handleRegisterRequest = async (event: React.FormEvent) => {
         event.preventDefault();
+        console.log(this.state.role)
         try {
             const newUser = {
                 name: this.state.userName,
@@ -89,10 +108,13 @@ class RegisterProvider extends Component<{}, State> {
                 },
                 phone: this.state.userPhone, 
                 email: this.state.userEmail,
-                password: this.state.userPassword
+                password: this.state.userPassword,
+                role: this.state.role
+
               }
               const request = await axios.post("/users/handleRegister", newUser);
               console.log(request)
+              console.log(newUser)
               this.setState({ registerSuccess: true })
         } catch (error) {
             this.setState({ registerError: true })
@@ -105,6 +127,7 @@ class RegisterProvider extends Component<{}, State> {
             <RegisterContext.Provider
                 value={{
                     ...this.state,
+                    role: this.state.role,
                     addName: this.addNameToState,
                     addCity: this.addCityToState,
                     addStreet: this.addStreetToState,
@@ -112,6 +135,7 @@ class RegisterProvider extends Component<{}, State> {
                     addPhone: this.addPhoneToState,
                     addEmail: this.addEmailToState,
                     addPassword: this.addPasswordToState,
+                    addPending: this.addPendingToState,
                     registerRequest: this.handleRegisterRequest
                 }}>
                 {this.props.children}

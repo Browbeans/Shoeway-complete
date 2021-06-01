@@ -1,4 +1,4 @@
-import { Button, TextField } from "@material-ui/core";
+import { Button, Checkbox, FormControlLabel, TextField } from "@material-ui/core";
 import React, { ChangeEvent, CSSProperties, useContext, useState } from "react";
 import react from "react";
 import { Link } from "react-router-dom";
@@ -6,7 +6,7 @@ import { RegisterContext } from "../../contexts/User/registerContext";
 import '../../style/Entry.css'
 
 function HandleRegister() {
-    const { addName, addCity, addStreet, addZip, addPhone, addEmail, addPassword, registerRequest, registerError, errorTxt, registerSuccess } = useContext(RegisterContext);
+    const { addName, addCity, addStreet, addZip, addPhone, addEmail, addPassword, addPending, registerRequest, registerError, errorTxt, registerSuccess } = useContext(RegisterContext);
 
     const [nameError, setNameError] = useState("");
     const [cityError, setCityError] = useState("");
@@ -77,6 +77,11 @@ function HandleRegister() {
             setPasswordError("")
           }
         addPassword(e)
+    }
+
+    const handlePendingRequest = (e: React.ChangeEvent<HTMLInputElement>) => {
+      addPending(e);
+      // console.log(e.target.checked)
     }
 
     return(
@@ -193,6 +198,10 @@ function HandleRegister() {
                     onChange={handlePasswordInput}
                     helperText={passwordError}
                     error={Boolean(passwordError)}
+                /> 
+                <FormControlLabel
+                  control={<Checkbox style={{ color: "#56EAC6" }} onChange={handlePendingRequest} />}
+                  label="Apply for administrator"
                 />
                 {registerError
                 ?
