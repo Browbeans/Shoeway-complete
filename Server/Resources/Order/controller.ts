@@ -92,6 +92,8 @@ module.exports.getOrderProducts = async function(req: Request, res: Response) {
 
 module.exports.orderSent = async function(req: Request, res: Response) {
     const orderId = req.params.id
-    const order = await Orders.updateOne({ _id: orderId}, { isSent: true})
+    const order = await Orders.updateOne({ _id: orderId}, { 
+        isSent: req.body.isSent
+    })
     res.status(200).json(order)
 }

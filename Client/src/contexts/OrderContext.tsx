@@ -15,7 +15,7 @@ interface Customer {
   _id: string, 
   name: string, 
   phone: string, 
-  email: string 
+  email: string,
 }
 
 export interface Order {
@@ -26,15 +26,16 @@ export interface Order {
   orderAmount: Number
 }
 
-
-
 interface State {
-  userOrders: Order[]
+  userOrders: Order[],
+  allOrders: []
 }
 
 interface ContextProps extends State {
+  allOrders: []
   createOrder: (orderInfo: Order) => void
   getUserOrders: (user: string) => void
+  fetchAllOrders: () => void
 }
 
 export const OrderContext = createContext<ContextProps>({
@@ -45,10 +46,11 @@ export const OrderContext = createContext<ContextProps>({
       customer: '',
       orderAmount: 0
     }  
-  ] 
-  ,
+  ],
+  allOrders: [],
   createOrder: (orderInfo: Order) => {},
-  getUserOrders: (user: string) => {}
+  getUserOrders: (user: string) => {},
+  fetchAllOrders: () => {}
 });
 
 class OrderProvider extends Component<{}, State> {
@@ -60,7 +62,8 @@ class OrderProvider extends Component<{}, State> {
         customer: '',
         orderAmount: 0
       }
-    ] 
+    ],
+    allOrders: []
   };
 
   createOrderToDb = (orderInfo: Order) => {
@@ -78,7 +81,17 @@ class OrderProvider extends Component<{}, State> {
   getUserOrdersFromDb = async (user: string) => {
     const request = await axios.get(`/order/user-orders/${user}`)
     const result = request.data
+    console.log(result)
     this.setState({ userOrders: result })
+  }
+
+  fetchAllOrdersRequest = async () => {
+    try {
+      const request = await axios.get('/order/all-orders');
+      this.setState({ allOrders: request.data })
+    } catch (error) {
+      console.log(error) 
+    }
   }
 
   componentDidMount = () => {
@@ -90,8 +103,10 @@ class OrderProvider extends Component<{}, State> {
       <OrderContext.Provider
         value={{
           userOrders: this.state.userOrders,
+          allOrders: this.state.allOrders,
           createOrder: this.createOrderToDb,
-          getUserOrders: this.getUserOrdersFromDb
+          getUserOrders: this.getUserOrdersFromDb,
+          fetchAllOrders: this.fetchAllOrdersRequest
         }}
       >
         {this.props.children}

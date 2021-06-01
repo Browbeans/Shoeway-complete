@@ -11,6 +11,12 @@
     height: 50vh;
 }
 
+.title {
+    font-weight: 500;
+    text-align: start;
+    font-size: 1.5rem;
+}
+
 /* Admin Handler */
 .admin-handler-container {
     display: flex;
@@ -20,6 +26,13 @@
     padding: 2rem;
     width: 100%;
 }
+
+.all-orders-container .sort p,
+.all-users-container .sort p {
+    font-size: 1.2rem;
+}
+
+/* ALL USERS CONTAINER */
 
 .all-users-container {
     background: #fff;
@@ -47,8 +60,33 @@
     cursor: pointer;
 }
 
+/* ALL ORDERS CONTAINER */
+.all-orders-container {
+    background: #fff;
+    margin-bottom: 2rem;
+    padding: 1rem;
+}
+
+.order-holder {
+    display: flex;
+    align-self: flex-start;
+    justify-content: space-between;
+    padding: 1rem 0rem;
+    border-bottom: 1px solid #333;
+}
+
+.order-holder div {
+    flex: 1
+}
+
+.order-holder p {
+    font-size: 0.9rem;
+}
+
+/* ALL PRODUCTS CONTAINER */
 .all-products-container {
     background: #fff;
+    padding: 1rem
 }
 
 .admin-item {
@@ -56,9 +94,9 @@
     background: #eee;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 2rem;
+    padding: 0rem;
     width: 100%;
-    margin: 1rem;
+    margin: 1rem 0rem;
 }
 
 .admin-title {
