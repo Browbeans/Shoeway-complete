@@ -1,7 +1,7 @@
 import { useEffect, useContext } from "react";
 import { DeliveryContext } from "../../../../contexts/DeliverContext";
 import { UserContext } from "../../../../contexts/UserContext";
-import "../../../../style/Deliverystyle.css";
+import "../../../../style/Delivery.css";
 
 function Deliver() {
   const {getdeliverOrder, fetchshiping, selectDeliver, DeliverOrders}  = useContext(DeliveryContext);
@@ -19,10 +19,8 @@ function Deliver() {
   };
   return (
     <div>
-      {/* {getdelivery} */}
-
       {DeliverOrders.map((d) => (
-        <div className="delivery-div" onClick={() => change(d._id)}>
+        <div className="delivery-div test" onClick={() => change(d._id)}>
           <strong className="company">{d.name}</strong>
           <span>{d.days}</span>
           <span>{d.price} kr</span>
