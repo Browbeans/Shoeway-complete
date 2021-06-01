@@ -1,14 +1,16 @@
 const Users = require("./users-model");
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import bcrypt from "bcrypt";
+const ApiError = require("../../Error/ApiError");
 
-module.exports.handleRegister = async function(req: Request, res: Response) {
+module.exports.handleRegister = async function(req: Request, res: Response, next: NextFunction) {
     const { name, adress, phone, email, password, role } = req.body;
     const registeredUsers = await Users.find({email: email})
     const existingUsers = registeredUsers.find((u: any) => u.email === email);
 
     if (existingUsers) {
-        return res.status(400).json("Email already exist")
+        next(ApiError.badRequest('Email already exist'))
+        return;
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -26,22 +28,23 @@ module.exports.handleRegister = async function(req: Request, res: Response) {
     })
     await newUser.save((error: any) => {
         if(error) {
-            return res.status(400).json(error.message)
+            next(ApiError.badRequest(error.message))
+            return;
         }
         res.status(201).json("Register Success!") 
     })
 };
 
 
-module.exports.handleLogin = async function(req: Request, res: Response) {
+module.exports.handleLogin = async function(req: Request, res: Response, next: NextFunction) {
     const { email, password} = req.body
-    console.log(req.body)
     const registeredUsers = await Users.find({email: email})
     const user = registeredUsers.find((u: any) => u.email === email);
-    console.log(user)
     try {
         if(!user || !await bcrypt.compare(password, user.password)) {
-            return res.status(401).json('Incorrect email or password');
+
+            next(ApiError.unauthorized("Incorrect email or password"))
+            return;
         }     
         
         if (req.session) {
@@ -55,19 +58,21 @@ module.exports.handleLogin = async function(req: Request, res: Response) {
         res.status(200).json(null)
         console.log(req.session!.name)
     } catch (error) {
-        console.log(error);
+        next(ApiError.badRequest(error.message));
     }
 }
 
-module.exports.handleLogout = async function(req: Request, res: Response) {
+module.exports.handleLogout = async function(req: Request, res: Response, next: NextFunction) {
     if (req.session!.name) {
         req.session = null;
         return res.status(200).json("Logout Success!")
+    } else {
+        next(ApiError.badRequest("You are already logged out!"));
+        return;
     }
-    res.status(400).json("You are already logged out!");
 }
 
-module.exports.handleUpdate = async function(req: Request, res: Response) {
+module.exports.handleUpdate = async function(req: Request, res: Response, next: NextFunction) {
     console.log(req.body)
     if (req.session?.email) {
         const email = req.session.email
@@ -81,21 +86,24 @@ module.exports.handleUpdate = async function(req: Request, res: Response) {
             email: req.body.email,
         })
         return res.status(202).json("User updated!")
+    } else {
+        next(ApiError.badRequest("You must login to update"));
+        return;
     }
-    res.status(400).json("You must login to update");
 }
 
-module.exports.getCurrenUser = async function ( req: Request, res: Response) {
+module.exports.getCurrenUser = async function ( req: Request, res: Response, next: NextFunction) {
     if(req.session!.email) {
         const currentEmail = req.session!.email
         const currentUser = await Users.findOne({email: currentEmail})
         res.status(200).json(currentUser)
     } else {
-        res.status(400).json('No user available')
+        next(ApiError.badRequest("No user available"));
+        return;
     }
 }
 
-module.exports.fetchUsers = async (req: Request, res: Response) => {
+module.exports.fetchUsers = async (req: Request, res: Response, next: NextFunction) => {
     if (req.session?.email) {
         if (req.session?.role === 'admin') {
             const result = await Users.find({})
@@ -104,14 +112,19 @@ module.exports.fetchUsers = async (req: Request, res: Response) => {
             return res.status(403).json("You dont have authorization")
         }
     } else {
-        res.status(400).json("You must login");
+        next(ApiError.badRequest("You must login"));
+        return;
     }
 };
 
-module.exports.handleRole = async (req: Request, res: Response) => {
+module.exports.handleRole = async (req: Request, res: Response, next: NextFunction) => {
     const id = req.params.id
     const user = await Users.findByIdAndUpdate( id, {
         role: req.body.role
     })
-    res.status(200).json('Role updated!')
+    if(user){
+        res.status(200).json("Role updated!");
+    } else {
+        next(ApiError.notFound('Couldnt find the user'));
+    }
 }

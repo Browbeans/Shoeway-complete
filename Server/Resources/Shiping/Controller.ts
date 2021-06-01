@@ -8,6 +8,7 @@ module.exports.getShiping = async function(req: Request, res: Response, next: Ne
         res.status(200).json(result);
     } else {
         next(ApiError.badRequest('Something went wrong'))
+        return;
     }
     
 };
@@ -18,6 +19,7 @@ module.exports.addNewshiping = async function(req: Request, res: Response, next:
 
     if (req.body.title) {
       next(ApiError.badRequest("Couldnt save the shipping method"));
+      return;
     }
 
     const input = new shiping({
@@ -43,6 +45,7 @@ module.exports.deletShiping = async function(req: Request, res: Response, next: 
         res.status(202).json(shipping);
     } else {
         next(ApiError.notFound('Couldnt delete the shipping method'));
+        return;
     }
    
 }
@@ -60,6 +63,7 @@ module.exports.editShiping = async function(req: Request, res: Response, next: N
         res.status(200).json(change);
     } else {
         next(ApiError.notFound('Couldnt edit the chosen shipping method'));
+        return;
     }
 }
 
@@ -71,6 +75,7 @@ module.exports.editShiping = async function(req: Request, res: Response, next: N
         res.status(200).json(specificShiping);
       } else{
         next(ApiError.notFound('Couldnt find the specific shipping method'))
+        return;
       }
  };
 
