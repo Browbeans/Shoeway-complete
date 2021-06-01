@@ -40,6 +40,10 @@ const orderSchema = new mongoose.Schema({
     isSent: {
         type: Boolean, 
         required: true
+    },
+    orderAmount: {
+        type: Number, 
+        required: true
     }
 }, { timestamps: true })
 

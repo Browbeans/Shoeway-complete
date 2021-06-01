@@ -30,7 +30,7 @@ module.exports.getSpecific = async function (
     return;
   }
 };
-
+ 
 module.exports.addNewProduct = async function (
   req: Request,
   res: Response,

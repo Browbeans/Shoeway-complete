@@ -51,6 +51,10 @@ const AddNewProduct = () => {
       setProduct({...product, info: e.target.value})
     }
 
+    const handleSize = (e: ChangeEvent<HTMLInputElement>) => {
+      setProduct({...product, size: parseInt(e.target.value)})
+    }
+
     // const handleCategory = (e: ChangeEvent<HTMLInputElement>) => {
     //   const categoryArray: string[] = [e.target.value]
     //   setProduct({ ...product, category: categoryArray });
@@ -109,18 +113,6 @@ const AddNewProduct = () => {
               value={product.title}
               onChange={handleTitle}
             />
-            {/* <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              id="category"
-              label="Category"
-              name="Category"
-              type="text"
-              value={product.category}
-              autoFocus
-              onChange={handleCategory}
-            /> */}
             <CheckboxesGroup/>
             <TextField
               variant="outlined"
@@ -133,6 +125,18 @@ const AddNewProduct = () => {
               value={product.price}
               autoFocus
               onChange={handlePrice}
+            />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              id="size"
+              label="Size..."
+              name="size"
+              type="number"
+              value={product.size}
+              autoFocus
+              onChange={handleSize}
             />
             <TextField
               variant="outlined"

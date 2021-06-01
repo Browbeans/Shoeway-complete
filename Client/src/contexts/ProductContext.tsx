@@ -148,8 +148,13 @@ class AxiosProvider extends Component<{}, State> {
   };
 
   setCategoriesToState = (categories: String[]) => {
-    this.setState({ categories: categories})
-    console.log(categories)
+    categories.forEach((category) => {
+      if(category === 'unisex'){
+        this.setState({categories: ['mens', 'unisex', 'womens']})
+      } else {
+        this.setState({ categories: categories})
+      }
+    })
   }
 
   componentDidMount = () => {
