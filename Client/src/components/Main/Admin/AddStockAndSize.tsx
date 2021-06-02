@@ -5,15 +5,13 @@ import { btnSmall } from "../../../style/GeneralStyle";
 import '../../../style/Admin.css';
 import { ProductContext, Product } from "../../../contexts/ProductContext";
 import { useHistory, useRouteMatch } from 'react-router';
-import axios from "axios";
-import CheckboxesGroup from './CheckBoxGroup';
 
 export interface StockSizeProduct {
     size: number, 
     stock: number, 
     title: string | undefined, 
     quantity: number
-    id: string | undefined
+    id: string | undefined 
 }
 
 const AddStockAndSize = () => {
@@ -39,11 +37,11 @@ const AddStockAndSize = () => {
     const handleSize = (e: ChangeEvent<HTMLInputElement>) => {
       setProduct({...product, size: parseInt(e.target.value)})
     }
-
+ 
     const handleStock = (e: ChangeEvent<HTMLInputElement>) => {
       setProduct({ ...product, stock: parseInt(e.target.value) });
     };
-    
+     
 
     return (
       <div>

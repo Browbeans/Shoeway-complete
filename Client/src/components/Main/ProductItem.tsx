@@ -16,7 +16,9 @@ const ProductItem = () => {
   let currentProduct = productContext.allProducts.find((specificProduct: Product) => specificProduct._id === match.params.id)
   const [isSize, setSize] = useState(false)
   console.log(currentProduct)
-
+  const sortedSizes = productContext.product.variants.sort(function(a: any, b: any) {
+    return a.size - b.size
+  })
 
   useEffect(() => {
     fetchSpecificProduct(match.params.id)
@@ -37,7 +39,7 @@ const ProductItem = () => {
   // uploads/1716luke-porter-rg1Z9NtEa80-unsplash.jpg
   // uploads/1716luke-porter-rg1Z9NtEa80-unsplash.jpg
   // console.log(currentProduct.image);
-
+ 
     return (
       <div className="productitem-container">
         <div className="image-div">
@@ -55,11 +57,17 @@ const ProductItem = () => {
               <p>{currentProduct.info}</p>
             </div>
             <div className="sizes">
-              {productContext.product.variants.map((p) => (
-                <div className="size" onClick={() => handleClick(p.size)}>
-                  <p>{p.size}</p>
-                </div>
-              ))}
+              {sortedSizes.map((p) => {
+                if(p.stock <= 0) {
+                  return <div className="no-stock-size">
+                    <p>{p.size}</p>
+                  </div>
+                } else {
+                  return <div className="size" onClick={() => handleClick(p.size)}>
+                    <p>{p.size}</p>
+                  </div>
+                }
+              })}
             </div>
           </div>
 

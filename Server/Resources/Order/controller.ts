@@ -47,8 +47,6 @@ module.exports.addOrder = async (req: Request, res: Response, next: NextFunction
         })
     }
     })
-
-
     setTimeout(() => {
         const newOrder = new Orders({
             ordernumber: ordernumber,
