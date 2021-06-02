@@ -2,7 +2,7 @@ import { ChangeEvent, CSSProperties, useContext, useState } from 'react';
 import { Button, TextField } from "@material-ui/core";
 import { LoginContext } from '../../contexts/User/loginContext';
 import '../../style/Entry.css'
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 function HandleLogin() {
     const { handleEmailLogin, handlePasswordLogin, loginRequest, isLoggedIn, loginError, errorTxt } = useContext(LoginContext);
