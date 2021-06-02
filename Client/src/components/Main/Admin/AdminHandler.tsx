@@ -77,7 +77,6 @@ function AdminHandler() {
           <p className="admin-title">{product.title}</p>
           <div className="info-admin-container">
               <h4 className="admin-price">{`${product.price} SEK`}</h4>
-            <p className="admin-info">{product.info}</p>
           </div>
           <div>
             <Link to={"/addStockAndSize/" + product.title}>
