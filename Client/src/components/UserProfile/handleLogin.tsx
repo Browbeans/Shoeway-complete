@@ -1,25 +1,48 @@
-import React, { ChangeEvent, CSSProperties, useContext, useState } from 'react';
+import { ChangeEvent, CSSProperties, useContext, useState } from 'react';
 import { Button, TextField } from "@material-ui/core";
-import { UserContext } from '../../contexts/UserContext';
 import { LoginContext } from '../../contexts/User/loginContext';
 import '../../style/Entry.css'
 import { Link, useHistory } from 'react-router-dom';
 
 function HandleLogin() {
     const { handleEmailLogin, handlePasswordLogin, loginRequest, isLoggedIn, loginError, errorTxt } = useContext(LoginContext);
-    const userContext = useContext(UserContext)
-    // const history = useHistory()
+    const [emailError, setEmailError] = useState("");
+    const [passwordError, setPasswordError] = useState("");
+    const history = useHistory()
 
     const handleEmailInput = (e: ChangeEvent<HTMLInputElement>) => {
-        handleEmailLogin(e);
+        if (!/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(e.target.value)) {
+            setEmailError("Email is not valid");
+          } else if (e.target.value === "") {
+            setEmailError("Field cannot be empty");
+        }
+          else {
+            setEmailError("")
+            handleEmailLogin(e);
+          }
     }
 
     const handlePasswordInput = (e: ChangeEvent<HTMLInputElement>) => {
-        handlePasswordLogin(e);
+        if (!/(?=[A-Za-z0-9@#$%^&+!=]+$)^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*)(?=.{8,}).*$/.test(e.target.value)) {
+            setPasswordError("Password must be eight characters, atleast one number");
+        } else if (e.target.value === "") {
+              setPasswordError("Field cannot be empty");
+          }
+          else {
+            setPasswordError("")
+            handlePasswordLogin(e);
+          }
     }
 
     const handleClick = () => {
         loginRequest()
+    }
+
+    const handleLoginClick = async () => {
+        const loggedIn = await loginRequest()
+        if (loggedIn) {
+            history.push("/user-profile")
+        }
     }
 
     return(
@@ -40,6 +63,8 @@ function HandleLogin() {
                     autoComplete="email"
                     autoFocus
                     onChange={handleEmailInput}
+                    helperText={emailError}
+                    error={Boolean(emailError)}
                 />
                 <TextField
                     fullWidth
@@ -54,6 +79,8 @@ function HandleLogin() {
                     autoComplete="password"
                     autoFocus
                     onChange={handlePasswordInput}
+                    helperText={passwordError}
+                    error={Boolean(passwordError)}
                 />
                 {loginError 
                 ?
@@ -64,6 +91,7 @@ function HandleLogin() {
                 {/* {isLoggedIn ? "/user-profile" : "/entry"} */}
                 {window.location.pathname === '/checkout' ?
                     <Button
+                        type="submit"
                         onClick={handleClick}
                         style={btn}
                         variant="contained"
@@ -71,15 +99,14 @@ function HandleLogin() {
                         Login
                     </Button>
                 :
-                    <Link to={isLoggedIn ? "/user-profile" : "/entry"} style={{ textDecoration: "none", width: "100%" }}>
-                        <Button
-                            onClick={handleClick}
-                            style={btn}
-                            variant="contained"
-                            >
-                            Login
-                        </Button>
-                    </Link>
+
+                    <Button
+                        onClick={handleLoginClick}
+                        style={btn}
+                        variant="contained"
+                        >
+                        Login
+                    </Button>
                 }
             </form>
         </div>

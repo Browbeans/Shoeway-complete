@@ -219,6 +219,7 @@ function HandleRegister() {
                 ? 
                 <Link to="/checkout" style={{ textDecoration: "none", width: "100%" }}>
                   <Button
+                      type="submit"
                       onClick={registerRequest}
                       style={btn}
                       variant="contained"
@@ -229,6 +230,7 @@ function HandleRegister() {
                 :
                 <Link to="/entry" style={{ textDecoration: "none", width: "100%" }}>
                   <Button
+                      type="submit"
                       onClick={registerRequest}
                       style={btn}
                       variant="contained"
