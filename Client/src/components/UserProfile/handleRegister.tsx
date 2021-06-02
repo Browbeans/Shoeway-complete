@@ -1,6 +1,5 @@
 import { Button, Checkbox, FormControlLabel, TextField } from "@material-ui/core";
 import React, { ChangeEvent, CSSProperties, useContext, useState } from "react";
-import react from "react";
 import { Link } from "react-router-dom";
 import { RegisterContext } from "../../contexts/User/registerContext";
 import '../../style/Entry.css'

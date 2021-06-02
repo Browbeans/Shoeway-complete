@@ -47,6 +47,7 @@ module.exports.addNewProduct = async function (
       category: req.body.category,
       title: req.body.title,
       image: req.body.image,
+      info: req.body.info,
     });
 
     product.variants.push({
@@ -93,6 +94,7 @@ module.exports.editProduct = async function (
     category: req.body.category,
     stock: req.body.stock,
     image: req.body.image,
+    info: req.body.info,
   });
 
   if (product) {
