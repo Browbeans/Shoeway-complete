@@ -5,8 +5,7 @@ import { btnSmall } from "../../../style/GeneralStyle";
 import '../../../style/Admin.css';
 import { ProductContext, Product } from "../../../contexts/ProductContext";
 import { useHistory, useRouteMatch } from 'react-router';
-import axios from "axios";
-import CheckboxesGroup from './CheckBoxGroup';
+
 
 export interface StockSizeProduct {
     size: number, 
@@ -30,20 +29,33 @@ const AddStockAndSize = () => {
     id: currentProduct?._id
   }
   const [product, setProduct] = useState<StockSizeProduct>(changedProduct)
+  const [sizeError, setSizeError] = useState('');
+  const [stockError, setStockError] = useState('');
 
     const handleClick = () => {
         axiosContext.addStockSize(product)
         history.push('/admin')
     }
 
+   
+    
     const handleSize = (e: ChangeEvent<HTMLInputElement>) => {
-      setProduct({...product, size: parseInt(e.target.value)})
-    }
+      if (!/^[0-9]+$/.test(e.target.value)) {
+        setSizeError("Size has to be number");
+      } else {
+        setSizeError("");
+      }
+      setProduct({ ...product, size: parseInt(e.target.value) });
+    };
 
     const handleStock = (e: ChangeEvent<HTMLInputElement>) => {
+      if (!/^[0-9]+$/.test(e.target.value)) {
+        setStockError("Stock has to be number");
+      } else {
+        setStockError("");
+      }
       setProduct({ ...product, stock: parseInt(e.target.value) });
     };
-    
 
     return (
       <div>
@@ -58,15 +70,17 @@ const AddStockAndSize = () => {
             <h1 style={title}>Add new size and stock</h1>
 
             <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                id="size"
-                label="Size..."
-                name="size"
-                type="number"
-                autoFocus
-                onChange={handleSize}
+              variant="outlined"
+              margin="normal"
+              required
+              id="size"
+              label="Size..."
+              name="size"
+              type="number"
+              autoFocus
+              onChange={handleSize}
+              helperText={sizeError}
+              error={Boolean(sizeError)}
             />
             <TextField
               variant="outlined"
@@ -78,6 +92,8 @@ const AddStockAndSize = () => {
               type="number"
               autoFocus
               onChange={handleStock}
+              helperText={stockError}
+              error={Boolean(stockError)}
             />
             <div style={{ alignSelf: "center" }}>
               <Button onClick={handleClick} style={btnSmall}>

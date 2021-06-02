@@ -1,13 +1,12 @@
-import React, { ChangeEvent, CSSProperties, useContext, useState } from 'react';
+import { ChangeEvent, CSSProperties, useContext} from 'react';
 import { Button, TextField } from "@material-ui/core";
-import { UserContext } from '../../contexts/UserContext';
 import { LoginContext } from '../../contexts/User/loginContext';
 import '../../style/Entry.css'
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 function HandleLogin() {
     const { handleEmailLogin, handlePasswordLogin, loginRequest, isLoggedIn, loginError, errorTxt } = useContext(LoginContext);
-    const userContext = useContext(UserContext)
+    //const userContext = useContext(UserContext)
     // const history = useHistory()
 
     const handleEmailInput = (e: ChangeEvent<HTMLInputElement>) => {
