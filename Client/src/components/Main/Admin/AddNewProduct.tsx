@@ -28,6 +28,12 @@ const AddNewProduct = () => {
 
   const [product, setProduct] = useState<Product>(currentProduct || newProductData)
   const [selectedFile, setSelectedFile] = useState('');
+  const [titleError, setTitleError] = useState('');
+  const [priceError, setPriceError] = useState('');
+  const [infoError, setInfoError] = useState('');
+  const [sizeError, setSizeError] = useState('');
+  const [stockError, setStockError] = useState('');
+
 
     const handleClick = () => {
       const isNewProduct = !currentProduct
@@ -42,27 +48,48 @@ const AddNewProduct = () => {
     }
 
     const handleTitle = (e: ChangeEvent<HTMLInputElement>) => {
+
+       if (!/^[a-öA-Ö\s,'-]+$/.test(e.target.value)) {
+         setTitleError("Name is not valid");
+       } else {
+         setTitleError("");
+       }
       setProduct({ ...product, title: e.target.value })
     }
 
     const handlePrice = (e: ChangeEvent<HTMLInputElement>) => {
+       if (!/^[0-9]+$/.test(e.target.value)) {
+         setPriceError("Price is not valid");
+       } else {
+         setPriceError("");
+       }
       setProduct({...product, price: parseInt(e.target.value)})
     }
 
     const handleInfo = (e: ChangeEvent<HTMLInputElement>) => {
+      if (!/^[a-öA-Ö\s,'-]+$/.test(e.target.value)) {
+        setInfoError("Info is not required");
+      } else {
+        setInfoError("");
+      }
       setProduct({...product, info: e.target.value})
     }
 
     const handleSize = (e: ChangeEvent<HTMLInputElement>) => {
+      if (!/^[0-9]+$/.test(e.target.value)) {
+        setSizeError("Size has to be number");
+      } else {
+        setSizeError("");
+      }
       setProduct({...product, size: parseInt(e.target.value)})
     }
 
-    // const handleCategory = (e: ChangeEvent<HTMLInputElement>) => {
-    //   const categoryArray: string[] = [e.target.value]
-    //   setProduct({ ...product, category: categoryArray });
-    // };
-
     const handleStock = (e: ChangeEvent<HTMLInputElement>) => {
+      if (!/^[0-9]+$/.test(e.target.value)) {
+        setStockError("Stock has to be number");
+      } else {
+        setStockError("");
+      }
       setProduct({ ...product, stock: parseInt(e.target.value) });
     };
     
@@ -95,7 +122,7 @@ const AddNewProduct = () => {
             style={{
               display: "flex",
               flexDirection: "column",
-              justifyContent: "center"
+              justifyContent: "center",
             }}
           >
             {!currentProduct ? (
@@ -112,10 +139,12 @@ const AddNewProduct = () => {
               name="title"
               type="text"
               autoFocus
+              helperText={titleError}
+              error={Boolean(titleError)}
               value={product.title}
               onChange={handleTitle}
             />
-            <CheckboxesGroup/>
+            <CheckboxesGroup />
             <TextField
               variant="outlined"
               margin="normal"
@@ -124,6 +153,8 @@ const AddNewProduct = () => {
               label="Price..."
               name="price"
               type="number"
+              helperText={priceError}
+              error={Boolean(priceError)}
               value={product.price}
               autoFocus
               onChange={handlePrice}
@@ -136,6 +167,8 @@ const AddNewProduct = () => {
               label="Size..."
               name="size"
               type="number"
+              helperText={sizeError}
+              error={Boolean(sizeError)}
               value={product.size}
               autoFocus
               onChange={handleSize}
@@ -148,6 +181,8 @@ const AddNewProduct = () => {
               type="text"
               label="Info..."
               name="info"
+              helperText={infoError}
+              error={Boolean(infoError)}
               value={product.info}
               autoFocus
               onChange={handleInfo}
@@ -160,6 +195,8 @@ const AddNewProduct = () => {
               label="Stock..."
               name="stock"
               type="number"
+              helperText={stockError}
+              error={Boolean(stockError)}
               value={product.stock}
               autoFocus
               onChange={handleStock}
