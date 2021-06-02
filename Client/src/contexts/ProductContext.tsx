@@ -130,7 +130,6 @@ class AxiosProvider extends Component<{}, State> {
     const completedProduct = { ...product, quantity: 1, category: this.state.categories };
     const request = await axios.post("/products/addProduct", completedProduct);
     this.fetchProducts();
-    console.log(product);
     return request;
   };
 
