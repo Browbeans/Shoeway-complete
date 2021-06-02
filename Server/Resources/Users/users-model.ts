@@ -1,4 +1,5 @@
-import mongoose from "mongoose";
+import mongoose, { Schema } from "mongoose";
+import bcrypt from "bcrypt";
 
 interface User {
     name: string,
@@ -86,8 +87,8 @@ const userSchema = new mongoose.Schema({
         type: String, 
         required: true,
         validate: {
-            validator: (value: any) => {
-                const phoneRegex = (/(?=[A-Za-z0-9@#$%^&+!=]+$)^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*)(?=.{8,}).*$/);
+            validator: (value: string) => {
+                const phoneRegex = /(?=[A-Za-z0-9@#$%^&+!=]+$)^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*)(?=.{8,}).*$/;
                 return phoneRegex.test(value);
             },
             message: "Password must be eight characters, atleast one number"
@@ -96,6 +97,10 @@ const userSchema = new mongoose.Schema({
     role: {
         type: String
     }
+})
+
+userSchema.pre<User>("save", async function(next) {
+    this.password = await bcrypt.hash(this.password, 10);
 })
 
 module.exports = mongoose.model<User>('Users', userSchema);

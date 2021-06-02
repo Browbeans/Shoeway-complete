@@ -4,35 +4,43 @@ import bcrypt from "bcrypt";
 const ApiError = require("../../Error/ApiError");
 
 module.exports.handleRegister = async function(req: Request, res: Response, next: NextFunction) {
-    const { name, adress, phone, email, password, role } = req.body;
-    const registeredUsers = await Users.find({email: email})
-    const existingUsers = registeredUsers.find((u: any) => u.email === email);
+    try {
+        const { name, adress, phone, email, password, role } = req.body;
+        const registeredUsers = await Users.findOne({email: email})
 
-    if (existingUsers) {
-        next(ApiError.badRequest('Email already exist'))
-        return;
-    }
-
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const newUser = new Users({
-        name: name,
-        adress: {
-            city: adress.city,
-            street: adress.street,
-            zip: adress.zip
-        },
-        phone: phone,
-        email: email,
-        password: hashedPassword,
-        role: role
-    })
-    await newUser.save((error: any) => {
-        if(error) {
-            next(ApiError.badRequest(error.message))
+        if (name === undefined || adress.city === undefined || adress.street === undefined || adress.zip === undefined || phone === undefined || email === undefined || password === undefined) {
+            next(ApiError.badRequest('Fields cannot be empty'))
             return;
         }
-        res.status(201).json("Register Success!") 
-    })
+
+        if (registeredUsers !== null) {
+            next(ApiError.badRequest('Email already exist'))
+            return;
+        }
+    
+        const newUser = new Users({
+            name: name,
+            adress: {
+                city: adress.city,
+                street: adress.street,
+                zip: adress.zip
+            },
+            phone: phone,
+            email: email,
+            password: password,
+            role: role
+        })
+
+        await newUser.save((error: any) => {
+            if(error) {
+                next(ApiError.badRequest(error.message))
+                return;
+            }
+            res.status(201).json("Register Success!") 
+        })
+    } catch (error) {
+        console.log(error)
+    }
 };
 
 
@@ -40,6 +48,7 @@ module.exports.handleLogin = async function(req: Request, res: Response, next: N
     const { email, password } = req.body
     const registeredUsers = await Users.find({email: email})
     const user = registeredUsers.find((u: any) => u.email === email);
+    
     if(user) {
         if(!user || !await bcrypt.compare(password, user.password)) {
 

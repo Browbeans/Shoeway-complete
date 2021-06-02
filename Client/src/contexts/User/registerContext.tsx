@@ -97,7 +97,6 @@ class RegisterProvider extends Component<{}, State> {
     
     handleRegisterRequest = async (event: React.FormEvent) => {
         event.preventDefault();
-        console.log(this.state.role)
         try {
             const newUser = {
                 name: this.state.userName,

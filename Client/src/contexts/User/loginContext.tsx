@@ -31,7 +31,7 @@ interface ContextProps extends State {
     handleEmailLogin: (event: React.ChangeEvent<HTMLInputElement>) => void;
     handlePasswordLogin: (event: React.ChangeEvent<HTMLInputElement>) => void;
     logoutRequest: () => void;
-    loginRequest: () => void;
+    loginRequest: () => Promise<boolean>;
 }
 
 export const LoginContext = createContext<ContextProps>({
@@ -58,7 +58,7 @@ export const LoginContext = createContext<ContextProps>({
     fetchUsers: () => {},
     handleEmailLogin: () => {},
     handlePasswordLogin: () => {},
-    loginRequest: () => {},
+    loginRequest: () => Promise.resolve(true),
     logoutRequest: () => {}
 });
 
@@ -89,7 +89,8 @@ class LoginProvider extends Component<{}, State> {
                 password: this.state.passwordLogin
             }
     
-            await axios.post("/users/handleLogin", userLogin);
+            const res = await axios.post("/users/handleLogin", userLogin);
+            console.log(res)
             const response = await axios.get("/users/currentUser")
             const user = response.data
             this.setState({currentUser: user})
@@ -102,9 +103,11 @@ class LoginProvider extends Component<{}, State> {
             } else {
                 this.setState({ admin: false })
             }
+            return true;
         } catch (error) {
             this.setState({ loginError: true })   
-            this.setState({ errorTxt: error.response.data })
+            this.setState({ errorTxt: "Incorrect email or password" })
+            return false;
         }
     };
 
