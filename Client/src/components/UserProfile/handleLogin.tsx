@@ -91,7 +91,7 @@ function HandleLogin() {
                 {/* {isLoggedIn ? "/user-profile" : "/entry"} */}
                 {window.location.pathname === '/checkout' ?
                     <Button
-                        type="submit"
+                       
                         onClick={handleClick}
                         style={btn}
                         variant="contained"
