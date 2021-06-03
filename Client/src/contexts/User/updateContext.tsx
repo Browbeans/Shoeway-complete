@@ -77,24 +77,6 @@ class UpdateProvider extends Component<{}, State> {
     }
 
     handlePutRequest = async () => {
-        // const updatedUser = {
-        //     name: this.state.name,
-        //     adress: {
-        //         city: this.state.city,
-        //         street: this.state.street,
-        //         zip: this.state.zip
-        //     },
-        //     phone: this.state.phone,
-        //     email: this.state.email
-        // }
-        // console.log(updatedUser)
-        // try {
-        //     const request = await axios.put("/users/handleUpdate", updatedUser)
-        //     console.log(request)
-        // } catch (error) {
-        //     console.log(error)
-        // }
-
         const updatedUser = {
             name: this.state.name,
             adress: {
