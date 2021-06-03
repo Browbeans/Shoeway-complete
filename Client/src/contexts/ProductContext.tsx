@@ -134,6 +134,7 @@ class AxiosProvider extends Component<{}, State> {
   };
 
   editProduct = async (editedProduct: Product, currentProduct: any) => {
+    const completedProduct = { ...editedProduct, category: this.state.categories };
     const id = editedProduct._id;
     const request = await axios({
       method: "put",
@@ -141,7 +142,7 @@ class AxiosProvider extends Component<{}, State> {
       headers: {
         "Content-Type": "application/json",
       },
-      data: editedProduct,
+      data: completedProduct,
     });
 
     this.fetchProducts();
