@@ -12,7 +12,7 @@ export interface StockSizeProduct {
     stock: number, 
     title: string | undefined, 
     quantity: number
-    id: string | undefined
+    id: string | undefined 
 }
 
 const AddStockAndSize = () => {
@@ -40,6 +40,7 @@ const AddStockAndSize = () => {
    
     
     const handleSize = (e: ChangeEvent<HTMLInputElement>) => {
+
       if (!/^[0-9]+$/.test(e.target.value)) {
         setSizeError("Size has to be number");
       } else {
@@ -47,7 +48,6 @@ const AddStockAndSize = () => {
       }
       setProduct({ ...product, size: parseInt(e.target.value) });
     };
-
     const handleStock = (e: ChangeEvent<HTMLInputElement>) => {
       if (!/^[0-9]+$/.test(e.target.value)) {
         setStockError("Stock has to be number");

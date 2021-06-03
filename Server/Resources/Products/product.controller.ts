@@ -108,18 +108,32 @@ module.exports.editProduct = async function (
 module.exports.addSizeAndStock = async function (req: Request, res: Response, next: NextFunction ) {
   const id = req.params.id;
 
-  const product = await Product.update(
-    { _id: id },
-    {
-      $push: {
-        variants: {
-          size: req.body.size,
-          stock: req.body.stock,
-          quantity: req.body.quantity,
-          title: req.body.title,
+  const currentProduct = await Product.findById(id)
+  
+  const found = currentProduct.variants.some((variant: any) => variant.size === req.body.size);
+  if (found) {
+      await Product.findOneAndUpdate(
+        {"_id": id, "variants.size": req.body.size},
+        {
+          "$set": {
+            "variants.$.stock": req.body.stock
+          }
+        }
+      );
+    res.status(200).json('Changed stock');
+  } else {
+    const product = await Product.update(
+      { _id: id },
+      {
+        $push: {
+          variants: {
+            size: req.body.size,
+            stock: req.body.stock,
+            quantity: req.body.quantity,
+            title: req.body.title,
+          },
         },
-      },
-    }
+      }
   );
 
   if(product) {
@@ -128,6 +142,21 @@ module.exports.addSizeAndStock = async function (req: Request, res: Response, ne
     next(ApiError.notFound('Couldnt find the product'));
     return;
   }
+}
+
+
+  // if(variantArray.size === req.body.size) {
+  //   await Product.findOneAndUpdate(
+  //     {"_id": id, "variants._id": variantArray._id},
+  //     {
+  //             "$set": {
+  //                 "variants.$.stock": req.body.stock
+  //             }
+  //         }
+  //     )
+  // } else {
+    
+  // }
 };
 
 

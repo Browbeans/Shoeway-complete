@@ -48,6 +48,22 @@
   cursor: pointer;
 }
 
+.no-stock-size {
+  margin: .5rem;
+  border: #888;
+  border-style: groove;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  justify-content: center;
+  background: rgb(211, 211, 211);
+}
+
+.no-stock-size p {
+  font-size: 1.3rem;
+  color: #888;
+}
+
 .size p {
   font-size: 1.3rem;
 }
