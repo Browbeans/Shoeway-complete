@@ -45,7 +45,7 @@ const Checkout =  () => {
       ordernumber: ordernumber, 
       products: productArray,
       customer: currentUser._id,
-      orderAmount: cartContext.totalAmount + userContext.shippingPriceState, 
+      orderAmount: cartContext.totalAmount + selectDeliver.price,
       shipment: selectDeliver
     }
     orderContext.createOrder(order)
@@ -130,7 +130,7 @@ const Checkout =  () => {
             </div>
             <div className="total-amount-container">
               <strong className="total-amount">Total Amount:</strong>
-              <p>{cartContext.totalAmount + userContext.shippingPriceState + " SEK"}</p>
+              <p>{cartContext.totalAmount + selectDeliver.price + " SEK"}</p>
             </div>
           </div>
         </div>

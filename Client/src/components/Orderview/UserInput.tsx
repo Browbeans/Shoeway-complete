@@ -14,7 +14,7 @@ const UserInput = () =>{
   const userContext = useContext(UserContext)
   const cart = useContext(CartContext)
   const { orderNumber } = useContext(OrderContext)
-  const { selectDeliver } = useContext(DeliveryContext)
+  const { selectDeliver, date } = useContext(DeliveryContext)
   const payment = useContext(PaymentContext)
   const { currentUser } = useContext(LoginContext)
   console.log(userContext.user)
@@ -55,7 +55,7 @@ const UserInput = () =>{
             </div>
             <div className="order-listings">
               <h5>Date of delivery: </h5>
-              <p>{userContext.delivery.date}</p>
+              <p>{date}</p>
             </div>
             <div className="order-listings">
               <h5>OrderNr:</h5>

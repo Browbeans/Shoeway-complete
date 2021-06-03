@@ -1,26 +1,28 @@
 import { useEffect, useContext } from "react";
-import { DeliveryContext } from "../../../../contexts/DeliverContext";
+import { Deliveris, DeliveryContext } from "../../../../contexts/DeliverContext";
 import { UserContext } from "../../../../contexts/UserContext";
 import "../../../../style/Delivery.css";
 
 function Deliver() {
-  const {getdeliverOrder, fetchshiping, selectDeliver, DeliverOrders}  = useContext(DeliveryContext);
+  const {getdeliverOrder, setDate, fetchshiping, selectDeliver, DeliverOrders}  = useContext(DeliveryContext);
   const { filledState, addDelivery } = useContext(UserContext)  
 
   useEffect(() => {
     getdeliverOrder();
   }, [getdeliverOrder]);
 
-  const change = (id: string) => {
+  const change = (selectshiping: Deliveris) => {
     console.log("test");
-    fetchshiping(id);
-    addDelivery(selectDeliver.name, 2, selectDeliver.price)
-    filledState(true)
+    fetchshiping(selectshiping);
+    setDate(2)
+     filledState(true)
   };
   return (
     <div>
       {DeliverOrders.map((d) => (
-        <div className="delivery-div test" onClick={() => change(d._id)}>
+        
+        <div className="delivery-div test" onClick={() => change(d)}>
+          {d === selectDeliver? <span>Select</span> : null}
           <strong className="company">{d.name}</strong>
           <span>{d.days}</span>
           <span>{d.price} kr</span>
