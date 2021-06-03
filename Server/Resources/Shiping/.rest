@@ -5,9 +5,9 @@ POST http://localhost:5000/Shiping/addshiping
 Content-Type: application/json
 
 {
-"name": "Bring",
-"days": "3-5 dagar",
-"price": 39
+"name": "Postnord",
+"days": "2-3 dagar",
+"price": 0
 }
 
 ###

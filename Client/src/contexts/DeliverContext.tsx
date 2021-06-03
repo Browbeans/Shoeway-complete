@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { Component, createContext } from 'react';
 
-export interface  deliveris{
+export interface  Deliveris{
     name: string
     price: number
     days: string
@@ -9,13 +9,16 @@ export interface  deliveris{
 }
 
 interface State {
-  DeliverOrders: deliveris[]
-  selectDeliver: deliveris 
+  DeliverOrders: Deliveris[]
+  selectDeliver: Deliveris 
+  date: string
 }
 
 interface ContextProps extends State {
    getdeliverOrder: () => void
-   fetchshiping: (id: string) => void
+   fetchshiping: (selectshiping: Deliveris) => void
+    setDate: (randomDay: number) => void
+   
 }
 
 export const DeliveryContext = createContext<ContextProps>({
@@ -25,10 +28,11 @@ export const DeliveryContext = createContext<ContextProps>({
       price: 0,
       _id: ""
     },
-
+    setDate: () => {},
     DeliverOrders: [],
     getdeliverOrder:() => {},
-    fetchshiping:(id: string)=>{}
+    fetchshiping:(selectshiping: Deliveris)=>{},
+    date: ""
 });
 
 class DeliveryProvider extends Component<{}, State> {
@@ -47,21 +51,35 @@ class DeliveryProvider extends Component<{}, State> {
       price: 0,
       _id: ""
     },
-
+    date: ""
   };
 
   getDeliveryOrderFromDB = async () => {
     const request = await axios.get(`/Shiping/getall`)
-    const result: deliveris[] = request.data
+    const result: Deliveris[] = request.data
     this.setState({DeliverOrders:result})
     console.log(result)
   } 
 
-  fetchSpecificshiping = async (id: string) => {
-   const request = await axios.get(`/Shiping/${id}`) 
-   this.setState({selectDeliver: request.data})
-   console.log(request.data)
+  setSelectShiping = async (selectshiping: Deliveris) => {
+   this.setState({selectDeliver: selectshiping})
+   console.log(selectshiping)
+  
   };
+
+  addShippingDate = ( randomDay: number) => {
+    let today = new Date();
+    let tomorrow = new Date();
+    tomorrow.setDate(today.getDate() + (Math.floor(Math.random() * randomDay) + 2));
+    let deliverDay = tomorrow.toString().split(' ')[0]
+    let deliverDate = tomorrow.toString().split(' ')[2]
+    let deliverMonth = tomorrow.toString().split(' ')[1]
+    
+    this.setState({
+
+      date: deliverDay + ' ' + deliverDate + ' ' + deliverMonth
+    })
+  }
 
   componentDidMount = () => {
     this.getDeliveryOrderFromDB()
@@ -73,7 +91,8 @@ class DeliveryProvider extends Component<{}, State> {
         value={{
         ...this.state, 
         getdeliverOrder: this.getDeliveryOrderFromDB,
-        fetchshiping: this.fetchSpecificshiping
+        fetchshiping: this.setSelectShiping,
+        setDate: this.addShippingDate
         }}
       >
         {this.props.children}
