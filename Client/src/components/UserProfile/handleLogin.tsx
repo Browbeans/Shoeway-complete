@@ -2,10 +2,10 @@ import { ChangeEvent, CSSProperties, useContext, useState } from 'react';
 import { Button, TextField } from "@material-ui/core";
 import { LoginContext } from '../../contexts/User/loginContext';
 import '../../style/Entry.css'
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 function HandleLogin() {
-    const { handleEmailLogin, handlePasswordLogin, loginRequest, isLoggedIn, loginError, errorTxt } = useContext(LoginContext);
+    const { handleEmailLogin, handlePasswordLogin, loginRequest, loginError, errorTxt } = useContext(LoginContext);
     const [emailError, setEmailError] = useState("");
     const [passwordError, setPasswordError] = useState("");
     const history = useHistory()
@@ -88,7 +88,6 @@ function HandleLogin() {
                 :
                 <></>
                 }
-                {/* {isLoggedIn ? "/user-profile" : "/entry"} */}
                 {window.location.pathname === '/checkout' ?
                     <Button
                         type="submit"
