@@ -10,10 +10,8 @@ module.exports.addOrder = async (req: Request, res: Response, next: NextFunction
 
     let isError = false;
 
-    products.map(async (productID: any) =>  {
-
+    await Promise.all(products.map(async (productID: any) =>  {
         const singleProduct = await Products.findOne({_id: productID.id})
-
         if(!singleProduct){
             isError = true;
         } else {
@@ -47,23 +45,23 @@ module.exports.addOrder = async (req: Request, res: Response, next: NextFunction
         })
     }
     })
-    setTimeout(() => {
-        const newOrder = new Orders({
-            ordernumber: ordernumber,
-            products: productVariant,
-            customer: customer,
-            orderAmount: orderAmount,
-            delivery: shipment,
-            isSent: false
-        })
-        if(!isError){
-            newOrder.save()
-            res.status(200).json('Order Made')
-        } else {
-             next(ApiError.badRequest("Couldnt add the order"));
-             return;
-        }
-    }, 50);
+    )
+    
+    const newOrder = new Orders({
+        ordernumber: ordernumber,
+        products: productVariant,
+        customer: customer,
+        orderAmount: orderAmount,
+        delivery: shipment,
+        isSent: false
+    })
+    if(!isError){
+        newOrder.save()
+        res.status(200).json('Order Made')
+    } else {
+            next(ApiError.badRequest("Couldnt add the order"));
+            return;
+    }
     
 }
 
