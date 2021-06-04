@@ -3,8 +3,10 @@
     padding: 2rem;
     border-radius: 1rem;
     width: 30rem;
-    margin: 1rem auto;
+    margin: 3rem auto;
 }
+
+
 
 .entry-title {
     text-align: center;
@@ -27,11 +29,7 @@
     height: 1px;
     width: 90%;
     background: #8e8e8e;
-}
-
-.form-inputs {
-    background: red,
-}
+}   
 
 .option-container {
     text-align: center;
@@ -45,4 +43,22 @@
     margin-left: 0.5rem;
     cursor: pointer;
     color: rgb(86, 234, 198);
+}
+
+@media screen and (max-width: 900px) {
+    .entry-container {
+        width: 100%;
+        padding: 1rem;
+        margin: 1rem 0rem
+    }
+
+    .form-container {
+        padding: 0rem;
+        width: 80%;
+        margin: auto;
+    }
+
+    .form {
+        width: 100%;
+    }
 }

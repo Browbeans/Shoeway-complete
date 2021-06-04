@@ -46,9 +46,9 @@ function HandleLogin() {
     }
 
     return(
-        <div>
+        <div className="form-container">
             <h2 className="entry-title">Login</h2>
-            <form action="/">
+            <form action="/" className="form">
                 <TextField
                     className="form-inputs"
                     fullWidth
@@ -90,7 +90,6 @@ function HandleLogin() {
                 }
                 {window.location.pathname === '/checkout' ?
                     <Button
-                        type="submit"
                         onClick={handleClick}
                         style={btn}
                         variant="contained"

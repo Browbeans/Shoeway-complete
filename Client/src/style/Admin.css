@@ -132,6 +132,10 @@
         text-align: center;
     }
 
+    .user-holder {
+        flex-direction: column;
+    }
+
     .admin-info {
         margin: 1rem;
     }
@@ -140,6 +144,21 @@
         font-size: 1rem;
     }
 
+}
+
+@media screen and (max-width: 768px) {
+    .user-holder,
+    .order-holder {
+        flex-direction: column;
+    }
+
+    .order-holder div p {
+        margin: 0.5rem 0rem
+    }
+
+    .all-users-container {
+        padding: 2rem
+    }
 }
 
 @media screen and (max-width: 630px){
