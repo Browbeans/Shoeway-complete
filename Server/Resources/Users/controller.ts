@@ -48,7 +48,8 @@ module.exports.handleLogin = async function(req: Request, res: Response, next: N
     const { email, password } = req.body
     const registeredUsers = await Users.find({email: email})
     const user = registeredUsers.find((u: any) => u.email === email);
-    
+    console.log(password)
+
     if(user) {
         if(!user || !await bcrypt.compare(password, user.password)) {
 

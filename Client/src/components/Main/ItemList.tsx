@@ -51,7 +51,7 @@ const ItemList = () => {
           <div className="product-container">
               {allProducts.map((product: Product) => 
                 <Item 
-                  key={product.title}
+                  key={product._id}
                   product={product}
                 />)}
           </div>
@@ -61,16 +61,12 @@ const ItemList = () => {
             <div className="product-container">
                 {categoryProduct.map((product: Product) => 
                   <Item 
-                    key={product.title}
+                    key={product._id}
                     product={product}
                   />)}
             </div>
       </div>
     }
-    {/* <button onClick={() => logProductOfCategory('all', true)}> CATEGORY</button>
-    <button onClick={() => logProductOfCategory('unisex', false)}> unisex</button>
-    <button onClick={() => logProductOfCategory('mens', false)}> MENS</button>
-    <button onClick={() => logProductOfCategory('womens', false)}> WOMENS</button> */}
   </div>
   )
 }

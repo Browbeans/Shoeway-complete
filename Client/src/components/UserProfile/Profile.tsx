@@ -60,13 +60,13 @@ function Profile () {
             <UserDetails/>
             <h2>Passed Orders</h2>
             {userOrders.map((order) => (
-              <Card className={classes.root} variant="outlined" style={{ margin: "2rem 0rem" }}>
+              <Card key={order.ordernumber} className={classes.root} variant="outlined" style={{ margin: "2rem 0rem" }}>
                   <CardContent>
                   <Typography className={classes.title} gutterBottom>
                     {'Ordernumber: ' + order.ordernumber}
                   </Typography>
                   {order.products.map((p) => (
-                    <div>
+                    <div key={p.id}> 
                         <Typography className={classes.pos} color="textSecondary">
                           {'Product: ' + p.title}
                           <br/>

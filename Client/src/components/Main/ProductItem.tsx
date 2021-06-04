@@ -26,7 +26,6 @@ const ProductItem = () => {
   }, [fetchSpecificProduct, match.params.id])
 
   const handleClick = (size: number) => {
-    //mutera ej statet
     if(currentProduct) {
       currentProduct.size = size
       setSize(!isSize)
@@ -35,10 +34,6 @@ const ProductItem = () => {
   if(!currentProduct) {
     return <p>Product isnt available</p>
   }
-
-  // uploads/1716luke-porter-rg1Z9NtEa80-unsplash.jpg
-  // uploads/1716luke-porter-rg1Z9NtEa80-unsplash.jpg
-  // console.log(currentProduct.image);
  
     return (
       <div className="productitem-container">
@@ -59,11 +54,11 @@ const ProductItem = () => {
             <div className="sizes">
               {sortedSizes.map((p) => {
                 if(p.stock <= 0) {
-                  return <div className="no-stock-size">
+                  return <div key={p.size} className="no-stock-size">
                     <p>{p.size}</p>
                   </div>
                 } else {
-                  return <div className="size" onClick={() => handleClick(p.size)}>
+                  return <div key={p.size} className="size" onClick={() => handleClick(p.size)}>
                     <p>{p.size}</p>
                   </div>
                 }

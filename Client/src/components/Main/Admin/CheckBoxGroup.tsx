@@ -27,15 +27,12 @@ export default function CheckboxesGroup() {
   const [categories, setCategory] = useState<String[]>([])
   const [state, setState] = React.useState({
     mens: false,
-    unisex: false,
+    unisex: true,
     womens: false,
   });
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 
-    // if(mens === false && unisex === false && womens === false){
-    //   console.log('hello')
-    // }
     setState({ ...state, [event.target.name]: event.target.checked });
     if(event.target.checked) {
         categories.push(event.target.name) 
@@ -83,7 +80,7 @@ export default function CheckboxesGroup() {
               label="Womens"
             />
           </FormGroup>
-          <FormHelperText>Be careful</FormHelperText>
+          <FormHelperText>Please choose category</FormHelperText>
         </div>
       </FormControl>
     </div>
