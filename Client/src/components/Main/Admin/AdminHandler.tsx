@@ -43,23 +43,23 @@ function AdminHandler() {
                 </div>
             </div>
         {registeredUsers.map((user: any) => (
-            <div className="user-holder">
-              <div>
+            <div key={user._id} className="user-holder">
+              <div key={user.name}>
                 <p>{user.name}</p>
               </div>
-              <div>
+              <div key={user.adress.city}>
                 <p>{user.adress.city}</p>
               </div>
-              <div>
+              <div key={user.adress.street}>
                 <p>{user.adress.street}</p>
               </div>
-              <div>
+              <div key={user.adress.zip}>
                 <p>{user.adress.zip}</p>
               </div>
-              <div>
+              <div key={user.phone}>
                 <p>{user.phone}</p>
               </div>
-              <div>
+              <div key={user.email}>
                 <p>{user.email}</p>
               </div>
               <div>

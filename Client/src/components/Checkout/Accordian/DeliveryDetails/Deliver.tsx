@@ -21,7 +21,7 @@ function Deliver() {
     <div>
       {DeliverOrders.map((d) => (
         
-        <div className="delivery-div test" onClick={() => change(d)}>
+        <div key={d._id} className="delivery-div test" onClick={() => change(d)}>
           {d === selectDeliver? <span>Select</span> : null}
           <strong className="company">{d.name}</strong>
           <span>{d.days}</span>

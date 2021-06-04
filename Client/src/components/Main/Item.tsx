@@ -11,14 +11,6 @@ const Item = (props: Props) => {
 
   const productContext = useContext(ProductContext);
 
-  // useEffect(() => {
-  //   productContext.getImage(props.product);
-  //   console.log('Product')
-  //   console.log(props.product)
-  // })
-
-  // console.log(props.product);
-
     return (
       <div className="product-item">
         <h2 className="title">{props.product.title}</h2>
