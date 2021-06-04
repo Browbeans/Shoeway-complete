@@ -31,7 +31,7 @@ function HandleAllOrders() {
             </div>
             {allOrders.map((order: any) => (
             <div>
-                <div className="order-holder">
+                <div key={order.ordernumber} className="order-holder">
                     <div>
                         <p>{order.ordernumber}</p>
                     </div>

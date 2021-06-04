@@ -11,9 +11,7 @@ function HandleLogin() {
     const history = useHistory()
 
     const handleEmailInput = (e: ChangeEvent<HTMLInputElement>) => {
-        if (!/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(e.target.value)) {
-            setEmailError("Email is not valid");
-          } else if (e.target.value === "") {
+        if (e.target.value === "") {
             setEmailError("Field cannot be empty");
         }
           else {
@@ -23,9 +21,7 @@ function HandleLogin() {
     }
 
     const handlePasswordInput = (e: ChangeEvent<HTMLInputElement>) => {
-        if (!/(?=[A-Za-z0-9@#$%^&+!=]+$)^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*)(?=.{8,}).*$/.test(e.target.value)) {
-            setPasswordError("Password must be eight characters, atleast one number");
-        } else if (e.target.value === "") {
+        if (e.target.value === "") {
               setPasswordError("Field cannot be empty");
           }
           else {
@@ -48,7 +44,7 @@ function HandleLogin() {
     return(
         <div>
             <h2 className="entry-title">Login</h2>
-            <form action="/">
+            <div>
                 <TextField
                     className="form-inputs"
                     fullWidth
@@ -107,7 +103,7 @@ function HandleLogin() {
                         Login
                     </Button>
                 }
-            </form>
+             </div>
         </div>
     );
 }

@@ -95,7 +95,6 @@ class AxiosProvider extends Component<{}, State> {
     try {
       const request = await axios.get("/products");
       this.setState({ allProducts: request.data });
-      console.log(request)
       return request;
     } catch (error) {
       console.log(error)
@@ -105,7 +104,6 @@ class AxiosProvider extends Component<{}, State> {
   fetchSpecificProduct = async (id: string) => {
     const request = await axios.get(`/products/${id}`);
     this.setState({ product: request.data }); 
-    console.log('test')
     return request;
   };
 
@@ -113,7 +111,6 @@ class AxiosProvider extends Component<{}, State> {
     const id = product._id;
     const request = await axios.delete(`/products/${id}`);
     this.fetchProducts();
-    console.log(id);
     return request;
   };
 
@@ -146,7 +143,6 @@ class AxiosProvider extends Component<{}, State> {
     });
 
     this.fetchProducts();
-    console.log(editedProduct);
     return request;
   };
 
@@ -163,7 +159,6 @@ class AxiosProvider extends Component<{}, State> {
     });
 
     this.fetchProducts();
-    console.log(productValues);
     return request;
   }
 
