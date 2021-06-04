@@ -94,4 +94,8 @@ Vi använder oss av en error-middleware som samtliga anrop går genom och stöte
 • Checkoutflödet i frontendapplikationen ska ha validering på samtliga fält (G):
 Via regex har vi skrivit olika acceptanskriterier för varje input-fält sen finns det även validering på datan som skickas till servern.
 
+## Admin 
+username: admin@live.se
+pw: Testing1
+
 
