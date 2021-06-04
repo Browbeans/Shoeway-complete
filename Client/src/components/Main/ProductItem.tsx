@@ -43,11 +43,11 @@ const ProductItem = () => {
         <div className="product-div">
           <h2>{currentProduct.title}</h2>
           <div className="product-info">
-            <div style={{ margin: "2rem 0" }}>
+            <div className="price-holder">
               <h4>Price</h4>
               <p>{currentProduct.price + " sek"}</p>
             </div>
-            <div style={{ margin: "2rem 0" }}>
+            <div className="info-holder">
               <h4>Info</h4>
               <p>{currentProduct.info}</p>
             </div>
@@ -70,13 +70,14 @@ const ProductItem = () => {
             <Button
               variant="contained"
               style={btnMedium}
+              className="btn"
               onClick={() => cart.addToCart(currentProduct!)}
             >
               Add to cart
             </Button>
           ) : (
-            <Button variant="contained" style={inactiveBtn}>
-              Please choose size
+            <Button variant="contained" style={inactiveBtn} className="btn">
+              Choose size
             </Button>
           )}
         </div>

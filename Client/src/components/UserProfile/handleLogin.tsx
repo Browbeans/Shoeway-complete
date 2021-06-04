@@ -42,7 +42,7 @@ function HandleLogin() {
     }
 
     return(
-        <div>
+        <div className="form-container">
             <h2 className="entry-title">Login</h2>
             <div>
                 <TextField
@@ -86,7 +86,6 @@ function HandleLogin() {
                 }
                 {window.location.pathname === '/checkout' ?
                     <Button
-                       
                         onClick={handleClick}
                         style={btn}
                         variant="contained"

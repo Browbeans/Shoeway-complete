@@ -1,0 +1,17 @@
+.payment-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 1rem 0rem;
+    background: lightgrey;
+    font-size: 1.2rem;
+    width: 100%;
+    box-shadow: 1px  x 3px grey;
+}
+
+@media screen and (max-width: 968px) {
+    .payment-container {
+        padding: 1rem;
+        background: #fff;
+    }
+}

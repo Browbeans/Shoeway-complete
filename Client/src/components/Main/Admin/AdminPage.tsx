@@ -13,7 +13,7 @@ const AdminPage = () => {
         <div className="profile-container">
             {isLoggedIn
             ?
-            <div style={{ width: "80%"}}>
+            <div>
                 <h1 style={title}>Admin</h1>
                <AdminHandler/> 
                <AddItem/> 

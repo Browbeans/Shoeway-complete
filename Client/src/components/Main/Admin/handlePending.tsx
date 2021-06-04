@@ -35,7 +35,7 @@ function HandlePending(value: Props) {
     return(
         <div>
             {user.role === 'pending' ? 
-            <div style={{ display: "flex", alignItems: "center" }}>
+            <div>
                 <select onChange={handleChange}>
                     <option value="pending">pending</option>
                     <option value="admin">admin</option>
