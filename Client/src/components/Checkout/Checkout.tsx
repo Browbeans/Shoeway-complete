@@ -28,8 +28,8 @@ const Checkout =  () => {
 
   const handleClick = () => {
     let orderProduct = {}
+    // eslint-disable-next-line array-callback-return
     cart.map((product) => {
-      console.log(product.size)
       orderProduct = {
         id: product._id,
         quantity: product.quantity,

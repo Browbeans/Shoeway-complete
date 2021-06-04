@@ -9,7 +9,6 @@ import AdminPage from './Admin/AdminPage';
 import AddNewProduct from './Admin/AddNewProduct';
 import About from './About';
 import Profile from '../UserProfile/Profile';
-import AdimnLogin from './AdminLogin';
 import UserSelection from './userSelection'; 
 import Deliver from '../Checkout/Accordian/DeliveryDetails/Deliver';
 import AddStockAndSize from './Admin/AddStockAndSize';
@@ -39,9 +38,6 @@ function MainContent() {
           </Route>
           <Route path="/admin">
             <AdminPage />
-          </Route>
-          <Route path="/adminlog">
-            <AdimnLogin />
           </Route>
           <Route path="/addNewProduct">
             <AddNewProduct />

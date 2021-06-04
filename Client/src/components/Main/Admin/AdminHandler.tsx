@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import "../../../style/Checkout.css";
 import "../../../style/Admin.css";
 import DeleteOutlinedIcon from "@material-ui/icons/DeleteOutlined";
@@ -13,7 +13,7 @@ import HandleAllOrders from "./handleAllOrders";
 
 function AdminHandler() {
   const axios = useContext(ProductContext); 
-  const { registeredUsers, isLoggedIn } = useContext(LoginContext);
+  const { registeredUsers } = useContext(LoginContext);
 
   return (
     <div className="admin-handler-container">
@@ -73,7 +73,6 @@ function AdminHandler() {
         <h2 className="title">All Products</h2>
       {axios.allProducts.map((product: Product) => (
         <div className="admin-item">
-          {/* <img className="imageStyle" src={product.image} alt="of product" /> */}
           <p className="admin-title">{product.title}</p>
           <div className="info-admin-container">
               <h4 className="admin-price">{`${product.price} SEK`}</h4>

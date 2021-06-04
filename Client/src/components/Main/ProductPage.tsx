@@ -1,4 +1,3 @@
-import React from 'react'
 import ItemList from './ItemList'
 import { CSSProperties } from "@material-ui/styles";
 

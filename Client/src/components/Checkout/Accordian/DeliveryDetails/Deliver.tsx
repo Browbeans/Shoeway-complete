@@ -5,14 +5,13 @@ import "../../../../style/Delivery.css";
 
 function Deliver() {
   const {getdeliverOrder, setDate, fetchshiping, selectDeliver, DeliverOrders}  = useContext(DeliveryContext);
-  const { filledState, addDelivery } = useContext(UserContext)  
+  const { filledState } = useContext(UserContext)  
 
   useEffect(() => {
     getdeliverOrder();
   }, [getdeliverOrder]);
 
   const change = (selectshiping: Deliveris) => {
-    console.log("test");
     fetchshiping(selectshiping);
     setDate(2)
      filledState(true)

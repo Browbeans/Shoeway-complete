@@ -1,5 +1,5 @@
-import react, { useContext, useEffect } from 'react';
-import { OrderContext, Order } from '../../../contexts/OrderContext';
+import { useContext, useEffect } from 'react';
+import { OrderContext } from '../../../contexts/OrderContext';
 import "../../../style/Admin.css";
 import HandleOrderSent from './handleOrderSent';
 
@@ -9,8 +9,6 @@ function HandleAllOrders() {
     useEffect(() => {
         fetchAllOrders();
     }, [fetchAllOrders]);
-
-    // console.log(allOrders)
 
     return(
         <div className="all-orders-container">

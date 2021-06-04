@@ -8,8 +8,6 @@ import productRouter from './Resources/Products/product.router';
 import ImageRouter from './Resources/Image/image-router';
 import errorHandler from './Error/ErrorHandler';
 
-
-
 const app = express()
 
 app.use('/uploads', express.static('uploads'));

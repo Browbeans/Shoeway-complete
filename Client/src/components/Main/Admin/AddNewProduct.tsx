@@ -109,7 +109,6 @@ const AddNewProduct = () => {
         data: fd
       })
       .then(res => {
-          console.log(res.data);
           setProduct({ ...product, image: res.data})
       })
     

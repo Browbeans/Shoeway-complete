@@ -1,4 +1,3 @@
-import DelivaryDetails from './DelivaryDetails';
 import PaymentDetails from './PaymentDetails';
 import { Button, Step, StepLabel, Stepper } from '@material-ui/core';
 import React, { useContext } from 'react';
@@ -26,7 +25,7 @@ const muiTheme = createMuiTheme({
 });
 
   function getSteps(){
-    return [ <DelivaryDetails/>, <PaymentDetails/>];
+    return [ <Deliver/>, <PaymentDetails/>];
   }
 
   function getStepContent(stepIndex: number){

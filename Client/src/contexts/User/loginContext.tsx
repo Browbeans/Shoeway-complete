@@ -1,6 +1,5 @@
 import { Component, createContext } from "react";
 import axios from "axios";
-import { AnyARecord } from "node:dns";
 
 export interface SessionUser {
     adress: {
@@ -89,8 +88,7 @@ class LoginProvider extends Component<{}, State> {
                 password: this.state.passwordLogin
             }
     
-            const res = await axios.post("/users/handleLogin", userLogin);
-            console.log(res)
+            await axios.post("/users/handleLogin", userLogin);
             const response = await axios.get("/users/currentUser")
             const user = response.data
             this.setState({currentUser: user})

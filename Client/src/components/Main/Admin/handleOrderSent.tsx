@@ -1,6 +1,6 @@
-import react, { ChangeEvent, useContext, useState } from 'react';
+import { ChangeEvent, useContext } from 'react';
 import Switch from '@material-ui/core/Switch';
-import { Order, OrderContext } from '../../../contexts/OrderContext';
+import { OrderContext } from '../../../contexts/OrderContext';
 import axios from 'axios';
 import { withStyles } from '@material-ui/styles';
 

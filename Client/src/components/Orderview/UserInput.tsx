@@ -1,9 +1,7 @@
 import { useContext } from "react";
 import { UserContext } from "../../contexts/UserContext";
 import "../../style/cartItems.css";
-import { Guid } from 'js-guid';
 import { CartContext } from "../../contexts/CartContext";
-import { PaymentContext } from "../../contexts/PaymentContext";
 import { LoginContext } from "../../contexts/User/loginContext";
 import { DeliveryContext } from "../../contexts/DeliverContext";
 import { OrderContext } from "../../contexts/OrderContext";
@@ -15,12 +13,7 @@ const UserInput = () =>{
   const cart = useContext(CartContext)
   const { orderNumber } = useContext(OrderContext)
   const { selectDeliver, date } = useContext(DeliveryContext)
-  const payment = useContext(PaymentContext)
   const { currentUser } = useContext(LoginContext)
-  console.log(userContext.user)
-  console.log(payment.bankCard)
-  console.log(payment.bankPayment)
-  console.log(payment.swishNumber)
     return (
       <div>
         <div className="orderView-container">

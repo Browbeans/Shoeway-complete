@@ -1,5 +1,4 @@
-import express, {Request, Response} from 'express';
-import mongoose from 'mongoose';
+import express from 'express';
 const controller = require('./Controller')
 
 const shiping = express.Router();

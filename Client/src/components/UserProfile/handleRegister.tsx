@@ -80,7 +80,6 @@ function HandleRegister() {
 
     const handlePendingRequest = (e: React.ChangeEvent<HTMLInputElement>) => {
       addPending(e);
-      // console.log(e.target.checked)
     }
 
     return(

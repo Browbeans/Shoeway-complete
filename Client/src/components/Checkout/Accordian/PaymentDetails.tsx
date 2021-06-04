@@ -1,5 +1,3 @@
-
-import { CSSProperties } from "@material-ui/styles";
 import Swish from "./PaymentMethods/Swish";
 import Creditcard from "./PaymentMethods/Creditcard";
 import BankTransfer from "./PaymentMethods/BankTransfer";
