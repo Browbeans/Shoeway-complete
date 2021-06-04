@@ -10,14 +10,6 @@ interface Product {
     category?: string   
 }
 
-interface Customer {
-  adress: string,
-  _id: string, 
-  name: string, 
-  phone: string, 
-  email: string,
-}
-
 export interface Order {
   ordernumber: string, 
   products: Product[],

@@ -58,13 +58,10 @@ class DeliveryProvider extends Component<{}, State> {
     const request = await axios.get(`/Shiping/getall`)
     const result: Deliveris[] = request.data
     this.setState({DeliverOrders:result})
-    console.log(result)
   } 
 
   setSelectShiping = async (selectshiping: Deliveris) => {
-   this.setState({selectDeliver: selectshiping})
-   console.log(selectshiping)
-  
+   this.setState({selectDeliver: selectshiping})  
   };
 
   addShippingDate = ( randomDay: number) => {

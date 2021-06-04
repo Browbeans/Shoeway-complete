@@ -1,6 +1,4 @@
 import { CSSProperties } from '@material-ui/styles';
-import React from 'react'
-
 import '../../style/About.css';
 
 const About = () => {
@@ -27,11 +25,9 @@ const About = () => {
     );
 }
 
-export default About
-
 const title: CSSProperties = {
-    textAlign: 'center',
-    margin: '1rem 1rem 4rem',
+  textAlign: 'center',
+  margin: '1rem 1rem 4rem',
 }
 
-
+export default About

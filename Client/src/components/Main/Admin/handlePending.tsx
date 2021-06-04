@@ -1,5 +1,5 @@
 import axios from 'axios';
-import react, { useContext, useState } from 'react';
+import { useContext, useState } from 'react';
 import { LoginContext } from '../../../contexts/User/loginContext';
 import CheckIcon from '@material-ui/icons/Check';
 

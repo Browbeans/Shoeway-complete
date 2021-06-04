@@ -143,20 +143,4 @@ module.exports.addSizeAndStock = async function (req: Request, res: Response, ne
     return;
   }
 }
-
-
-  // if(variantArray.size === req.body.size) {
-  //   await Product.findOneAndUpdate(
-  //     {"_id": id, "variants._id": variantArray._id},
-  //     {
-  //             "$set": {
-  //                 "variants.$.stock": req.body.stock
-  //             }
-  //         }
-  //     )
-  // } else {
-    
-  // }
 };
-
-

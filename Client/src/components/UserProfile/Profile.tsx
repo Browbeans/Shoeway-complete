@@ -1,7 +1,6 @@
-import { CSSProperties, useContext, useEffect, useState } from "react"
+import { CSSProperties, useContext, useEffect } from "react"
 import { OrderContext } from "../../contexts/OrderContext"
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
@@ -34,23 +33,13 @@ function Profile () {
   const { userOrders, getUserOrders } = useContext(OrderContext)
   const { currentUser, isLoggedIn, logoutRequest } = useContext(LoginContext)
 
-
   useEffect(() => {
     if (currentUser) {
       getUserOrders(currentUser._id)
     } 
   }, [currentUser, getUserOrders])
 
-    const totalAmount = (price: number | undefined, quantity: number) => {
-      if(price) {
-        const total = price * quantity
-        return total
-      }
-    }
-
-
     const classes = useStyles()
-
     return(
       <div className="profile-container">
           {isLoggedIn

@@ -37,8 +37,6 @@ const AddStockAndSize = () => {
         history.push('/admin')
     }
 
-   
-    
     const handleSize = (e: ChangeEvent<HTMLInputElement>) => {
 
       if (!/^[0-9]+$/.test(e.target.value)) {

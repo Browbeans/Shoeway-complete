@@ -111,9 +111,7 @@ class RegisterProvider extends Component<{}, State> {
                 role: this.state.role
 
               }
-              const request = await axios.post("/users/handleRegister", newUser);
-              console.log(request)
-              console.log(newUser)
+              await axios.post("/users/handleRegister", newUser);
               this.setState({ registerSuccess: true })
         } catch (error) {
             this.setState({ registerError: true })

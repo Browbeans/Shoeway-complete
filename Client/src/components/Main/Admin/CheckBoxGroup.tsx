@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function CheckboxesGroup() {
   const classes = useStyles();
   const { getCategories } = useContext(ProductContext)
-  const [categories, setCategory] = useState<String[]>([])
+  const [categories] = useState<String[]>([])
   const [state, setState] = React.useState({
     mens: false,
     unisex: true,

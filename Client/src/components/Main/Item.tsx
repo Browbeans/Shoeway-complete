@@ -1,16 +1,11 @@
 import { Link } from 'react-router-dom';
 import '../../style/Products.css';
-import { Product, ProductContext } from "../../contexts/ProductContext";
-import { useContext, useEffect } from 'react';
-
+import { Product } from "../../contexts/ProductContext";
 
 interface Props{
   product: Product 
 }
 const Item = (props: Props) => {
-
-  const productContext = useContext(ProductContext);
-
     return (
       <div className="product-item">
         <h2 className="title">{props.product.title}</h2>

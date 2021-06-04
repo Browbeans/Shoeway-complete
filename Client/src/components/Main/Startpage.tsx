@@ -1,7 +1,5 @@
 import { Button, createStyles, makeStyles, Theme } from '@material-ui/core';
-import { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { OrderContext } from '../../contexts/OrderContext';
 import '../../style/Startpage.css'
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -29,7 +27,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   }),
 );
-
 
 function Startpage() {
     const classes = useStyles();

@@ -87,9 +87,8 @@ class UpdateProvider extends Component<{}, State> {
             phone: this.state.phone,
             email: this.state.email
         }
-        console.log(updatedUser)
         try {
-            const request = await axios({
+            await axios({
                 method: "put",
                 url: `/users/handleUpdate`,
                 headers: {
@@ -97,7 +96,6 @@ class UpdateProvider extends Component<{}, State> {
                 },
                 data: updatedUser,
                 });
-            console.log(request)
             
         } catch (error) {
             console.log(error)
